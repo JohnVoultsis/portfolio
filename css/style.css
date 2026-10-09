@@ -93,6 +93,8 @@ a{color:inherit}
 .site-header nav a:hover,.site-header__brand:hover{color:#000}
 .site-header .cv{text-decoration:underline;text-underline-position:from-font}
 
+.nav-toggle{display:none}
+
 /* 5. Text blocks ---------------------------------------------------------- */
 .copy{padding:24px var(--pad-text);font-size:var(--fs-body);line-height:var(--lh-body)}
 .copy--center{text-align:center}
@@ -317,6 +319,20 @@ a.card:hover .card__title{text-decoration:underline;text-underline-position:from
   .gwc-row{padding-inline:20px}.gwc-row>.shot{flex:none;width:100%;max-width:480px}
   .gwc-pair{flex-direction:column;gap:32px}
   .gwc-pair>.shot{flex:none;width:100%}
+}
+/* Phones: hamburger menu, 10px page margins (mobile design is 360px wide) */
+@media (max-width:640px){
+  .site-header{height:110px}
+  .site-header__inner{align-items:center;height:100%;padding:0 20px 0 20px}
+  .nav-toggle{display:flex;flex-direction:column;justify-content:center;gap:7px;width:45px;height:45px;margin-right:-3px;padding:10px 8px;background:none;border:0;cursor:pointer}
+  .nav-toggle span{display:block;height:3px;border-radius:2px;background:var(--muted);transition:transform .2s,opacity .2s}
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(10px) rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-10px) rotate(-45deg)}
+  .site-header nav{display:none;position:absolute;top:calc(100% - 8px);right:16px;z-index:20;flex-direction:column;gap:22px;min-width:162px;padding:24px 24px 26px;
+    background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.18);text-align:left;font-size:24px}
+  .site-header nav.is-open{display:flex}
+  .site-header__brand{font-size:clamp(22px,7vw,28px)}
 }
 @media (max-width:560px){
   .copy{padding-block:16px}

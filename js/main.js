@@ -9,6 +9,22 @@
     if (link) link.setAttribute("aria-current", "page");
   }
 
+  // 1b. Hamburger menu on phones (CSS shows the button only on narrow screens).
+  var toggle = document.querySelector(".nav-toggle");
+  var nav = document.getElementById("site-nav");
+  if (toggle && nav) {
+    var setOpen = function (open) {
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      nav.classList.toggle("is-open", open);
+    };
+    toggle.addEventListener("click", function () { setOpen(!nav.classList.contains("is-open")); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+    document.addEventListener("click", function (e) {
+      if (!nav.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+    });
+    nav.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
+  }
+
   // 2. Scrollable device screens: tell assistive tech what they are and let
   //    keyboard users scroll them (tabindex is set in the markup).
   document.querySelectorAll(".ip-screen, .mb-content").forEach(function (el) {
