@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SKOE Information System — John Voultsis</title>
+<meta name="description" content="UX/UI design and system architecture of a fully offline athlete registry for the Hellenic Shooting Federation (ΣΚΟΕ), built on FileMaker Server and WebDirect.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SKOE Information System — John Voultsis">
+<meta property="og:description" content="UX/UI design and system architecture of a fully offline athlete registry for the Hellenic Shooting Federation (ΣΚΟΕ), built on FileMaker Server and WebDirect.">
+<link rel="preload" href="fonts/comfortaa-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:,">
+</head>
+<body class="w-gwc" data-nav="work">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="index.html">John Voultsis</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Main">
+      <a href="index.html#work" data-nav="work">Work</a>
+      <a href="about.html" data-nav="about">About</a>
+      <a class="cv" href="https://drive.google.com/file/d/1XYp3f4SziyqN1dVuBNOnqObQf47oNash/view?usp=sharing" target="_blank" rel="noopener">CV</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="page flow">
+
+  <section class="project-info">
+    <div class="project-info__about">
+      <h1 class="project-info__title">SKOE Information System</h1>
+      <p class="project-info__lead">One registry. One truth for every athlete. SKOE is the new information system of the Hellenic Shooting Federation (ΣΚΟΕ): an athlete registry built on FileMaker Server and WebDirect that runs fully offline, replacing a desktop application from 1996.</p>
+    </div>
+    <div class="project-info__tasks">
+      <p class="b">Tasks</p>
+      <ul>
+        <li>Research</li>
+        <li>UX UI design</li>
+        <li>System architecture</li>
+        <li>Database design</li>
+        <li>Design system</li>
+        <li>Print layouts</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="sk-hero"><img src="images/skoe/home.webp" alt="SKOE dashboard: key figures, renewals per month and a pending-items list" width="941" height="586"></div>
+
+  <section class="overview overview--gwc" aria-labelledby="ov">
+    <h2 class="overview__label" id="ov">Overview</h2>
+    <div class="overview__text">
+      <p>The Federation’s staff were working in a 1996 Windows application that froze, allowed duplicate athlete cards and could not reissue documents. I designed the replacement end to end: the research into the 12 problems the staff had officially recorded, the offline architecture, the data model, the design system and eight core screens.</p>
+      <p>The result is a light, calm interface that runs in the browser on the Federation’s existing PCs, with no cloud, no external plugins and no connection to the internet. Presented to the Federation’s management in October 2026.</p>
+    </div>
+  </section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">The problem: a 1996 system and 12 documented complaints</h2>
+  <section class="copy copy--center"><p>Six of the 12 problems the Federation’s staff officially recorded. Each one corresponds to a specific screen of the new system.</p></section>
+  <div class="sk-cards sk-cards--3"><div class="sk-card"><h3>Duplicate cards</h3><p>Two athlete IDs (DAI) for the same athlete, incompatible dates and no GDPR handling.</p></div><div class="sk-card"><h3>No reissue</h3><p>DAI and coupons cannot be reissued, and IPSC judge cards cannot be printed.</p></div><div class="sk-card"><h3>Renewals one by one</h3><p>About 27,000 active DAI in 2025, with no way to register them in bulk.</p></div><div class="sk-card"><h3>Payments without checks</h3><p>No cross-checking of receipts and names: risk of double entry.</p></div><div class="sk-card"><h3>No status flags</h3><p>Penalized, struck-off, deceased or disabled (AMEA) athletes do not show in the registry.</p></div><div class="sk-card"><h3>Unstable</h3><p>The program freezes, and simple lists take many steps.</p></div></div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Three constraints that shaped every design decision</h2>
+  <section class="copy copy--center"><p>Air-gap, WebDirect and scale. These three constraints explain why the interface is light: every element is served from the server to the browser.</p></section>
+  <div class="sk-stats">
+    <div><strong>0</strong><h3>connections to the internet</h3><p>Air-gapped network. No cloud solution, API or external plugins.</p></div>
+    <div><strong>15</strong><h3>users in the browser</h3><p>FileMaker WebDirect: no installation, and every layout is designed for speed.</p></div>
+    <div><strong>200k+</strong><h3>athletes over time</h3><p>Today about 50,000 records and about 1,000 clubs, designed for four times that volume.</p></div>
+  </div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Four principles, one for each pain of the old system</h2>
+  <section class="copy copy--center"><p>The principles came directly from the recorded problems. They come back on every screen that follows.</p></section>
+  <div class="sk-cards sk-cards--2"><div class="sk-card"><span class="sk-card__num">1</span><h3>One card per person</h3><p>AMKA (Greek social security number), full name with date of birth, and ID card number are checked before saving.</p></div><div class="sk-card"><span class="sk-card__num">2</span><h3>Nothing is deleted</h3><p>Archiving instead of deletion. Every change goes into an audit log with the user and the time.</p></div><div class="sk-card"><span class="sk-card__num">3</span><h3>Select, don’t memorize</h3><p>Competition codes, clubs and types come from lists, and the code fills in by itself.</p></div><div class="sk-card"><span class="sk-card__num">4</span><h3>Every document, again</h3><p>DAI, coupons and judge cards can be reissued at any moment, with a trace.</p></div></div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">A closed network from the browser to the backup</h2>
+  <section class="copy copy--center"><p>The browser talks only to FileMaker Server on the internal network. Photos live on the NAS, and the database stores only the file path, so it stays light.</p></section>
+  <div class="sk-arch">
+    <div class="sk-node"><h3>Workstations</h3><p>15 users in the browser, WebDirect</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>Managed switch</h3><p>“Blue” network only for FileMaker</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node sk-node--dark"><h3>Mac Mini M4</h3><p>FileMaker Server, UPS</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>Synology NAS</h3><p>RAID backups, photos</p></div>
+  </div>
+  <div class="sk-callout"><p><b>“Red” network: email, accounting, MyData/AADE.</b> A separate network card on every workstation. The separation is physical, not just a policy.</p></div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">The athlete at the center, their history around them</h2>
+  <section class="copy copy--center"><p>Eight tables. Renewals replace the lost history: every year is a new record, so a DAI number is never reused.</p></section>
+  <div class="sk-cards sk-cards--4"><div class="sk-card sk-card--dark"><h3>Athletes</h3><p>One person record, 38+ fields, flags, GDPR.</p></div><div class="sk-card"><h3>Renewals</h3><p>One per year: DAI, payment, approval.</p></div><div class="sk-card"><h3>Clubs</h3><p>About 1,000 clubs and their Regional Committee.</p></div><div class="sk-card"><h3>Transfers</h3><p>Transfers with a history of approvals.</p></div><div class="sk-card"><h3>Judges</h3><p>Judges, licences, IPSC card.</p></div><div class="sk-card"><h3>Competitions</h3><p>Competition events per period.</p></div><div class="sk-card"><h3>Results</h3><p>Scoring, ranking, medal.</p></div><div class="sk-card"><h3>Disciplines</h3><p>The official coding of the events.</p></div></div>
+  <section class="copy copy--center"><p>Every table automatically keeps <b>CreatedBy, CreatedDate, ModifiedBy and ModifiedDate</b>. Photos and medical documents are stored as paths on the NAS.</p></section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">A design system that is institutional, calm and light for the browser</h2>
+  <section class="copy copy--center"><p>An athlete’s status is always stated in words and color together, never by color alone. The same indicator system is used in lists, cards and printouts.</p></section>
+  <div class="sk-ds">
+    <div class="sk-swatches">
+      <div><i style="background:#0F1B2D"></i><b>Navy</b><span>#0F1B2D</span></div>
+      <div><i style="background:#1B4FD8"></i><b>Accent</b><span>#1B4FD8</span></div>
+      <div><i style="background:#F5F6F8;box-shadow:inset 0 0 0 1px #e3e5e8"></i><b>Surface</b><span>#F5F6F8</span></div>
+      <div><i style="background:#0F7B4E"></i><b>Active</b><span>#0F7B4E</span></div>
+      <div><i style="background:#B45309"></i><b>Pending</b><span>#B45309</span></div>
+      <div><i style="background:#B42318"></i><b>Danger</b><span>#B42318</span></div>
+    </div>
+    <div class="sk-type">
+      <p class="sk-type__sample" aria-hidden="true">Aa Ωω 0123</p>
+      <p><b>Inter</b> in four sizes (19 · 14 · 13 · 11.5 px on screen), with tabular numbers for codes and amounts. Full support for Greek.</p>
+      <p class="sk-chips"><span class="c-green">Active</span><span class="c-amber">DAI pending</span><span class="c-red">Penalized</span><span class="c-indigo">Awaiting approval</span><span class="c-grey">Deceased</span></p>
+      <p>Flat colors, thin outlines and SVG icons, with no gradients or heavy shadows that would burden WebDirect.</p>
+    </div>
+  </div>
+  <section class="copy copy--center sk-lang"><p class="sk-note">The product interface in the screens below is in Greek, because it is built for the Federation’s Greek-speaking staff.</p></section>
+
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Screen 1 / 8 · Sign in</h2>
+  <div class="sk-shot"><img src="images/skoe/login.webp" alt="Sign-in screen with the system’s identity on the left and the login form on the right" width="941" height="586" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="sp"><span class="b">Local network only</span><br>The “Offline” indicator is permanent: the system never leaves the internal network.</p><p class="sp"><span class="b">Role-based accounts</span><br>Privilege sets for Administrator, Registry, Secretariat and Read-only.</p><p class="sp"><span class="b">Session timeout</span><br>Logout after 30 minutes of inactivity, with a notice to the user.</p>
+    <p class="sp sk-note">The first point of contact. On the left is the identity of the system, on the right only what is needed to sign in. The timeout and the audit log are already mentioned here.</p>
+  </section>
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Screen 2 / 8 · Home</h2>
+  <div class="sk-shot"><img src="images/skoe/home.webp" alt="Home dashboard with key figures, a monthly renewals chart and the pending-items list" width="941" height="586" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="sp"><span class="b">The day at a glance</span><br>Active athletes, renewals pending, DAI expiring soon.</p><p class="sp"><span class="b">Pending items first</span><br>Duplicates, transfers, medical certificates and judge licences, one click from the list.</p><p class="sp"><span class="b">Regional view</span><br>Renewals per month and active athletes per Regional Committee.</p>
+    <p class="sp sk-note">The numbers on screen are indicative data. Totals are calculated with stored summary fields so the home screen loads fast in WebDirect.</p>
+  </section>
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Screen 3 / 8 · Athletes registry</h2>
+  <div class="sk-shot"><img src="images/skoe/athletes.webp" alt="Athletes registry list with search, filters, status chips and bulk actions" width="941" height="586" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="sp"><span class="b">One search field</span><br>Name, AMKA or code in the same field, with filters for club and period.</p><p class="sp"><span class="b">Status in words</span><br>Active, DAI pending, Penalized, Deceased: visible on every row.</p><p class="sp"><span class="b">Bulk actions</span><br>Renew, change status, print and export to CSV for whoever you select.</p>
+    <p class="sp sk-note">The list loads 50 records per page instead of the whole registry, so it stays fast in the browser even with 200,000 athletes.</p>
+  </section>
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Screen 4 / 8 · Athlete card</h2>
+  <div class="sk-shot"><img src="images/skoe/athlete-card.webp" alt="Athlete card with a renewals history table, status toggles and a recent-changes list" width="941" height="586" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="sp"><span class="b">All the history, one place</span><br>Renewals, transfers, results and GDPR in tabs.</p><p class="sp"><span class="b">Reissue in one click</span><br>Every DAI can be reprinted from the history.</p><p class="sp"><span class="b">Flags and trace</span><br>Five status toggles and the latest changes, with user and time.</p>
+    <p class="sp sk-note">The card solves three of the old problems at once: lost history, no way to reissue, and no status flags. The AMKA appears masked.</p>
+  </section>
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Screen 5 / 8 · New athlete</h2>
+  <div class="sk-shot"><img src="images/skoe/new-athlete.webp" alt="New-athlete form on step 2 of 4, showing a duplicate warning for an existing AMKA" width="941" height="586" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="sp"><span class="b">Duplicates caught before they exist</span><br>The AMKA itself stops the registration and shows the existing card.</p><p class="sp"><span class="b">Four short steps</span><br>Club, identification, contact and GDPR, with automatic prefill where possible.</p><p class="sp"><span class="b">Code after approval</span><br>The athlete code is issued only after payment and approval by ΣΚΟΕ.</p>
+    <p class="sp sk-note">The check runs when leaving the AMKA field (script trigger OnObjectExit), not on every keystroke, so it does not send unnecessary requests to the server.</p>
+  </section>
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Screen 6 / 8 · Bulk DAI renewal</h2>
+  <div class="sk-shot"><img src="images/skoe/bulk-renewal.webp" alt="Bulk renewal screen listing a club’s athletes with a payment summary panel" width="941" height="586" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="sp"><span class="b">One club, one receipt</span><br>Select the club and record the bank deposit once.</p><p class="sp"><span class="b">Amount cross-check</span><br>Approval is enabled only when the amount and the payer’s name match.</p><p class="sp"><span class="b">Obstacles with an explanation</span><br>A reused DAI or a penalty is excluded, and the screen says why.</p>
+    <p class="sp sk-note">The most frequent task of the year. Approval runs with Perform Script on Server, so dozens of renewals are written on the server rather than from the browser.</p>
+  </section>
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Screen 7 / 8 · Competition coding</h2>
+  <div class="sk-shot"><img src="images/skoe/disciplines.webp" alt="Competition coding screen with a sport list, discipline list and category codes" width="941" height="586" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="sp"><span class="b">The official list, live</span><br>ΣΚΟΕ’s coding forms became the Disciplines table.</p><p class="sp"><span class="b">Sport → discipline → category</span><br>Three levels of selection, and the code (e.g. 337) fills in by itself.</p><p class="sp"><span class="b">IPSC unlocked</span><br>IPSC competitions are catalogued the same way as all the others.</p>
+    <p class="sp sk-note">The codes on this screen (336, 337, 551, 338, 339, 416, 340, 550 for IPSC Mini Rifle .22 Open) are the real ones from ΣΚΟΕ’s competition coding.</p>
+  </section>
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Screen 8 / 8 · Print center</h2>
+  <div class="sk-shot"><img src="images/skoe/print-center.webp" alt="Print center previewing an IPSC judge card and a sheet of coupon labels" width="941" height="586" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="sp"><span class="b">Everything printed together</span><br>DAI, coupons, judge cards, registry, results and statistics.</p><p class="sp"><span class="b">Exact dimensions</span><br>IPSC judge card at CR80, coupons on 4.8 × 2.5 cm labels.</p><p class="sp"><span class="b">PDF or printer</span><br>Preview before printing, and save as a PDF in one click.</p>
+    <p class="sp sk-note">Print layouts are built on ΣΚΟΕ’s official forms. In WebDirect, printing goes through Save Records as PDF, which opens the file in the browser.</p>
+  </section>
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Fast in WebDirect, by design</h2>
+  <section class="copy copy--center"><p>In WebDirect every layout object is served from the server. That is why aesthetic simplicity is also a technical decision.</p></section>
+  <div class="sk-cards sk-cards--3"><div class="sk-card"><h3>Pages of 50</h3><p>Lists fetch a few records at a time, never the whole registry.</p></div><div class="sk-card"><h3>Indexed fields</h3><p>Search only on stored, indexed fields, with no unstored calculations in lists.</p></div><div class="sk-card"><h3>Images outside the database</h3><p>Photos live on the NAS as paths and load only on the card.</p></div><div class="sk-card"><h3>Flat layouts</h3><p>Flat colors and SVG icons, with few objects per screen.</p></div><div class="sk-card"><h3>Filtered portals</h3><p>A few rows per portal, sorted by relationship rather than on screen.</p></div><div class="sk-card sk-card--dark"><h3>Work on the server</h3><p>Bulk actions run with Perform Script on Server on the Mac Mini M4.</p></div></div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Every old problem now has a screen</h2>
+  <section class="copy copy--center"><p>A summary for management: each row is one of the officially recorded problems and the screen that solves it.</p></section>
+  <div class="sk-tablewrap">
+  <table class="sk-table">
+    <thead><tr><th scope="col">Topic</th><th scope="col">Old system (1996)</th><th scope="col">New system</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Duplicates</th><td>Two DAI for the same athlete</td><td>AMKA + ID check before saving</td></tr>
+      <tr><th scope="row">DAI reissue</th><td>Impossible</td><td>One click, with a trace in the history</td></tr>
+      <tr><th scope="row">Renewals</th><td>One by one</td><td>Bulk, per club</td></tr>
+      <tr><th scope="row">Payments</th><td>No cross-check</td><td>Amount and name checked before approval</td></tr>
+      <tr><th scope="row">Athlete code</th><td>Before payment</td><td>After approval by ΣΚΟΕ</td></tr>
+      <tr><th scope="row">IPSC cards</th><td>Locked</td><td>Print Center, PDF</td></tr>
+      <tr><th scope="row">Flags</th><td>None</td><td>Penalized, Inactive, AMEA, Deceased</td></tr>
+      <tr><th scope="row">Access</th><td>Desktop application that freezes</td><td>Browser, no installation</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <section class="copy copy--center" style="padding:48px clamp(18px,19.8vw,203px) 140px">
+    <h3>From 1996 to 2026.</h3>
+    <p class="sp">One registry, eight screens and zero connections to the internet, for 15 staff members and tens of thousands of athletes.</p>
+  </section>
+
+</main>
+<script src="js/main.js" defer></script>
+</body>
+</html>
