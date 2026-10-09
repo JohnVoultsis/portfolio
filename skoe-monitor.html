@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SKOE 48-Hour Licence Monitor — John Voultsis</title>
+<meta name="description" content="UX/UI strategy and architecture of a silent monitoring system that flags duplicate 48-hour trial licences across the shooting ranges of Greece, built with Google Forms, Sheets, AppSheet and Slack.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SKOE 48-Hour Licence Monitor — John Voultsis">
+<meta property="og:description" content="UX/UI strategy and architecture of a silent monitoring system that flags duplicate 48-hour trial licences across the shooting ranges of Greece, built with Google Forms, Sheets, AppSheet and Slack.">
+<link rel="preload" href="fonts/comfortaa-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:,">
+</head>
+<body class="w-gwc" data-nav="work">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="index.html">John Voultsis</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Main">
+      <a href="index.html#work" data-nav="work">Work</a>
+      <a href="about.html" data-nav="about">About</a>
+      <a class="cv" href="https://drive.google.com/file/d/1XYp3f4SziyqN1dVuBNOnqObQf47oNash/view?usp=sharing" target="_blank" rel="noopener">CV</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="page flow">
+
+  <section class="project-info">
+    <div class="project-info__about">
+      <h1 class="project-info__title">SKOE 48-Hour Licence Monitor</h1>
+      <p class="project-info__lead">A silent radar for the Hellenic Shooting Federation (ΣΚΟΕ). Shooting ranges across the country submit 48-hour trial licences through a simple form, and the Federation’s office is alerted centrally and instantly when the same ID card is used twice, without slowing down the ranges.</p>
+    </div>
+    <div class="project-info__tasks">
+      <p class="b">Tasks</p>
+      <ul>
+        <li>Research</li>
+        <li>UX UI design</li>
+        <li>System architecture</li>
+        <li>Workflow automation</li>
+        <li>Dashboard design</li>
+        <li>Technical manual</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="sk-hero"><img src="images/skoe/monitor-hero.webp" alt="Overview of the three interfaces: the shooting range form, the management dashboard and the Slack alert"></div>
+
+  <section class="overview overview--gwc" aria-labelledby="ov">
+    <h2 class="overview__label" id="ov">Overview</h2>
+    <div class="overview__text">
+      <p>Every shooting range in Greece can issue 48-hour trial licences, and the Federation needs to know when the same person is issued more than one. The challenge was to give the Federation a central check without adding a single step of bureaucracy for the ranges.</p>
+      <p>I designed the whole chain: the “Zero Friction” interface strategy, the data flow, the duplicate-detection rule, the real-time alerts and the management dashboard. It runs on free, familiar tools (Google Forms, Google Sheets, AppSheet and Slack), so there is nothing to install and almost nothing to train.</p>
+    </div>
+  </section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Vision and interface strategy</h2>
+  <section class="copy copy--center"><p>Digitizing 48-hour licences needs an environment that is strict in its checks (the backend) and extremely simple and friendly for the user (the frontend). The design follows a philosophy of “Zero Friction”.</p></section>
+  <div class="sk-split">
+    <div class="sk-card">
+      <h3>For the shooting ranges (data entry)</h3>
+      <ul>
+        <li>Seamless access through the web.</li>
+        <li>No installation and no passwords.</li>
+        <li>Focus on typing speed.</li>
+        <li>Clean, large fields for use on a tablet.</li>
+      </ul>
+    </div>
+    <div class="sk-card sk-card--dark">
+      <h3>For the management (dashboard)</h3>
+      <ul>
+        <li>Interactive elements.</li>
+        <li>Colour coding (green / red).</li>
+        <li>A “mobile-first” approach for the Secretary General.</li>
+        <li>Real-time chart refresh.</li>
+      </ul>
+    </div>
+  </div>
+  <section class="copy copy--center"><p>The ranges should never feel burdened by a complicated bureaucratic system. The Federation’s management, on the other hand, needs complete, visual information to make decisions instantly.</p></section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Architecture and data flow</h2>
+  <section class="copy copy--center"><p>The system works as a “silent radar”. It collects applications from ranges all over the country and checks them centrally, from the Federation’s offices, for duplicate licences based on the ID card number, without creating blockages or delays for the ranges themselves.</p></section>
+  <div class="sk-arch">
+    <div class="sk-node"><h3>1 · Entry</h3><p>Google Forms. Ranges fill in an open web form. Zero cost, zero training.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>2 · Storage</h3><p>Google Sheets. Data lands instantly in a hidden central spreadsheet.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node sk-node--dark"><h3>3 · Analysis</h3><p>AppSheet reads the data and checks the ID card number against the history at once.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>4 · Alert</h3><p>Slack webhooks. If a duplicate is found, an alert goes to the control centre.</p></div>
+  </div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Data structure</h2>
+  <section class="copy copy--center"><p>One sheet (tab) named <b>Trial_Licenses</b> in Google Sheets. Its first row holds the headers below.</p></section>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">Column</th><th scope="col">Type (AppSheet)</th><th scope="col">Description and use</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>id</code></th><td>Text (Key)</td><td>Unique identifier. AppSheet formula: <code>UNIQUEID()</code></td></tr>
+      <tr><th scope="row"><code>date_issued</code></th><td>DateTime</td><td>Default: <code>NOW()</code>. Records the time of the application.</td></tr>
+      <tr><th scope="row"><code>shooting_range</code></th><td>Text / Ref</td><td>The range making the submission (chosen from a dropdown).</td></tr>
+      <tr><th scope="row"><code>first_name</code></th><td>Name</td><td>The applicant’s first name.</td></tr>
+      <tr><th scope="row"><code>last_name</code></th><td>Name</td><td>The applicant’s last name.</td></tr>
+      <tr><th scope="row"><code>id_card_number</code></th><td>Text</td><td>The ID card number: the key for duplicate checks.</td></tr>
+      <tr><th scope="row"><code>status</code></th><td>Text</td><td>Calculated automatically: <span class="sk-chips sk-chips--inline"><span class="c-green">APPROVED</span></span> or <span class="sk-chips sk-chips--inline"><span class="c-red">CANCELLED</span></span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Logic and rules</h2>
+  <section class="copy copy--center"><p>Because applications arrive through a Google Form, the <code>status</code> is calculated in the background by AppSheet. In <b>Data › Columns › Trial_Licenses › status</b> the following goes into the App formula field.</p></section>
+  <div class="sk-codewrap"><pre class="sk-code" tabindex="0"><code>IF(
+  ISNOTBLANK(
+    FILTER(&quot;Trial_Licenses&quot;,
+      AND(
+        [id_card_number] = [_THISROW].[id_card_number],
+        [id] &lt;&gt; [_THISROW].[id]
+      )
+    )
+  ),
+  &quot;CANCELLED - DUPLICATE&quot;,
+  &quot;APPROVED&quot;
+)</code></pre></div>
+  <section class="copy copy--center"><p class="sk-note">The status labels are shown here in English. The live system uses Greek labels.</p></section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Alert automation</h2>
+  <section class="copy copy--center"><p>To notify the management in real time, without the extra cost of Zapier, a bot is created in AppSheet (<b>Automations › Bots</b>). It fires only when a new record is flagged as a duplicate.</p></section>
+  <div class="sk-cards sk-cards--3"><div class="sk-card"><h3>Event type</h3><p>Data Change (Adds Only)</p></div><div class="sk-card"><h3>Condition</h3><p><code>[status] = "CANCELLED - DUPLICATE"</code></p></div><div class="sk-card"><h3>Action</h3><p>Call a webhook</p></div><div class="sk-card"><h3>URL</h3><p>The Incoming Webhook URL provided by Slack.</p></div><div class="sk-card"><h3>HTTP verb</h3><p>POST</p></div><div class="sk-card sk-card--dark"><h3>JSON body</h3><p>A payload that carries the database fields into the Slack message (below).</p></div></div>
+  <div class="sk-codewrap"><pre class="sk-code" tabindex="0"><code>{ &quot;text&quot;: &quot;🚨 *WARNING: Duplicate 48-hour licence detected!*\n\n*Shooting range:* &lt;&lt;[shooting_range]&gt;&gt;\n*Details:* &lt;&lt;[first_name]&gt;&gt; &lt;&lt;[last_name]&gt;&gt;\n*ID card no.:* &lt;&lt;[id_card_number]&gt;&gt;\n*Reported at:* &lt;&lt;[date_issued]&gt;&gt;\n\n_The system logged the attempt in the central database._&quot; }</code></pre></div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Management dashboard</h2>
+  <section class="copy copy--center"><p>The Federation’s central user works with the data through an interface designed for immediate oversight. The dashboard is built in three stages.</p></section>
+  <div class="sk-cards sk-cards--3"><div class="sk-card"><span class="sk-card__num">1</span><h3>Today’s activity</h3><p>A data slice filtered with <code>DATE([date_issued]) = TODAY()</code>, so the interface shows the day’s data and is never confused by the history.</p></div><div class="sk-card"><span class="sk-card__num">2</span><h3>The chart</h3><p>A pie chart that draws from the slice, grouped by status. Approved records are green, cancelled ones red.</p></div><div class="sk-card"><span class="sk-card__num">3</span><h3>The list</h3><p>A deck view that shows first name, last name, ID card number and shooting range.</p></div></div>
+  <section class="copy copy--center"><p><b>Interactive mode.</b> The chart and the list are combined into one dashboard view. With Interactive Mode on, the user touches the red slice (“Cancelled”) of the pie and the list below filters instantly to reveal the names of the offenders.</p></section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">1. Shooting range interface (web form preview)</h2>
+  <section class="copy copy--center"><p>The screen the range’s secretary sees. Designed on a white, minimalist background, it focuses only on collecting the three basic items quickly, with no unnecessary menus or distractions.</p></section>
+  <figure class="sk-mock">
+    <div class="sk-form" role="img" aria-label="Mockup of the web form: a shooting range dropdown, an ID card or passport number field and a submit button">
+      <span class="sk-form__label">FORM</span>
+      <span class="sk-form__field">Select shooting range… ▾</span>
+      <span class="sk-form__field sk-form__field--wide">ID card or passport number</span>
+      <span class="sk-form__btn">SUBMIT</span>
+    </div>
+    <figcaption>Mockup of the form</figcaption>
+  </figure>
+  <section class="copy">
+    <p class="sp"><span class="b">User experience at the range</span></p>
+    <p><span class="b">Dropdowns:</span> the name of the range is chosen from a ready list, which removes spelling mistakes.</p>
+    <p><span class="b">Instant submission:</span> the clerk presses submit and the system records the application at once. No “rejection” messages are shown at the range, which keeps control entirely in the hands of the Federation.</p>
+  </section>
+
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">2. Central dashboard (Federation management)</h2>
+  <section class="copy copy--center"><p>The heart of the control system. A modern AppSheet interface that groups thousands of records into one clean, interactive view. Here the data turns into knowledge at a glance.</p></section>
+  <figure class="sk-mock">
+    <div class="sk-dash" role="img" aria-label="Mockup of the dashboard: a donut chart with 15 percent red, and two records, one valid and one duplicate">
+      <div class="sk-donut"><span>15%</span></div>
+      <ul class="sk-recs">
+        <li class="ok"><span>George Pap… | AB123***</span><b>VALID</b></li>
+        <li class="dup"><span>Maria Konst… | AZ987***</span><b>DUPLICATE</b></li>
+      </ul>
+    </div>
+    <figcaption>Mockup of the dashboard</figcaption>
+  </figure>
+  <section class="copy">
+    <p class="sp"><span class="b">Interactivity and oversight</span></p>
+    <p><span class="b">Interactive chart:</span> touching the red slice of the chart (15% in the mockup above) filters the list automatically to show only that day’s offenders.</p>
+    <p><span class="b">Instant recognition:</span> the colour marker on the left of each record (a green or red line) guides the reviewer’s eye straight to the problem spots.</p>
+  </section>
+
+  <div class="rule rule--none" role="presentation"></div>
+  <h2 class="section-title section-title--lg">3. Real-time alerts</h2>
+  <section class="copy copy--center"><p>The system does not wait for the management to look for the problem. When the “radar” detects an illegal second application, it pushes the information actively (a push notification) to the organization’s communication tool, Slack.</p></section>
+  <figure class="sk-mock">
+    <div class="sk-slack" role="img" aria-label="Mockup of the Slack alert: a duplicate 48-hour licence was detected at the Athens Shooting Club">
+      <p class="sk-slack__head"><span class="sk-slack__dot"></span><b>SKOE ALERT BOT</b> <time>10:24 AM</time></p>
+      <p><b>WARNING: Duplicate 48-hour licence detected!</b></p>
+      <p>Shooting range: <i>Athens Shooting Club</i> | ID card no.: <i>AZ-987***</i></p>
+      <p class="sk-slack__small">The record was silently flagged as “CANCELLED” in the central database.</p>
+    </div>
+    <figcaption>Mockup of the Slack alert</figcaption>
+  </figure>
+  <section class="copy">
+    <p class="sp"><span class="b">Design value</span></p>
+    <p><span class="b">Zero-click information:</span> the management receives the full report directly on their phone or smartwatch, without having to log in to the platform.</p>
+    <p><span class="b">Discretion:</span> the message is strict and direct, and it gives the Federation the time and the data to contact the range whenever it sees fit.</p>
+  </section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Future extensibility</h2>
+  <section class="copy copy--center"><p>The architecture is prepared for integration with future platforms. Automatic licence issuing (PDF generation) can be added as one more action in the existing bot, creating the licence in real time and emailing it back to the range. That would turn the “radar” into a fully automated administrative support system.</p></section>
+
+  <section class="copy copy--center" style="padding:36px clamp(18px,19.8vw,203px) 140px">
+    <h3>Related project</h3>
+    <p class="sp"><a class="u" href="skoe.html">SKOE Information System: the athlete registry for the same Federation →</a></p>
+  </section>
+
+</main>
+<script src="js/main.js" defer></script>
+</body>
+</html>
