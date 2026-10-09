@@ -46,7 +46,7 @@
     </div>
   </section>
 
-  <div class="sk-hero"><img src="images/skoe/monitor-hero.webp" alt="Overview of the three interfaces: the shooting range form, the management dashboard and the Slack alert"></div>
+  <div class="sk-hero"><img src="images/skoe/monitor-hero.webp" alt="Overview of the system: the licence form on a tablet, the management dashboard on a phone and the alert on a smartwatch" width="2400" height="1320"></div>
 
   <section class="overview overview--gwc" aria-labelledby="ov">
     <h2 class="overview__label" id="ov">Overview</h2>
@@ -111,6 +111,14 @@
     </tbody>
   </table>
   </div>
+  <section class="copy copy--center"><p>With a few sample rows, the sheet looks like this. The duplicates are flagged without anyone at the range seeing it.</p></section>
+  <div class="mk-sheet" role="img" aria-label="Mockup of the Trial_Licenses spreadsheet with seven columns and five sample rows, two of them flagged as cancelled duplicates">
+  <div class="mk-sheet__in" aria-hidden="true">
+    <div class="mk-sheet__top"><span class="mk-sheet__ic"></span><b>SKOE · Trial_Licenses</b><span>Sample data</span></div>
+    <div class="mk-sheet__scroll"><table><thead><tr><th>id</th><th>date_issued</th><th>shooting_range</th><th>first_name</th><th>last_name</th><th>id_card_number</th><th>status</th></tr></thead><tbody><tr class="ok"><td>e4f1a2</td><td>09:02</td><td>Athens Shooting Club</td><td>George</td><td>Papadopoulos</td><td>AB123456</td><td><span class="c-green">APPROVED</span></td></tr><tr class="dup"><td>7c9d03</td><td>09:12</td><td>Patras Shooting Club</td><td>Dimitris</td><td>Papas</td><td>AE310245</td><td><span class="c-red">CANCELLED - DUPLICATE</span></td></tr><tr class="ok"><td>a81f6b</td><td>09:40</td><td>Larissa Shooting Club</td><td>Nikos</td><td>Antoniou</td><td>AK451870</td><td><span class="c-green">APPROVED</span></td></tr><tr class="ok"><td>b30c9e</td><td>10:11</td><td>Thessaloniki Shooting Range</td><td>Elena</td><td>Nikolaidou</td><td>AH552913</td><td><span class="c-green">APPROVED</span></td></tr><tr class="dup"><td>5d27e8</td><td>10:24</td><td>Athens Shooting Club</td><td>Maria</td><td>Konstantinou</td><td>AZ987654</td><td><span class="c-red">CANCELLED - DUPLICATE</span></td></tr></tbody></table></div>
+    <div class="mk-sheet__tab"><span>Trial_Licenses</span></div>
+  </div>
+</div>
 
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">Logic and rules</h2>
@@ -144,15 +152,26 @@
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">1. Shooting range interface (web form preview)</h2>
   <section class="copy copy--center"><p>The screen the range’s secretary sees. Designed on a white, minimalist background, it focuses only on collecting the three basic items quickly, with no unnecessary menus or distractions.</p></section>
-  <figure class="sk-mock">
-    <div class="sk-form" role="img" aria-label="Mockup of the web form: a shooting range dropdown, an ID card or passport number field and a submit button">
-      <span class="sk-form__label">FORM</span>
-      <span class="sk-form__field">Select shooting range… ▾</span>
-      <span class="sk-form__field sk-form__field--wide">ID card or passport number</span>
-      <span class="sk-form__btn">SUBMIT</span>
+  <div class="mk-stage"><div class="mk-tablet" role="img" aria-label="Mockup on a tablet: the licence form with a shooting range dropdown open, name fields, an ID card number field and a large submit button">
+  <div class="mk-tablet__screen" aria-hidden="true">
+    <div class="mk-bar"><span class="mk-logo">SKOE</span><span class="mk-bar__t">48-hour trial licence</span><span class="mk-bar__r">Hellenic Shooting Federation</span></div>
+    <div class="mk-formbody">
+      <h4>New trial licence</h4>
+      <p class="mk-sub">Takes about ten seconds. No account needed.</p>
+      <div class="mk-field"><label>Shooting range</label>
+        <div class="mk-select">Athens Shooting Club<i></i></div>
+        <ul class="mk-menu"><li class="on">Athens Shooting Club</li><li>Thessaloniki Shooting Range</li><li>Patras Shooting Club</li><li>Larissa Shooting Club</li></ul>
+      </div>
+      <div class="mk-row">
+        <div class="mk-field"><label>First name</label><div class="mk-input">Maria</div></div>
+        <div class="mk-field"><label>Last name</label><div class="mk-input">Konstantinou</div></div>
+      </div>
+      <div class="mk-field"><label>ID card or passport number</label><div class="mk-input mk-input--focus">AZ 987654<span class="mk-caret"></span></div></div>
+      <div class="mk-submit">Submit</div>
     </div>
-    <figcaption>Mockup of the form</figcaption>
-  </figure>
+  </div>
+</div></div>
+  <p class="mk-cap">Mockup on a tablet, with sample data</p>
   <section class="copy">
     <p class="sp"><span class="b">User experience at the range</span></p>
     <p><span class="b">Dropdowns:</span> the name of the range is chosen from a ready list, which removes spelling mistakes.</p>
@@ -162,16 +181,41 @@
   <div class="rule rule--none" role="presentation"></div>
   <h2 class="section-title section-title--lg">2. Central dashboard (Federation management)</h2>
   <section class="copy copy--center"><p>The heart of the control system. A modern AppSheet interface that groups thousands of records into one clean, interactive view. Here the data turns into knowledge at a glance.</p></section>
-  <figure class="sk-mock">
-    <div class="sk-dash" role="img" aria-label="Mockup of the dashboard: a donut chart with 15 percent red, and two records, one valid and one duplicate">
-      <div class="sk-donut"><span>15%</span></div>
-      <ul class="sk-recs">
-        <li class="ok"><span>George Pap… | AB123***</span><b>VALID</b></li>
-        <li class="dup"><span>Maria Konst… | AZ987***</span><b>DUPLICATE</b></li>
-      </ul>
-    </div>
-    <figcaption>Mockup of the dashboard</figcaption>
-  </figure>
+  <div class="mk-stage">
+    <div class="mk-pair"><div class="mk-phone" role="img" aria-label="Mockup on a phone: the management dashboard with today's totals, a donut chart that is 15 percent red and a list of recent records">
+  <div class="mk-phone__screen" aria-hidden="true">
+    <div class="mk-status"><b>10:24</b><span>● ● ▮</span></div>
+    <div class="mk-appbar"><h4>Today</h4><span class="mk-live">● Live</span></div>
+    <div class="mk-kpis"><div><b>126</b><span>Applications</span></div><div><b class="g">107</b><span>Approved</span></div><div><b class="r">19</b><span>Duplicates</span></div></div>
+    <div class="mk-chartcard"><div class="mk-donut mk-donut--sm"><span>15%</span></div><ul class="mk-legend"><li><i class="g"></i>Approved<b>85%</b></li><li><i class="r"></i>Cancelled<b>15%</b></li></ul></div>
+    <div class="mk-chips"><span class="on">All</span><span>Approved</span><span>Cancelled</span></div>
+    <ul class="mk-list">
+      <li class="ok"><div><b>George Pap…</b><span>AB123*** · Athens SC</span></div><em>Approved</em></li>
+      <li class="dup"><div><b>Maria Konst…</b><span>AZ987*** · Athens SC</span></div><em>Duplicate</em></li>
+      <li class="ok"><div><b>Elena Nik…</b><span>AH552*** · Patras SC</span></div><em>Approved</em></li>
+      <li class="ok"><div><b>Nikos Ant…</b><span>AK451*** · Larissa SC</span></div><em>Approved</em></li>
+    </ul>
+    <div class="mk-tabs"><span class="on">Dashboard</span><span>Records</span><span>Ranges</span></div>
+  </div>
+</div><p class="mk-cap">Today at a glance</p></div>
+    <span class="mk-arrow" aria-hidden="true">→</span>
+    <div class="mk-pair"><div class="mk-phone" role="img" aria-label="Mockup on a phone: after tapping the red slice the donut chart highlights it and the list shows only the cancelled duplicate records">
+  <div class="mk-phone__screen" aria-hidden="true">
+    <div class="mk-status"><b>10:24</b><span>● ● ▮</span></div>
+    <div class="mk-appbar"><h4>Today</h4><span class="mk-live">● Live</span></div>
+    <div class="mk-kpis"><div><b>126</b><span>Applications</span></div><div><b class="g">107</b><span>Approved</span></div><div class="sel"><b class="r">19</b><span>Duplicates</span></div></div>
+    <div class="mk-chartcard"><div class="mk-donut mk-donut--sm mk-donut--sel"><span>15%</span></div><ul class="mk-legend"><li class="dim"><i class="g"></i>Approved<b>85%</b></li><li><i class="r"></i>Cancelled<b>15%</b></li></ul></div>
+    <div class="mk-chips"><span>All</span><span>Approved</span><span class="on r">Cancelled</span></div>
+    <ul class="mk-list">
+      <li class="dup"><div><b>Maria Konst…</b><span>AZ987*** · Athens SC</span></div><em>Duplicate</em></li>
+      <li class="dup"><div><b>Dimitris Pap…</b><span>AE310*** · Patras SC</span></div><em>Duplicate</em></li>
+      <li class="dup"><div><b>Sofia Kar…</b><span>AK774*** · Larissa SC</span></div><em>Duplicate</em></li>
+    </ul>
+    <div class="mk-tabs"><span class="on">Dashboard</span><span>Records</span><span>Ranges</span></div>
+  </div>
+</div><p class="mk-cap">After tapping the red slice</p></div>
+  </div>
+  <p class="mk-cap">Mockups on a phone, with sample data</p>
   <section class="copy">
     <p class="sp"><span class="b">Interactivity and oversight</span></p>
     <p><span class="b">Interactive chart:</span> touching the red slice of the chart (15% in the mockup above) filters the list automatically to show only that day’s offenders.</p>
@@ -181,15 +225,25 @@
   <div class="rule rule--none" role="presentation"></div>
   <h2 class="section-title section-title--lg">3. Real-time alerts</h2>
   <section class="copy copy--center"><p>The system does not wait for the management to look for the problem. When the “radar” detects an illegal second application, it pushes the information actively (a push notification) to the organization’s communication tool, Slack.</p></section>
-  <figure class="sk-mock">
-    <div class="sk-slack" role="img" aria-label="Mockup of the Slack alert: a duplicate 48-hour licence was detected at the Athens Shooting Club">
-      <p class="sk-slack__head"><span class="sk-slack__dot"></span><b>SKOE ALERT BOT</b> <time>10:24 AM</time></p>
-      <p><b>WARNING: Duplicate 48-hour licence detected!</b></p>
-      <p>Shooting range: <i>Athens Shooting Club</i> | ID card no.: <i>AZ-987***</i></p>
-      <p class="sk-slack__small">The record was silently flagged as “CANCELLED” in the central database.</p>
+  <div class="mk-stage">
+    <div class="mk-slack" role="img" aria-label="Mockup of a Slack window: the licence alerts channel with an alert message from the SKOE alert bot reporting a duplicate 48-hour licence at the Athens Shooting Club">
+  <div class="mk-slack__in" aria-hidden="true">
+    <div class="mk-slack__top"><i></i><i></i><i></i></div>
+    <div class="mk-slack__body">
+      <aside><b>SKOE</b><span>Channels</span><ul><li># general</li><li class="on"># licence-alerts</li><li># office</li></ul></aside>
+      <section>
+        <header># licence-alerts<small>Real-time duplicate checks</small></header>
+        <div class="mk-msg"><span class="mk-avatar"></span><div><p class="mk-msg__h"><b>SKOE ALERT BOT</b> <time>9:12 AM</time></p>
+          <div class="mk-att"><p><b>WARNING: Duplicate 48-hour licence detected!</b></p><p>Shooting range: <i>Patras Shooting Club</i> | ID card no.: <i>AE-310***</i></p><p class="s">The record was silently flagged as “CANCELLED” in the central database.</p></div></div></div>
+        <div class="mk-msg"><span class="mk-avatar"></span><div><p class="mk-msg__h"><b>SKOE ALERT BOT</b> <time>10:24 AM</time></p>
+          <div class="mk-att"><p><b>WARNING: Duplicate 48-hour licence detected!</b></p><p>Shooting range: <i>Athens Shooting Club</i> | ID card no.: <i>AZ-987***</i></p><p class="s">The record was silently flagged as “CANCELLED” in the central database.</p></div><p class="mk-react"><span>👀 2</span><span>✅ 1</span></p></div></div>
+      </section>
     </div>
-    <figcaption>Mockup of the Slack alert</figcaption>
-  </figure>
+  </div>
+</div>
+    <div class="mk-alertcol"><div class="mk-watch" role="img" aria-label="Mockup of a smartwatch showing the alert: duplicate 48-hour licence at the Athens Shooting Club"><div class="mk-watch__screen" aria-hidden="true"><div class="mk-watch__t"><i></i>SKOE ALERT<time>10:24</time></div><b>Duplicate 48-hour licence</b><span>Athens Shooting Club<br>AZ-987***</span></div></div><div class="mk-banner" role="img" aria-label="Mockup of a phone notification from Slack: duplicate 48-hour licence detected"><div aria-hidden="true"><span class="mk-banner__ic"></span><div><p><b>SKOE ALERT BOT</b><time>now</time></p><p>WARNING: Duplicate 48-hour licence detected!</p><p class="s">Athens Shooting Club | AZ-987***</p></div></div></div></div>
+  </div>
+  <p class="mk-cap">The alert in Slack, as a push notification on the phone and on a smartwatch</p>
   <section class="copy">
     <p class="sp"><span class="b">Design value</span></p>
     <p><span class="b">Zero-click information:</span> the management receives the full report directly on their phone or smartwatch, without having to log in to the platform.</p>
