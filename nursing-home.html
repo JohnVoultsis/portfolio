@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Health Monitoring System, Nursing Home — John Voultsis</title>
+<meta name="description" content="A digital input form, an Excel log and real-time Slack alerts that helped a nursing home monitor elderly residents faster and more accurately (2020).">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Digital Health Monitoring System, Nursing Home — John Voultsis">
+<meta property="og:description" content="A digital input form, an Excel log and real-time Slack alerts that helped a nursing home monitor elderly residents faster and more accurately (2020).">
+<link rel="preload" href="fonts/comfortaa-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:,">
+</head>
+<body class="w-gwc" data-nav="work">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="index.html">John Voultsis</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Main">
+      <a href="index.html#work" data-nav="work">Work</a>
+      <a href="about.html" data-nav="about">About</a>
+      <a class="cv" href="https://drive.google.com/file/d/1XYp3f4SziyqN1dVuBNOnqObQf47oNash/view?usp=sharing" target="_blank" rel="noopener">CV</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="page flow">
+
+  <section class="project-info">
+    <div class="project-info__about">
+      <h1 class="project-info__title">Digital Health Monitoring System, Nursing Home</h1>
+      <p class="project-info__lead">2020. A digital check form that lets care staff record a resident’s vital data from a phone or a desktop in under a minute, builds a complete history in a structured log, and alerts the clinic director in real time through Slack when something needs attention.</p>
+    </div>
+    <div class="project-info__tasks">
+      <p class="b">Tasks</p>
+      <ul>
+        <li>Research</li>
+        <li>UX UI design</li>
+        <li>Form design</li>
+        <li>Workflow automation</li>
+        <li>Alert system design</li>
+        <li>Data analysis</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="sk-hero"><img src="images/skoe/nursing-hero.webp" alt="Overview of the system: the check form on a phone, the Excel log and an urgent alert on a smartwatch" width="2400" height="1320"></div>
+
+  <section class="overview overview--gwc" aria-labelledby="ov">
+    <h2 class="overview__label" id="ov">Overview</h2>
+    <div class="overview__text">
+      <p>In a nursing home, small changes matter: a slightly higher temperature, a missed medication, a note that never reached the next shift. The home needed one place where every check was recorded the same way, and a way for the clinic director to hear about the important ones immediately.</p>
+      <p>I designed and built the whole chain: the input form, the automatic log, the three-level alert system and the statistics sheet. It runs on tools the staff already know (a form, Excel and Slack), so there was almost nothing to learn.</p>
+    </div>
+  </section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">The challenge</h2>
+  <section class="copy copy--center"><p>Care staff work fast, on their feet and often with one hand free. Any tool had to be quicker than writing on paper, and had to make the right person aware at the right moment.</p></section>
+  <div class="sk-cards sk-cards--3"><div class="sk-card"><span class="sk-card__num">1</span><h3>One place for every check</h3><p>Name, age, timestamp, temperature, medication and notes are recorded the same way for every resident, on every shift.</p></div><div class="sk-card"><span class="sk-card__num">2</span><h3>A history that can be found</h3><p>Management can review the complete history of any resident at any time, without searching through paper.</p></div><div class="sk-card"><span class="sk-card__num">3</span><h3>The right alert, not noise</h3><p>Routine updates should stay quiet. Urgent ones must be impossible to miss.</p></div></div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Architecture and data flow</h2>
+  <section class="copy copy--center"><p>Every form submission travels the same short path, without anyone copying data from one place to another.</p></section>
+  <div class="sk-arch">
+    <div class="sk-node"><h3>1 · Entry</h3><p>A mobile and desktop form. Staff record the check right at the bedside.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>2 · Log</h3><p>Each submission creates a new row in an Excel sheet: a structured log per resident.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node sk-node--dark"><h3>3 · Alerts</h3><p>A chatbot-style Slack message goes to the clinic director, by alert level.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>4 · Analysis</h3><p>Excel charts and statistics support long-term care decisions.</p></div>
+  </div>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">1. The input form</h2>
+  <section class="copy copy--center"><p>The form was designed for one-handed use: large touch targets, a stepper for the temperature, medication as one-tap chips and an automatic timestamp, so nothing has to be typed that can be chosen.</p></section>
+  <div class="mk-stage nh-stage">
+    <div class="mk-pair"><div class="mk-phone nh-phone" role="img" aria-label="Mockup on a phone: the resident check form with resident, temperature, medication, notes and alert level fields">
+  <div class="mk-phone__screen" aria-hidden="true">
+    <div class="mk-status"><b>08:15</b><span>● ● ▮</span></div>
+    <div class="nh-head"><span class="nh-logo"></span><div><h4>New check entry</h4><small>Sunrise Care Home · Morning shift</small></div></div>
+    <div class="nh-body">
+      <div class="mk-field"><label>Resident</label><div class="mk-select nh-sel">A. Karra · Room 12<i></i></div></div>
+      <div class="nh-two">
+        <div class="mk-field"><label>Age</label><div class="mk-input">84</div></div>
+        <div class="mk-field"><label>Date and time</label><div class="mk-input nh-auto">Auto · 08:15</div></div>
+      </div>
+      <div class="mk-field"><label>Temperature</label>
+        <div class="nh-temp"><span>−</span><b>38.4 <small>°C</small></b><span>+</span></div></div>
+      <div class="mk-field"><label>Medication given</label>
+        <div class="nh-chips"><span class="on">Paracetamol</span><span>Insulin</span><span>Blood pressure</span><span>None</span></div></div>
+      <div class="mk-field"><label>Notes</label><div class="mk-input nh-note">Slight cough, drank little water at breakfast.</div></div>
+      <div class="mk-field"><label>Alert level</label>
+        <div class="nh-seg"><span>Routine</span><span>Muted</span><span class="on urg">Urgent</span></div></div>
+      <div class="mk-submit">Save entry</div>
+    </div>
+  </div>
+</div><p class="mk-cap">On a phone, at the bedside</p></div>
+    <div class="mk-pair"><div class="mk-tablet nh-tablet" role="img" aria-label="Mockup on a tablet: the wide version of the resident check form for the nurse station">
+  <div class="mk-tablet__screen" aria-hidden="true">
+    <div class="mk-bar nh-bar"><span class="mk-logo nh-logo2">CARE</span><span class="mk-bar__t">Resident check log</span><span class="mk-bar__r">Sunrise Care Home</span></div>
+    <div class="mk-formbody">
+      <h4>New check entry</h4>
+      <p class="mk-sub">Saved straight to the shared log. Takes under a minute.</p>
+      <div class="mk-row">
+        <div class="mk-field"><label>Resident</label><div class="mk-select nh-sel">G. Mavros · Room 7<i></i></div></div>
+        <div class="mk-field"><label>Age</label><div class="mk-input">79</div></div>
+      </div>
+      <div class="mk-row">
+        <div class="mk-field"><label>Temperature (°C)</label><div class="mk-input">36.8</div></div>
+        <div class="mk-field"><label>Medication given</label><div class="mk-input">Blood pressure tablet</div></div>
+      </div>
+      <div class="mk-field"><label>Notes</label><div class="mk-input mk-input--focus">Good appetite, walked in the garden<span class="mk-caret"></span></div></div>
+      <div class="nh-seg nh-seg--wide"><span class="on rou">Routine</span><span>Muted</span><span>Urgent</span></div>
+      <div class="mk-submit nh-submit">Save entry</div>
+    </div>
+  </div>
+</div><p class="mk-cap">On a tablet or desktop, at the nurse station</p></div>
+  </div>
+  <p class="mk-cap">Mockups with sample data. Names are fictional.</p>
+  <section class="copy">
+    <p class="sp"><span class="b">User experience for the staff</span></p>
+    <p><span class="b">Fast by design:</span> the resident is picked from a list, the time is filled in automatically and the usual medications are one tap away.</p>
+    <p><span class="b">Works anywhere:</span> the same form opens on a phone in the corridor or on a desktop at the nurse station.</p>
+    <p><span class="b">Alert level in the staff’s hands:</span> the person doing the check decides whether the entry is routine, muted or urgent.</p>
+  </section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">2. The automatic log</h2>
+  <section class="copy copy--center"><p>When a form is completed, a new row appears in the Excel sheet. The log becomes the single, structured history of every resident, and a formula can flag values outside the safe range.</p></section>
+  <div class="mk-sheet nh-xl" role="img" aria-label="Mockup of the Excel log: one row per check with timestamp, resident, age, temperature, medication, notes and alert level. Rows with a high temperature are highlighted in red">
+  <div class="mk-sheet__in" aria-hidden="true">
+    <div class="mk-sheet__top"><span class="mk-sheet__ic"></span><b>Resident_Log.xlsx</b><span>Sample data</span></div>
+    <div class="nh-fx"><span>E2</span><i>fx</i><em>=IF(F2&gt;=38,"Urgent","Routine")</em></div>
+    <div class="mk-sheet__scroll"><table><thead><tr><th></th><th>timestamp</th><th>resident</th><th>age</th><th>temp_c</th><th>medication</th><th>notes</th><th>alert</th></tr></thead><tbody><tr class=""><th>2</th><td>2020-03-12 07:40</td><td>E. Pappa</td><td>81</td><td>36.7</td><td>Blood pressure</td><td>Slept well</td><td><span class="c-green">Routine</span></td></tr><tr class="urg"><th>3</th><td>2020-03-12 08:15</td><td>A. Karra</td><td>84</td><td><b class="hot">38.4</b></td><td>Paracetamol</td><td>Slight cough, drank little</td><td><span class="c-red">Urgent</span></td></tr><tr class=""><th>4</th><td>2020-03-12 08:30</td><td>G. Mavros</td><td>79</td><td>36.8</td><td>Blood pressure</td><td>Walked in the garden</td><td><span class="c-green">Routine</span></td></tr><tr class="mut"><th>5</th><td>2020-03-12 09:05</td><td>S. Lima</td><td>88</td><td>36.5</td><td>Insulin</td><td>Routine glucose check</td><td><span class="c-grey">Muted</span></td></tr><tr class=""><th>6</th><td>2020-03-12 09:40</td><td>K. Raptis</td><td>76</td><td>37.1</td><td>None</td><td>Physio session done</td><td><span class="c-green">Routine</span></td></tr><tr class="urg"><th>7</th><td>2020-03-12 10:10</td><td>A. Karra</td><td>84</td><td><b class="hot">38.1</b></td><td>None</td><td>Rechecked, still warm</td><td><span class="c-red">Urgent</span></td></tr></tbody></table></div>
+    <div class="mk-sheet__tab"><span>Log</span> <span class="nh-t2">Stats</span></div>
+  </div>
+</div>
+  <section class="copy">
+    <p class="sp"><span class="b">Why it works</span></p>
+    <p><span class="b">Complete history:</span> filter by resident and the whole story is on one screen.</p>
+    <p><span class="b">Nothing retyped:</span> data goes from the form to the log with no manual copying, which removes a whole class of mistakes.</p>
+  </section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">3. The alert system</h2>
+  <section class="copy copy--center"><p>A bot posts to Slack in a chatbot style, straight to the clinic director. Three alert levels keep the channel calm most of the time, and loud only when it matters.</p></section>
+  <div class="sk-cards sk-cards--3"><div class="sk-card"><span class="sk-card__num">1</span><h3>Routine check-up</h3><p>A short confirmation with a soft chime. It tells the director the round was done and everything is normal.</p></div><div class="sk-card"><span class="sk-card__num">2</span><h3>Muted</h3><p>The entry is saved and posted silently. Nothing buzzes, and it is there in the log when someone looks.</p></div><div class="sk-card sk-card--dark"><span class="sk-card__num">3</span><h3>Urgent</h3><p>A distinct sound and a clear message with the resident, room and reading. Impossible to confuse with a routine update.</p></div></div>
+  <div class="mk-stage nh-stage">
+    <div class="mk-slack nh-slack" role="img" aria-label="Mockup of a Slack window: a care-alerts channel with a routine check-up message, a muted message and an urgent alert for a resident with a high temperature">
+  <div class="mk-slack__in" aria-hidden="true">
+    <div class="mk-slack__top"><i></i><i></i><i></i></div>
+    <div class="mk-slack__body">
+      <aside><b>CARE HOME</b><span>Channels</span><ul><li># general</li><li class="on"># care-alerts</li><li># kitchen</li></ul></aside>
+      <section>
+        <header># care-alerts<small>Direct line to the clinic director</small></header>
+        <div class="mk-msg"><span class="mk-avatar nh-av nh-av--g"></span><div><p class="mk-msg__h"><b>CARE BOT</b> <time>7:40 AM</time></p>
+          <div class="mk-att mk-att--g"><p><b>Routine check-up logged</b></p><p>E. Pappa · Room 3 · 36.7 °C · all normal</p><p class="s">Soft chime. No action needed.</p></div></div></div>
+        <div class="mk-msg"><span class="mk-avatar"></span><div><p class="mk-msg__h"><b>CARE BOT</b> <time>8:15 AM</time> <span class="nh-pill nh-pill--r">Urgent</span></p>
+          <div class="mk-att"><p><b>URGENT: high temperature, please review now</b></p><p>A. Karra · Room 12 · age 84 · <i>38.4 °C</i></p><p class="s">Note: slight cough, drank little water. Paracetamol given at 08:15.</p></div><p class="mk-react"><span>👀 2</span><span>On my way</span></p></div></div>
+        <div class="mk-msg"><span class="mk-avatar nh-av nh-av--m"></span><div><p class="mk-msg__h"><b>CARE BOT</b> <time>9:05 AM</time> <span class="nh-pill">Muted</span></p>
+          <div class="mk-att mk-att--m"><p><b>Entry saved quietly</b></p><p>S. Lima · Room 9 · insulin given</p><p class="s">Silent. Visible in the log whenever you look.</p></div></div></div>
+      </section>
+    </div>
+  </div>
+</div>
+    <div class="mk-alertcol"><div class="mk-watch" role="img" aria-label="Mockup of a smartwatch with an urgent alert: room 12, 38.4 degrees"><div class="mk-watch__screen" aria-hidden="true"><div class="mk-watch__t"><i></i>URGENT<time>8:15</time></div><b>High temperature</b><span>Room 12 · A. Karra<br>38.4 °C</span></div></div><div class="mk-banner" role="img" aria-label="Mockup of a phone notification from Slack: urgent alert, high temperature in room 12"><div aria-hidden="true"><span class="mk-banner__ic"></span><div><p><b>CARE BOT · Urgent</b><time>now</time></p><p>High temperature, please review now</p><p class="s">A. Karra · Room 12 · 38.4 °C</p></div></div></div></div>
+  </div>
+  <p class="mk-cap">The same urgent alert in Slack, as a push notification on the phone and on a smartwatch</p>
+  <section class="copy">
+    <p class="sp"><span class="b">Design value</span></p>
+    <p><span class="b">Customizable:</span> the messages, the sounds and the levels can be adjusted to how the home works.</p>
+    <p><span class="b">Reaches the director anywhere:</span> a phone or a watch is enough, with no need to open the spreadsheet.</p>
+  </section>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">4. Charts and statistics</h2>
+  <section class="copy copy--center"><p>Excel is used for more than record-keeping. The same log feeds charts that show how a resident’s temperature moves over a week, how busy each shift is and how many alerts of each kind were raised. Patterns become visible early, which supports better long-term care decisions.</p></section>
+  <div class="nh-charts" role="img" aria-label="Mockup of the Excel statistics sheet: a seven-day temperature line chart for one resident crossing the 37.8 degree alert line, bar chart of entries per shift split into routine and urgent, and a donut chart of alert types">
+  <div class="nh-charts__in" aria-hidden="true">
+    <div class="mk-sheet__top"><span class="mk-sheet__ic"></span><b>Resident_Log.xlsx · Stats</b><span>Sample data</span></div>
+    <div class="nh-grid">
+      <div class="nh-panel nh-panel--wide"><h5>Temperature, last 7 days · A. Karra</h5>
+        <svg viewBox="0 0 300 146" width="100%" role="presentation"><text x="28" y="121.0" text-anchor="end">36</text><line x1="34" x2="286" y1="118.0" y2="118.0" stroke="#e6ebf0"/><text x="28" y="87.7" text-anchor="end">37</text><line x1="34" x2="286" y1="84.7" y2="84.7" stroke="#e6ebf0"/><text x="28" y="54.3" text-anchor="end">38</text><line x1="34" x2="286" y1="51.3" y2="51.3" stroke="#e6ebf0"/><text x="28" y="21.0" text-anchor="end">39</text><line x1="34" x2="286" y1="18.0" y2="18.0" stroke="#e6ebf0"/><polygon points="34,118 34.0,98.0 76.0,88.0 118.0,94.7 160.0,78.0 202.0,58.0 244.0,38.0 286.0,48.0 286,118" fill="rgba(14,147,132,.12)"/><line x1="34" x2="286" y1="58.0" y2="58.0" stroke="#d92d20" stroke-dasharray="4 3"/><text x="38" y="53.0" fill="#d92d20">alert 37.8</text><polyline points="34.0,98.0 76.0,88.0 118.0,94.7 160.0,78.0 202.0,58.0 244.0,38.0 286.0,48.0" fill="none" stroke="#0e9384" stroke-width="2.2"/><circle cx="34.0" cy="98.0" r="3.2" fill="#0e9384"/><circle cx="76.0" cy="88.0" r="3.2" fill="#0e9384"/><circle cx="118.0" cy="94.7" r="3.2" fill="#0e9384"/><circle cx="160.0" cy="78.0" r="3.2" fill="#0e9384"/><circle cx="202.0" cy="58.0" r="3.2" fill="#0e9384"/><circle cx="244.0" cy="38.0" r="3.2" fill="#d92d20"/><circle cx="286.0" cy="48.0" r="3.2" fill="#d92d20"/><text x="34.0" y="136" text-anchor="middle">Mon</text><text x="76.0" y="136" text-anchor="middle">Tue</text><text x="118.0" y="136" text-anchor="middle">Wed</text><text x="160.0" y="136" text-anchor="middle">Thu</text><text x="202.0" y="136" text-anchor="middle">Fri</text><text x="244.0" y="136" text-anchor="middle">Sat</text><text x="286.0" y="136" text-anchor="middle">Sun</text></svg></div>
+      <div class="nh-panel"><h5>Entries per shift</h5>
+        <svg viewBox="0 0 280 146" width="100%" role="presentation"><line x1="20" x2="270" y1="118" y2="118" stroke="#cfd8e6"/><rect x="30" y="73.19999999999999" width="22" height="44.800000000000004" rx="3" fill="#0e9384"/><rect x="54" y="98.8" width="22" height="19.200000000000003" rx="3" fill="#d92d20"/><text x="53" y="134" text-anchor="middle">Night</text><rect x="92" y="18.799999999999997" width="22" height="99.2" rx="3" fill="#0e9384"/><rect x="116" y="86.0" width="22" height="32.0" rx="3" fill="#d92d20"/><text x="115" y="134" text-anchor="middle">Morning</text><rect x="154" y="47.599999999999994" width="22" height="70.4" rx="3" fill="#0e9384"/><rect x="178" y="105.2" width="22" height="12.8" rx="3" fill="#d92d20"/><text x="177" y="134" text-anchor="middle">Noon</text><rect x="216" y="31.599999999999994" width="22" height="86.4" rx="3" fill="#0e9384"/><rect x="240" y="95.6" width="22" height="22.400000000000002" rx="3" fill="#d92d20"/><text x="239" y="134" text-anchor="middle">Evening</text></svg>
+        <p class="nh-key"><i class="g"></i>Routine <i class="r"></i>Urgent</p></div>
+      <div class="nh-panel"><h5>Alerts this month</h5>
+        <div class="nh-don"><div class="nh-donut"><span>86</span></div>
+          <ul><li><i class="g"></i>Routine<b>71</b></li><li><i class="m"></i>Muted<b>9</b></li><li><i class="r"></i>Urgent<b>6</b></li></ul></div></div>
+    </div>
+  </div>
+</div>
+  <p class="mk-cap">Statistics sheet mockup, with sample data</p>
+
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Result</h2>
+  <div class="sk-cards sk-cards--3"><div class="sk-card"><span class="sk-card__num">1</span><h3>Faster response</h3><p>Urgent readings reached the clinic director the moment they were saved, not at the next handover.</p></div><div class="sk-card"><span class="sk-card__num">2</span><h3>Greater accuracy</h3><p>Structured fields and automatic logging replaced handwriting and manual copying.</p></div><div class="sk-card"><span class="sk-card__num">3</span><h3>Better elderly care</h3><p>A full history and clear statistics made it easier to notice changes and plan care.</p></div></div>
+
+  <section class="copy copy--center" style="padding:36px clamp(18px,19.8vw,203px) 140px">
+    <h3>Related project</h3>
+    <p class="sp"><a class="u" href="skoe-monitor.html">SKOE 48-Hour Licence Monitor: the same approach for a national federation →</a></p>
+  </section>
+
+</main>
+<script src="js/main.js" defer></script>
+</body>
+</html>
