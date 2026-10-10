@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Irrigation — John Voultsis</title>
+<meta name="description" content="Agent experience (AX) case study: an AI agent that plans irrigation for a farming cooperative in Thessaly, and the interface an agronomist uses to delegate to it, supervise it and take back control.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Agentic Irrigation — John Voultsis">
+<meta property="og:description" content="Agent experience (AX) case study: delegating irrigation to an AI agent without losing control.">
+<link rel="preload" href="fonts/comfortaa-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:,">
+</head>
+<body class="w-gwc" data-nav="work">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="index.html">John Voultsis</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Main">
+      <a href="index.html#work" data-nav="work">Work</a>
+      <a href="about.html" data-nav="about">About</a>
+      <a class="cv" href="https://drive.google.com/file/d/1XYp3f4SziyqN1dVuBNOnqObQf47oNash/view?usp=sharing" target="_blank" rel="noopener">CV</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="page flow">
+
+  <section class="project-info">
+    <div class="project-info__about">
+      <h1 class="project-info__title">Agentic Irrigation</h1>
+      <p class="project-info__lead">An AI agent plans irrigation for 212 small parcels of a farming cooperative in Thessaly. This case study designs how one agronomist delegates to it, supervises it and takes control back, before, during and after a heatwave.</p>
+    </div>
+    <div class="project-info__tasks">
+      <p class="b">Tasks</p>
+      <ul>
+        <li>Desk research</li>
+        <li>Agent experience (AX)</li>
+        <li>Interaction design</li>
+        <li>UI design and design system</li>
+        <li>Mobile and SMS flows</li>
+        <li>Usability test plan</li>
+      </ul>
+      <p class="ir-tag">Self-initiated concept</p>
+    </div>
+  </section>
+
+  <div class="sk-hero"><img src="images/irrigation/hero.webp" alt="The agronomist's dashboard in a browser window next to a phone showing the heat plan decision with an Approve 206 standard parcels button" width="2400" height="1320"></div>
+
+  <section class="overview overview--gwc" aria-labelledby="ov">
+    <h2 class="overview__label" id="ov">Overview</h2>
+    <div class="overview__text">
+      <p>Agentic AI moves software from doing what you click to doing work on your behalf. The hard design questions change with it: how much may the agent do alone, how does it show what it plans, what happens when nobody answers, and how does a person take control back?</p>
+      <p>Irrigation makes those questions concrete. Water is shared and rationed, a late decision is the same as no decision, and a maize field stressed at the wrong week cannot be repaired. I designed the full experience: the delegation model, nine screens, the failure states, and an SMS flow for the farmers who own the land.</p>
+      <p class="ir-muted">A fictional concept. Research is secondary and cited; quotes come from published interviews; all farm data is illustrative.</p>
+    </div>
+  </section>
+
+  <div class="sk-stats ir-stats">
+    <div><strong>212</strong><h3>parcels, one agronomist</h3><p>Owned by 140 member farmers, about 66 ha in total.</p></div>
+    <div><strong>72 h</strong><h3>of lead time</h3><p>The agent plans before the heat arrives, not during it.</p></div>
+    <div><strong>6 of 212</strong><h3>need a human</h3><p>Everything else follows the plan inside agreed limits.</p></div>
+  </div>
+
+  <!-- ===== 1. Problem ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">The problem</h2>
+  <section class="copy copy--center"><p>Greek irrigation is small parcels, shared water and a shrinking supply. One cooperative agronomist may oversee hundreds of parcels, and water arrives in rationed turns. When heat and water limits hit at the same time, she cannot make the right call for every field in time.</p></section>
+  <div class="sk-cards sk-cards--4">
+    <div class="sk-card"><h3>Small, fragmented farms</h3><p>6.6 ha on average in Greece against 15.2 ha in the EU-27; half the farms are under 2 ha.</p></div>
+    <div class="sk-card"><h3>Thessaly carries the load</h3><p>86% of Greek water use is irrigation, and about a quarter of it is in Thessaly.</p></div>
+    <div class="sk-card"><h3>Water arrives in turns</h3><p>Local land reclamation boards cut both the hours and the frequency of irrigation in dry years.</p></div>
+    <div class="sk-card sk-card--dark"><h3>Timing is everything</h3><p>In 2025, reservoir water reached Larissa about two weeks late and crops were lost.</p></div>
+  </div>
+  <blockquote class="ir-statement"><p>Cooperative agronomists cannot make timely, parcel-level water decisions for hundreds of mixed-crop parcels when heat and water limits hit at once. Scarce water goes to the wrong fields at the wrong time.</p></blockquote>
+  <section class="copy">
+    <p class="sp"><span class="b">How might we…</span></p>
+    <ul>
+      <li>let an agronomist hand routine irrigation to an agent without losing the ability to step in?</li>
+      <li>make a plan for hundreds of parcels reviewable in under three minutes?</li>
+      <li>make “no answer” a safe answer when the human is busy?</li>
+      <li>let trust grow, or shrink, field by field, based on the agent’s track record?</li>
+      <li>keep each farmer in control of their own parcel while the cooperative coordinates the water?</li>
+    </ul>
+  </section>
+
+  <!-- ===== 2. Research ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Desk research</h2>
+  <section class="copy copy--center"><p>No interviews were run for this concept. I reviewed Greek press coverage of the 2024 and 2025 irrigation seasons, studies on how farmers adopt decision-support tools, and human-factors research on trust in automation. Every finding below led to a design decision.</p></section>
+  <div class="ir-quotes">
+    <figure class="ir-quote"><blockquote><p>“…when it finally arrived after 15 days, it was already too late…”</p></blockquote><figcaption>Christos Souliotis, president of a Thessalian tomato producers’ cooperative, on reservoir water in July 2025. <a class="u" href="https://www.tovima.com/climate/greeces-water-crisis-deepens-farmers-in-larissa-left-without-harvest-after-irrigation-fiasco" target="_blank" rel="noopener">To Vima</a></figcaption></figure>
+    <figure class="ir-quote"><blockquote><p>“…you can still waste water if you irrigate when the plant doesn’t need it.”</p></blockquote><figcaption>Konstantinos Soulis, Agricultural University of Athens, on drip irrigation. <a class="u" href="https://farmingportal.co.za/index.php/farming-news/international-news/10883-boreholes-are-bringing-up-air-not-water" target="_blank" rel="noopener">Kathimerini, via Farming Portal</a></figcaption></figure>
+  </div>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">What the evidence says</th><th scope="col">What the design does about it</th></tr></thead>
+    <tbody>
+      <tr><td>Timing decides outcomes, and water arrives in rationed turns.</td><td>The agent plans 72 hours ahead, inside the turns, and every decision has a deadline.</td></tr>
+      <tr><td>Greek water use is mostly estimated, not measured.</td><td>Every value says whether it is measured or estimated, and how old it is.</td></tr>
+      <tr><td>Farmers hesitate to swap a trusted advisor for a program that behaves like a black box.</td><td>The agronomist stays in the loop as the trusted advisor; the agent explains every action.</td></tr>
+      <tr><td>Farmers differ in confidence; ease of adoption and peer use matter more than persuasion.</td><td>Autonomy is set per field, and new fields start in a no-risk shadow mode.</td></tr>
+      <tr><td>Automation bias affects experts too, and training does not prevent it.</td><td>Exceptions come first, the test plants a deliberate error, and trust is measured as calibration.</td></tr>
+      <tr><td>The leading Greek platform advises; it does not act.</td><td>Supervised execution is the gap this concept explores.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- ===== 3. People ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Who it is for</h2>
+  <div class="sk-split">
+    <div class="sk-card">
+      <h3>Katerina, cooperative agronomist (assumption-based persona)</h3>
+      <ul>
+        <li>Supervises irrigation for 212 parcels near Larissa: maize, cotton, processing tomato and almonds.</li>
+        <li>Plans at her desk early; spends the day driving between members, reachable by phone.</li>
+        <li>Wants to protect yield at the crop stages that matter, never exceed the allocation, and keep members’ trust.</li>
+        <li>Willing to delegate routine timing; not willing to delegate trade-offs between members without seeing them.</li>
+      </ul>
+    </div>
+    <div class="sk-card sk-card--dark">
+      <h3>Everyone else in the loop</h3>
+      <ul>
+        <li><b>Member farmer:</b> owns the parcel, sets its limits, can veto.</li>
+        <li><b>Cooperative manager:</b> answers for water use; is the escalation if Katerina is unreachable.</li>
+        <li><b>Water authority (TOEB):</b> sets the turns; its allocation is a hard limit.</li>
+        <li><b>The agent:</b> plans, acts inside its permissions, and asks when it should.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 4. Scenario ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">The scenario: a heatwave seen three days out</h2>
+  <section class="copy copy--center"><p>On Monday the forecast shows 41–43 °C from Thursday to Saturday, and the water authority has already cut this week’s hours. The agent drafts a pre-irrigation plan for 212 parcels; Katerina decides by Tuesday noon.</p></section>
+  <div class="sk-cards sk-cards--3">
+    <div class="sk-card"><span class="sk-card__num">Mon</span><h3>One alert</h3><p>A plan is ready, with a deadline and a safe default if she does not answer.</p></div>
+    <div class="sk-card"><span class="sk-card__num">Mon</span><h3>Plan review</h3><p>She approves the plan in one go and opens only the six exceptions.</p></div>
+    <div class="sk-card"><span class="sk-card__num">Tue–Wed</span><h3>Execution</h3><p>Night runs inside the water turns; two valves fail and one leak is paused.</p></div>
+    <div class="sk-card"><span class="sk-card__num">Thu–Sat</span><h3>Live adjustment</h3><p>Clouds bring the temperature down; the agent shortens runs, never extends them.</p></div>
+    <div class="sk-card"><span class="sk-card__num">Sun</span><h3>Digest</h3><p>Outcome against forecast, every change and why, and what the agent learned.</p></div>
+    <div class="sk-card sk-card--dark"><span class="sk-card__num">Always</span><h3>Members informed</h3><p>Each farmer gets an SMS in Greek with the same times, volumes and deadline.</p></div>
+  </div>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">Crop</th><th scope="col">Stage this week</th><th scope="col">Agent’s plan</th><th scope="col">Why</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Maize</th><td>Silking</td><td>Pre-irrigate Tue and Wed nights, first priority</td><td>Water stress at silking causes the largest grain loss (FAO).</td></tr>
+      <tr><th scope="row">Cotton</th><td>Flowering</td><td>Pre-irrigate Wed night</td><td>Peak water demand this week.</td></tr>
+      <tr><th scope="row">Processing tomato</th><td>Fruit fill</td><td>Keep the schedule, move runs to night</td><td>Less water lost to evaporation.</td></tr>
+      <tr><th scope="row">Almond</th><td>Hull split</td><td>Stay on planned deficit (about 50%), with a safety trigger</td><td>Mild stress at hull split is standard practice and reduces hull rot (UC ANR).</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="sk-callout"><b>The almond moment.</b> The most valuable crop gets the least extra water this week, and that is correct. It is also exactly the call a person would doubt. The interface has to explain it in one line, show the safety trigger and let Katerina override it. This is where explainable rationale is tested.</div>
+
+  <!-- ===== 5. Principles ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Design principles</h2>
+  <div class="sk-cards sk-cards--3">
+    <div class="sk-card"><span class="sk-card__num">1</span><h3>Delegate, don’t just automate</h3><p>Autonomy is set per field, earned through a track record, and can always be taken back.</p></div>
+    <div class="sk-card"><span class="sk-card__num">2</span><h3>Plan before the act, record after</h3><p>Nothing irreversible runs without a preview; nothing runs without a record.</p></div>
+    <div class="sk-card"><span class="sk-card__num">3</span><h3>Every request has a deadline and a default</h3><p>Silence from the human is a normal state the design handles safely.</p></div>
+    <div class="sk-card"><span class="sk-card__num">4</span><h3>Decide at plan level, inspect at field level</h3><p>One approval for 212 parcels; only the exceptions are opened.</p></div>
+    <div class="sk-card"><span class="sk-card__num">5</span><h3>Uncertainty is information</h3><p>Forecasts are ranges, data shows its age, and the agent says when it is guessing.</p></div>
+    <div class="sk-card sk-card--dark"><span class="sk-card__num">6</span><h3>Physical truth over commands</h3><p>A valve commanded is not a valve open: commanded, confirmed and measured are shown separately.</p></div>
+  </div>
+
+  <!-- ===== 6. Trust lifecycle ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Trust is a lifecycle, not a screen</h2>
+  <section class="copy copy--center"><p>The story is told in four acts, because trust in an agent is built before the crisis and repaired after it. The heatwave is one chapter, not the whole story.</p></section>
+  <div class="sk-arch">
+    <div class="sk-node"><h3>1 · Shadow mode</h3><p>The agent predicts and records what it would do, and changes nothing.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>2 · Earning autonomy</h3><p>When its record supports it, the agent asks for more freedom. The human approves.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node sk-node--dark"><h3>3 · The heatwave</h3><p>A farm-wide plan 72 h ahead, with a deadline and a safe default.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>4 · Review</h3><p>A digest of what ran, what changed and what failed, and what was learned.</p></div>
+  </div>
+  <p class="ir-loop"><span aria-hidden="true">↺</span> Outcomes and overrides move each field’s autonomy up or down. Failures demote automatically.</p>
+
+  <!-- ===== 7. Delegation ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">The delegation contract</h2>
+  <section class="copy copy--center"><p>The “autonomy dial” lives here, per field, instead of as one global switch. For each field it records how much the agent may do alone, and which limits it can never cross.</p></section>
+  <div class="sk-cards sk-cards--4">
+    <div class="sk-card"><span class="sk-card__num">1</span><h3>Shadow</h3><p>Predicts and records. Changes nothing.</p></div>
+    <div class="sk-card"><span class="sk-card__num">2</span><h3>Suggest</h3><p>Proposes a plan with a deadline and a safe default.</p></div>
+    <div class="sk-card"><span class="sk-card__num">3</span><h3>Act and notify</h3><p>Acts inside the limits and notifies at once; undo stays open.</p></div>
+    <div class="sk-card sk-card--dark"><span class="sk-card__num">4</span><h3>Act and report</h3><p>Acts inside the limits and reports in the daily digest.</p></div>
+  </div>
+  <div class="sk-split">
+    <div class="sk-card">
+      <h3>Limits the agent can never cross</h3>
+      <ul>
+        <li>The parcel’s and the cooperative’s water allocation.</li>
+        <li>A soil-moisture floor for each crop stage.</li>
+        <li>The owner’s limits: weekly water, allowed hours.</li>
+        <li>Stop and ask when data is older than the freshness limit.</li>
+      </ul>
+    </div>
+    <div class="sk-card">
+      <h3>Who sets what</h3>
+      <ul>
+        <li>The <b>farmer</b> sets the outer limits and can veto.</li>
+        <li>The <b>agronomist</b> sets the level inside those limits.</li>
+        <li>The <b>agent</b> can only propose a change, never make one.</li>
+        <li>Demotion is automatic after a failure, with a reason.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 8. Design system ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Colours, type and status</h2>
+  <section class="copy copy--center"><p>A quiet, light interface built for glare and for scanning. Colour always carries meaning, and it is never the only signal: every status has an icon and a word.</p></section>
+  <div class="sk-ds">
+    <div>
+      <p class="ir-ds-h">Core</p>
+      <div class="sk-swatches">
+        <div><i style="background:#F6F6F3;box-shadow:inset 0 0 0 1px #E3E3DE"></i><b>Canvas</b><span>#F6F6F3</span></div>
+        <div><i style="background:#1B1F1D"></i><b>Ink</b><span>#1B1F1D</span></div>
+        <div><i style="background:#5A615E"></i><b>Secondary text</b><span>#5A615E</span></div>
+        <div><i style="background:#1D5FD1"></i><b>Action</b><span>#1D5FD1</span></div>
+        <div><i style="background:#5B3FD6"></i><b>Agent</b><span>#5B3FD6</span></div>
+        <div><i style="background:#E3E3DE"></i><b>Border</b><span>#E3E3DE</span></div>
+      </div>
+      <p class="ir-ds-h">Status</p>
+      <div class="sk-swatches">
+        <div><i style="background:#B42318"></i><b>Urgent</b><span>#B42318</span></div>
+        <div><i style="background:#B54708"></i><b>Check</b><span>#B54708</span></div>
+        <div><i style="background:#067647"></i><b>On plan</b><span>#067647</span></div>
+      </div>
+      <p class="ir-ds-h">Crops</p>
+      <div class="sk-swatches ir-swatches--4">
+        <div><i style="background:#E2CF8C"></i><b>Maize</b><span>#E2CF8C</span></div>
+        <div><i style="background:#A9C7E8"></i><b>Cotton</b><span>#A9C7E8</span></div>
+        <div><i style="background:#9FD3C2"></i><b>Tomato</b><span>#9FD3C2</span></div>
+        <div><i style="background:#D6BFA6"></i><b>Almond</b><span>#D6BFA6</span></div>
+      </div>
+    </div>
+    <div class="sk-type ir-type">
+      <p class="ir-ds-h">Type · Inter</p>
+      <p class="ir-type__xl">Heat plan</p>
+      <p class="ir-type__l">Pre-irrigation plan: heat 41–43 °C</p>
+      <p class="ir-type__m">Maize · silking · 64 parcels</p>
+      <p class="ir-type__s">Proposed 07:00 · 212 parcels · 9,400 m³</p>
+      <p class="ir-type__nums">Ελληνικά πρώτα · 0123456789 m³ °C</p>
+      <p class="ir-ds-h">Status always has an icon and a word</p>
+      <div class="ir-chips">
+        <span class="ir-chip ir-chip--red"><i>!</i>Needs you</span>
+        <span class="ir-chip ir-chip--amber"><i>!</i>Check</span>
+        <span class="ir-chip ir-chip--green"><i>✓</i>On plan</span>
+        <span class="ir-chip ir-chip--violet"><i>●</i>Agent</span>
+        <span class="ir-chip ir-chip--grey"><i>●</i>You</span>
+      </div>
+      <ul class="ir-rules">
+        <li>Light mode by default: alerts are read outdoors.</li>
+        <li>WCAG 2.2 AA for all text; AAA for status and numbers.</li>
+        <li>Forecasts drawn as ranges, never a single line.</li>
+        <li>Tabular numbers, metric units, 24-hour time, Greek first.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 9. Screens ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">The screens</h2>
+  <section class="copy copy--center"><p>Nine screens carry the story, in the order Katerina meets them during the heatwave week.</p></section>
+
+  <h3 class="ir-screen-title"><span>01</span> Dashboard: decisions first</h3>
+  <div class="sk-shot"><img src="images/irrigation/dashboard.webp" alt="Dashboard with two decisions that need the agronomist, each with a deadline and a default, the agent's overnight actions, water against allocation, network turns, forecast, data health, an agent pause switch and a grid of fields by water source" width="2400" height="1927" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>The home screen is a queue of decisions sorted by deadline, not a map. In management by exception, a short list beats scanning for red tiles. Each decision says what happens if nobody answers.</p>
+    <p class="sp"><span class="b">Key choices:</span> routine work arrives as a quiet summary with undo; a kill switch pauses every autonomous action; the field grid stays as a secondary view.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>02</span> Plan review: one decision for 212 parcels</h3>
+  <div class="sk-shot"><img src="images/irrigation/plan-review.webp" alt="Plan review with deadline, default notice, summary cards for water, parcels, yield at risk and data health, crop priority groups with the almond rationale expanded, an exceptions rail and an action bar" width="2400" height="1833" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>The hero screen. A deadline and a default sit at the top; the plan is grouped by crop stage, most sensitive first; the six exceptions sit beside it. The almond row explains, in one line, why the most valuable crop gets less water.</p>
+    <p class="sp"><span class="b">Key choices:</span> yield at risk is a range, not “+12%”; the agent lists what it does not know; approve, edit and decline live in one sticky bar.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>03</span> Field drawer: inspect without losing the plan</h3>
+  <div class="sk-shot"><img src="images/irrigation/field-drawer.webp" alt="A drawer for parcel M-112 over the plan review, showing live conditions with an estimated soil value, the agent's proposal with a soil moisture forecast chart, a run window slider inside the network turn, and optional override reasons" width="2400" height="1833" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>The drawer slides over the exceptions, so the plan stays in view. It shows live conditions with their source and age, a soil-moisture forecast with and without the plan, and a run window bounded by the water turn.</p>
+    <p class="sp"><span class="b">Key choices:</span> “Your window is the limit; the agent may shorten or stop the run, never extend it.” One optional tap tells the agent why you changed something.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>04</span> Fields: every parcel at a glance</h3>
+  <div class="sk-shot"><img src="images/irrigation/fields.webp" alt="Fields page with crop summary cards, a grid of equal squares per parcel grouped by water source and coloured by crop with six exception icons, soil moisture ranges by crop against stress floors, and a parcels table" width="2400" height="2233" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>One equal square per parcel, grouped by water source and coloured by crop, with the six exceptions marked by their status icon. Soil moisture by crop is drawn against each crop’s stress floor, and the table below sorts by status.</p>
+    <p class="sp"><span class="b">Key choice:</span> I tried a geographic map first and replaced it with squares. Irregular shapes made the exceptions harder to find, and position on a map mattered less than the water source.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>05</span> Delegation contract: autonomy is earned</h3>
+  <div class="sk-shot"><img src="images/irrigation/delegation.webp" alt="Delegation page for cotton parcel C-033: the agent asks to move to Act and notify with its 18 of 20 track record, four autonomy level cards, a table of limits marked by who owns them, a track record chart and level history" width="2400" height="1633" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>The agent asks for more freedom and shows its evidence: it matched Katerina’s decisions 18 times out of 20 in six weeks, and it explains both misses. Locked limits show who owns them: the farmer or the water authority.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>06</span> Execution monitor: physical truth</h3>
+  <div class="sk-shot"><img src="images/irrigation/execution.webp" alt="Execution monitor on Tuesday night with a timeline of runs and a now marker, summary of valves commanded, confirmed and failed, a valve table, a failure card for two valves with next steps and a paused leak" width="2400" height="1607" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>An agent that controls water fails in the physical world. The monitor separates a valve commanded, confirmed open and measured flowing. Failures are grouped with a next step, and the agent pauses a suspected leak on its own.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>07</span> Weekly digest: close the loop</h3>
+  <div class="sk-shot"><img src="images/irrigation/digest.webp" alt="Weekly digest with outcome cards, a forecast versus measured soil moisture chart, a log of what changed and why, the agronomist's overrides with what the agent learned, autonomy changes and a feedback prompt" width="2400" height="1667" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>The agent reports its forecast against what was measured, admits the day it was wrong, and shows what it learned from each override. This is where trust is repaired or earned for the next week.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>08</span> Mobile: decide from the car</h3>
+  <div class="sk-shot"><img src="images/irrigation/mobile.webp" alt="Three phone screens: a lock-screen alert with deadline and default, a quick decision screen with an Approve 206 standard parcels button, and a confirmation with undo and reminders for the exceptions" width="2400" height="1713" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>Only decisions alert; routine work arrives quietly. The phone button says exactly what it approves, “Approve 206 standard parcels”, and the exceptions are never approved by a tap. Undo stays visible until the first valve opens.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>09</span> Member update: Greek SMS first</h3>
+  <div class="sk-shot"><img src="images/irrigation/member.webp" alt="Two phones in Greek: an SMS thread from the cooperative about pre-irrigation on parcel M-140 with a reply-to-cancel option, and a parcel page with the schedule, the owner's limits and a cancel button, beside an English translation" width="2400" height="1713" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>Many members are older and use basic phones, so the farmer’s channel is SMS in Greek, with one action and the same deadline Katerina sees. The parcel page is optional. A veto is safe: the water goes back to the cooperative’s reserve.</p>
+  </section>
+
+  <!-- ===== 10. Edge cases ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Designed failure states</h2>
+  <div class="sk-cards sk-cards--3">
+    <div class="sk-card"><h3>Nobody answers</h3><p>The conservative default runs on standard parcels; exceptions wait; the manager is alerted two hours before the deadline.</p></div>
+    <div class="sk-card"><h3>Forecast and sensor disagree</h3><p>Measured data drives actions now; the forecast drives planning; the conflict is shown with both values.</p></div>
+    <div class="sk-card"><h3>Sensor offline</h3><p>A neighbour reading stands in and is labelled “est.”; past the freshness limit, the agent stops and asks.</p></div>
+    <div class="sk-card"><h3>Valve does not open</h3><p>One retry, then a grouped failure with next steps; the water returns to reserve.</p></div>
+    <div class="sk-card"><h3>Water turn is cut</h3><p>The agent re-plans and shows a diff against the plan she approved.</p></div>
+    <div class="sk-card sk-card--dark"><h3>Override goes worse</h3><p>Recorded without blame and used to calibrate, for both the agent and the person.</p></div>
+  </div>
+
+  <!-- ===== 11. Iterations ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">What I killed and why</h2>
+  <section class="copy copy--center"><p>The first draft came out of one AI-assisted session. A critical review changed most of it.</p></section>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">First version</th><th scope="col">Replaced by</th><th scope="col">Why</th></tr></thead>
+    <tbody>
+      <tr><td>Enterprise manager with 1,200 ha of center pivots in the Peloponnese</td><td>Cooperative agronomist in Thessaly, small drip-irrigated parcels</td><td>Did not match Greek farm structure or irrigation</td></tr>
+      <tr><td>Simulated interviews shown as research</td><td>Cited desk research and an assumption-based persona</td><td>Invented quotes are not evidence</td></tr>
+      <tr><td>An alert during the heat spike</td><td>A plan 72 hours ahead</td><td>Lead time is where the agent adds value</td></tr>
+      <tr><td>“Save the almonds” by cutting almond water</td><td>Stage-based priorities with a safety trigger</td><td>The original logic contradicted itself</td></tr>
+      <tr><td>One drawer for one field</td><td>One plan for 212 parcels, drawer for exceptions</td><td>A heatwave hits many fields at once</td></tr>
+      <tr><td>Approve or cancel, plus a slider</td><td>Deadline, default and bounded edits</td><td>Covers the busy, unreachable human</td></tr>
+      <tr><td>Geographic map as the home screen</td><td>Decision queue; square grid as a secondary view</td><td>Decisions, not tiles, are the unit of work</td></tr>
+      <tr><td>“+12% yield saved” and red/green status</td><td>Ranges with confidence; icon, word and colour</td><td>False precision and colour-only status erode trust</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- ===== 12. Testing and metrics ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">How I would test it</h2>
+  <section class="copy copy--center"><p>A moderated test with five or six agronomy students or proxy users on a Figma prototype. The centrepiece is a planted error: one plan line wrongly holds water from a maize field at silking, and the test measures whether people catch it.</p></section>
+  <div class="sk-stats ir-stats">
+    <div><strong>&lt; 3 min</strong><h3>to decide</h3><p>From alert to approved plan, for 212 parcels.</p></div>
+    <div><strong>4 of 6</strong><h3>catch the planted error</h3><p>Fewer than half would send me back to the design.</p></div>
+    <div><strong>&gt; 80%</strong><h3>appropriate reliance</h3><p>Accept when the agent is right, override when it is wrong.</p></div>
+  </div>
+  <section class="copy">
+    <p>All targets are hypotheses for a concept, not results. I avoided “AI acceptance rate” as a trust metric: a high rate can mean the plan was good, or that people stopped reading. Appropriate reliance separates the two.</p>
+  </section>
+
+  <!-- ===== 13. Reflection ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">What I learned</h2>
+  <section class="copy">
+    <p><span class="b">The agent is not a screen.</span> The interesting design work was the contract between the person and the agent: permissions, limits, deadlines, defaults and how they change over time.</p>
+    <p class="sp"><span class="b">Silence is a user state.</span> Designing for the person who does not answer made every other screen simpler.</p>
+    <p class="sp"><span class="b">Domain errors are design errors.</span> The first draft looked polished and was agronomically wrong. Checking the crop logic changed the hero screen.</p>
+    <p class="sp"><span class="b">Next:</span> interview three cooperative agronomists to test the riskiest assumptions: that they coordinate timing for members, that farmers would let a system open their valves, and that the hardware is there.</p>
+    <p class="sp ir-muted">I used AI as a sparring partner for research and critique. The decisions, structure and visual design are mine.</p>
+  </section>
+
+  <section class="copy ir-sources">
+    <p class="b">Sources</p>
+    <ul>
+      <li><a class="u" href="https://i2connect-h2020.eu/wp-content/uploads/2022/06/08_Brief-context-AKIS-Greece.pdf" target="_blank" rel="noopener">Greece AKIS brief context (i2connect)</a></li>
+      <li><a class="u" href="https://www.tovima.com/climate/greeces-water-crisis-deepens-farmers-in-larissa-left-without-harvest-after-irrigation-fiasco" target="_blank" rel="noopener">Farmers in Larissa left without harvest (To Vima, 2025)</a></li>
+      <li><a class="u" href="https://farmingportal.co.za/index.php/farming-news/international-news/10883-boreholes-are-bringing-up-air-not-water" target="_blank" rel="noopener">Boreholes are bringing up air, not water (Kathimerini, via Farming Portal, 2024)</a></li>
+      <li><a class="u" href="https://www.fao.org/land-water/databases-and-software/crop-information/maize/fr/" target="_blank" rel="noopener">Maize: water supply and crop yield (FAO)</a></li>
+      <li><a class="u" href="https://www.ucanr.edu/media/305891" target="_blank" rel="noopener">Managing almond hull rot with regulated deficit irrigation (UC ANR)</a></li>
+      <li><a class="u" href="https://openprairie.sdstate.edu/plant_faculty_pubs/406" target="_blank" rel="noopener">Barriers to adoption of decision support systems (Brugler et al., 2023)</a></li>
+      <li><a class="u" href="https://uhra.herts.ac.uk/id/eprint/14351" target="_blank" rel="noopener">Technology adoption in Greek and Lithuanian farmers (Payne-Gifford et al., 2020)</a></li>
+      <li><a class="u" href="https://journals.sagepub.com/doi/10.1177/0018720810376055" target="_blank" rel="noopener">Complacency and bias in human use of automation (Parasuraman and Manzey, 2010)</a></li>
+      <li><a class="u" href="https://agritechobservatory.review.fao.org/en/gaiasense" target="_blank" rel="noopener">Gaiasense (FAO Agritech Observatory)</a></li>
+    </ul>
+  </section>
+
+  <section class="copy copy--center" style="padding:36px clamp(18px,19.8vw,203px) 140px">
+    <h3>More work</h3>
+    <p class="sp"><a class="u" href="index.html#work">Back to all projects →</a></p>
+  </section>
+
+</main>
+<script src="js/main.js" defer></script>
+</body>
+</html>
