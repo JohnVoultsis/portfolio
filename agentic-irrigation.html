@@ -53,7 +53,7 @@
     <h2 class="overview__label" id="ov">Overview</h2>
     <div class="overview__text">
       <p>Agentic AI moves software from doing what you click to doing work on your behalf. The hard design questions change with it: how much may the agent do alone, how does it show what it plans, what happens when nobody answers, and how does a person take control back?</p>
-      <p>Irrigation makes those questions concrete. Water is shared and rationed, a late decision is the same as no decision, and a maize field stressed at the wrong week cannot be repaired. I designed the full experience: the delegation model, nine screens, the failure states, and an SMS flow for the farmers who own the land.</p>
+      <p>Irrigation makes those questions concrete. Water is shared and rationed, a late decision is the same as no decision, and a maize field stressed in the wrong week cannot be repaired. I designed the full experience: the delegation model, nine screens, the failure states, and an SMS flow for the farmers who own the land.</p>
       <p class="ir-muted">A fictional concept. Research is secondary and cited; quotes come from published interviews; all farm data is illustrative.</p>
     </div>
   </section>
@@ -74,7 +74,7 @@
     <div class="sk-card"><h3>Water arrives in turns</h3><p>Local land reclamation boards cut both the hours and the frequency of irrigation in dry years.</p></div>
     <div class="sk-card sk-card--dark"><h3>Timing is everything</h3><p>In 2025, reservoir water reached Larissa about two weeks late and crops were lost.</p></div>
   </div>
-  <blockquote class="ir-statement"><p>Cooperative agronomists cannot make timely, parcel-level water decisions for hundreds of mixed-crop parcels when heat and water limits hit at once. Scarce water goes to the wrong fields at the wrong time.</p></blockquote>
+  <div class="ir-statement"><p>Cooperative agronomists cannot make timely, parcel-level water decisions for hundreds of mixed-crop parcels when heat and water limits hit at once. Scarce water goes to the wrong fields at the wrong time.</p></div>
   <section class="copy">
     <p class="sp"><span class="b">How might we…</span></p>
     <ul>
@@ -103,7 +103,7 @@
       <tr><td>Farmers hesitate to swap a trusted advisor for a program that behaves like a black box.</td><td>The agronomist stays in the loop as the trusted advisor; the agent explains every action.</td></tr>
       <tr><td>Farmers differ in confidence; ease of adoption and peer use matter more than persuasion.</td><td>Autonomy is set per field, and new fields start in a no-risk shadow mode.</td></tr>
       <tr><td>Automation bias affects experts too, and training does not prevent it.</td><td>Exceptions come first, the test plants a deliberate error, and trust is measured as calibration.</td></tr>
-      <tr><td>The leading Greek platform advises; it does not act.</td><td>Supervised execution is the gap this concept explores.</td></tr>
+      <tr><td>The leading Greek platform is described as a management and advisory system.</td><td>Supervised execution is the gap this concept explores.</td></tr>
     </tbody>
   </table>
   </div>
@@ -140,7 +140,7 @@
     <div class="sk-card"><span class="sk-card__num">Mon</span><h3>One alert</h3><p>A plan is ready, with a deadline and a safe default if she does not answer.</p></div>
     <div class="sk-card"><span class="sk-card__num">Mon</span><h3>Plan review</h3><p>She approves the plan in one go and opens only the six exceptions.</p></div>
     <div class="sk-card"><span class="sk-card__num">Tue–Wed</span><h3>Execution</h3><p>Night runs inside the water turns; two valves fail and one leak is paused.</p></div>
-    <div class="sk-card"><span class="sk-card__num">Thu–Sat</span><h3>Live adjustment</h3><p>Clouds bring the temperature down; the agent shortens runs, never extends them.</p></div>
+    <div class="sk-card"><span class="sk-card__num">Thu–Sat</span><h3>Live adjustment</h3><p>The agent re-checks the plan every morning and shortens runs where soil reaches its target. It never extends them.</p></div>
     <div class="sk-card"><span class="sk-card__num">Sun</span><h3>Digest</h3><p>Outcome against forecast, every change and why, and what the agent learned.</p></div>
     <div class="sk-card sk-card--dark"><span class="sk-card__num">Always</span><h3>Members informed</h3><p>Each farmer gets an SMS in Greek with the same times, volumes and deadline.</p></div>
   </div>
@@ -151,7 +151,7 @@
       <tr><th scope="row">Maize</th><td>Silking</td><td>Pre-irrigate Tue and Wed nights, first priority</td><td>Water stress at silking causes the largest grain loss (FAO).</td></tr>
       <tr><th scope="row">Cotton</th><td>Flowering</td><td>Pre-irrigate Wed night</td><td>Peak water demand this week.</td></tr>
       <tr><th scope="row">Processing tomato</th><td>Fruit fill</td><td>Keep the schedule, move runs to night</td><td>Less water lost to evaporation.</td></tr>
-      <tr><th scope="row">Almond</th><td>Hull split</td><td>Stay on planned deficit (about 50%), with a safety trigger</td><td>Mild stress at hull split is standard practice and reduces hull rot (UC ANR).</td></tr>
+      <tr><th scope="row">Almond</th><td>Hull split</td><td>Stay on planned deficit (about 50%), with a safety trigger</td><td>Mild stress at hull split is a recommended practice that reduces hull rot (UC ANR).</td></tr>
     </tbody>
   </table>
   </div>
@@ -261,7 +261,7 @@
       </div>
       <ul class="ir-rules">
         <li>Light mode by default: alerts are read outdoors.</li>
-        <li>WCAG 2.2 AA for all text; AAA for status and numbers.</li>
+        <li>WCAG 2.2 AA: every text colour, status colours included, is at least 4.5:1.</li>
         <li>Forecasts drawn as ranges, never a single line.</li>
         <li>Tabular numbers, metric units, 24-hour time, Greek first.</li>
       </ul>
@@ -271,7 +271,7 @@
   <!-- ===== 9. Screens ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">The screens</h2>
-  <section class="copy copy--center"><p>Nine screens carry the story, in the order Katerina meets them during the heatwave week.</p></section>
+  <section class="copy copy--center"><p>Nine screens carry the story: the heatwave decision first, then the views that support it.</p></section>
 
   <h3 class="ir-screen-title"><span>01</span> Dashboard: decisions first</h3>
   <div class="sk-shot"><img src="images/irrigation/dashboard.webp" alt="Dashboard with two decisions that need the agronomist, each with a deadline and a default, the agent's overnight actions, water against allocation, network turns, forecast, data health, an agent pause switch and a grid of fields by water source" width="2400" height="1927" loading="lazy" decoding="async"></div>
@@ -351,7 +351,7 @@
   <table class="sk-table sk-table--plain">
     <thead><tr><th scope="col">First version</th><th scope="col">Replaced by</th><th scope="col">Why</th></tr></thead>
     <tbody>
-      <tr><td>Enterprise manager with 1,200 ha of center pivots in the Peloponnese</td><td>Cooperative agronomist in Thessaly, small drip-irrigated parcels</td><td>Did not match Greek farm structure or irrigation</td></tr>
+      <tr><td>Enterprise manager with 1,200 ha of centre pivots in the Peloponnese</td><td>Cooperative agronomist in Thessaly, small drip-irrigated parcels</td><td>Did not match Greek farm structure or irrigation</td></tr>
       <tr><td>Simulated interviews shown as research</td><td>Cited desk research and an assumption-based persona</td><td>Invented quotes are not evidence</td></tr>
       <tr><td>An alert during the heat spike</td><td>A plan 72 hours ahead</td><td>Lead time is where the agent adds value</td></tr>
       <tr><td>“Save the almonds” by cutting almond water</td><td>Stage-based priorities with a safety trigger</td><td>The original logic contradicted itself</td></tr>
@@ -384,7 +384,7 @@
     <p class="sp"><span class="b">Silence is a user state.</span> Designing for the person who does not answer made every other screen simpler.</p>
     <p class="sp"><span class="b">Domain errors are design errors.</span> The first draft looked polished and was agronomically wrong. Checking the crop logic changed the hero screen.</p>
     <p class="sp"><span class="b">Next:</span> interview three cooperative agronomists to test the riskiest assumptions: that they coordinate timing for members, that farmers would let a system open their valves, and that the hardware is there.</p>
-    <p class="sp ir-muted">I used AI as a sparring partner for research and critique. The decisions, structure and visual design are mine.</p>
+    <p class="sp ir-muted">How this was made: I worked with AI tools for research, critique and producing the screens. I set the direction, made the design decisions and checked every fact against its source.</p>
   </section>
 
   <section class="copy ir-sources">
