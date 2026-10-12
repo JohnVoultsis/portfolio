@@ -471,8 +471,8 @@ code{font:400 .88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;backgro
 a.card:hover .card__title{text-decoration:underline;text-underline-position:from-font}
 .card--mf .card__img{aspect-ratio:313/266.418}
 .card--mf .card__img>img{height:131.79%;left:-38.7%;top:-19.33%;width:168.24%}
-.card--gwc .card__img{aspect-ratio:212/198.667}
-.card--gwc .card__img>img{height:100%;left:-20.28%;top:0;width:140.57%}
+.card--gwc .card__img{aspect-ratio:313/266.418}
+.card--gwc .card__img>img{height:110.1%;left:-20.28%;top:-10.1%;width:140.57%}
 .card--sk .card__img,.card--sk2 .card__img{aspect-ratio:313/266.418}
 .card--sk2 .card__img>img{inset:0;width:100%;height:100%;object-fit:cover}
 .card--sk .card__img>img{inset:0;width:100%;height:100%;object-fit:cover;object-position:18% 0}
