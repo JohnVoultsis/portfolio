@@ -670,6 +670,26 @@ a.card:hover .card__title{text-decoration:underline;text-underline-position:from
   .ir-loop{margin-inline:14px}
 }
 
+/* 9h. A2 Rig (personal app) ---------------------------------------------- */
+/* Bebas Neue (OFL, fonts/OFL-bebas-neue.txt), Latin subset, the app's label face */
+@font-face{font-family:"Bebas Neue";font-style:normal;font-weight:400;font-display:swap;src:url("../fonts/bebas-neue-latin-subset.woff2") format("woff2")}
+.a2-tag{display:inline-block;margin-top:14px;padding:3px 12px;border-radius:99px;background:#fdf0e3;color:#9a4f0c;font-weight:700;font-size:calc(var(--fs-body)*.8)}
+.a2-chains{display:grid;gap:22px;padding:12px 24px 0}
+.a2-chains figure{margin:0}
+.a2-chains img{display:block;width:100%;height:auto;border-radius:14px}
+.a2-chains figcaption{margin-top:8px;font-size:calc(var(--fs-body)*.88);line-height:1.5;color:#4f4f4f}
+.a2-chains figcaption b{color:#000}
+.a2-type__panel{padding:22px 24px;border-radius:14px;background:#2d2c2a;color:#efede8}
+.a2-type__panel p+p{margin-top:10px}
+.a2-type .a2-type__display{font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(26px,3vw,34px);line-height:1.05;letter-spacing:.04em;color:#e8892b}
+.a2-type .a2-type__label{font-family:"Bebas Neue",Impact,sans-serif;font-size:19px;letter-spacing:.08em;color:#9d998f}
+.a2-type .a2-type__body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;font-size:14px;font-variant-numeric:tabular-nums}
+.a2-keys kbd{display:inline-block;min-width:26px;padding:1px 7px;border-radius:6px;border:1px solid #c9c9c9;border-bottom-width:2px;background:#fff;font-family:inherit;font-size:.9em;font-weight:700;text-align:center;line-height:1.5}
+.a2-keys tbody td:nth-child(2){color:inherit}
+@media (max-width:560px){
+  .a2-chains{padding-inline:14px}
+}
+
 /* 12. Footer / sitemap ---------------------------------------------------- */
 .site-footer{margin-top:clamp(48px,6vw,96px);background:#fff;border-top:1px solid #e3e3e3;box-shadow:0 -4px 12.35px rgba(0,0,0,.05);color:var(--muted)}
 .site-footer__inner{max-width:var(--maxw);margin-inline:auto;padding:clamp(32px,4.5vw,56px) clamp(16px,3.8vw,39px) 28px;
