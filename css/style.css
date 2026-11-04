@@ -714,3 +714,12 @@ a.card:hover .card__title{text-decoration:underline;text-underline-position:from
 @media (max-width:560px){.site-footer__inner{grid-template-columns:1fr;gap:26px}}
 @media (max-width:640px){html{scroll-padding-top:110px}}
 @media print{.site-header{position:static}.site-footer{box-shadow:none}}
+
+/* 9h-2. A2 Rig v2 ------------------------------------------------------------ */
+.a2-v2-label{margin:0 auto -6px;padding:0 var(--pad-text);text-align:center;font-weight:700;font-size:calc(var(--fs-body)*.8);letter-spacing:.08em;text-transform:uppercase;color:#9a4f0c}
+figure.a2-chains{margin:0}
+.a2-bars{list-style:none;margin:0;padding:12px 24px 0;display:grid;gap:8px}
+.a2-bars li{display:grid;grid-template-columns:minmax(120px,190px) 1fr 92px;align-items:center;gap:14px;font-size:calc(var(--fs-body)*.88)}
+.a2-bars__bar{display:block;height:14px;border-radius:7px;background:#e8892b;width:calc(var(--v) / 6.8 * 100%);min-width:4px}
+.a2-bars__val{font-variant-numeric:tabular-nums;color:#4f4f4f;text-align:right}
+@media (max-width:640px){.a2-bars{padding-inline:14px}.a2-bars li{grid-template-columns:96px 1fr 76px;gap:8px}}

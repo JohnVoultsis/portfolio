@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A2 Rig (Personal App) — John Voultsis</title>
-<meta name="description" content="A lightweight Mac app I designed for my own guitar practice: it plays Neural Amp Modeler A2 captures without a DAW, with the signal chain as an editable interface, pedal captures with honest controls, meters, auto-gain and quiet metrics.">
+<meta name="description" content="A lightweight Mac app I designed for my own guitar practice: it plays Neural Amp Modeler A2 captures without a DAW, with the signal chain as an editable interface. Version 2 adds two or three measured DSP models per pedal and a stereo chorus.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:title" content="A2 Rig (Personal App) — John Voultsis">
@@ -50,6 +50,7 @@
         <li>Microcopy</li>
         <li>App icon and installer</li>
         <li>Performance budget</li>
+        <li>DSP evaluation and measurement</li>
         <li>Prototyping in code</li>
       </ul>
       <p class="a2-tag">Personal tool · built for my own use</p>
@@ -64,6 +65,7 @@
       <p>NAM is an open-source way to capture a real amp with machine learning and play it on a computer. Its newer A2 captures are lighter and can run in two qualities, Full and Lite. To play them, though, I had to open a recording program, make a track, arm the input, insert a plugin and load the capture and a cabinet file. Every single time.</p>
       <p>So I designed my own player. One window, opened straight into playing, built around how I already think about a guitar rig: a chain of pedals into an amp and a cabinet. It took three rounds. The third came entirely from my own use of the app: the questions I asked while playing it became its best features.</p>
       <p>The design is mine from start to finish: the brief, the interaction model, the visual direction and every decision between the builds.</p>
+      <p>Version 2 gave every pedal two or three models and added a stereo chorus. Each model was chosen against the same criteria and measured before it stayed.</p>
       <p class="ir-muted">A real, working app for my own use. The screenshots below are from the running app.</p>
     </div>
   </section>
@@ -192,6 +194,171 @@
   <section class="copy">
     <p>The settings now list every buffer size the audio interface accepts, each with its time in milliseconds next to it: “32 samples (0.7 ms)”. A guitarist feels milliseconds, not samples, so the trade-off between speed and stability is shown in the unit that matters. 64 stays the default; the note below tells you to go back up if you hear crackles.</p>
   </section>
+
+  <!-- ===== V2 ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <p class="a2-v2-label">Version 2</p>
+  <h2 class="section-title section-title--lg">v2: two or three voices for every pedal</h2>
+  <section class="copy copy--center"><p>After months of playing v1, the pedals were the weak spot: one gate, one overdrive, one delay, one reverb, each with a single sound. My brief for v2 was short. It is for my own use, so choose purely on sound. Give each pedal two or three models, but only if that does not make the app heavy.</p></section>
+  <div class="sk-shot"><img src="images/a2rig/v2-lead.webp" alt="A2 Rig version 2 with the preset Studio Lead: noise gate tagged SOFT, overdrive tagged TS-9, amp head, speaker cabinet, delay tagged TAPE and reverb tagged HALL; the overdrive is selected and its panel shows a TS-9, KLON and NAM switch, the line Neural net of a real TS-9 (GuitarML), and Drive, Tone and Level knobs" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <div class="sk-stats ir-stats">
+    <div><strong>14</strong><h3>models in 5 pedals</h3><p>Gate 2, overdrive 3, chorus 3, delay 3, reverb 3.</p></div>
+    <div><strong>~21%</strong><h3>a full rig</h3><p>Gate, TS-9, amp, cab, tape delay and the heaviest reverb, on one core.</p></div>
+    <div><strong>0</strong><h3>models loaded unused</h3><p>A model loads only when you pick it; memory use roughly halved.</p></div>
+  </div>
+
+  <h3 class="ir-screen-title"><span>1</span> One switch, the same place on every pedal</h3>
+  <figure class="a2-chains"><img src="images/a2rig/v2-selectors.webp" alt="Four pedal panel headers stacked: Noise gate with TIGHT and SOFT, Chorus with CE-2, DIMENSION and JUNO, Delay with DIGITAL, ANALOG and TAPE, Reverb with HALL, PLATE and AMBIENT; the chosen model is filled in orange and a one-line description follows each switch" width="1490" height="378" loading="lazy" decoding="async"><figcaption>The model switch sits in the same spot on every pedal, followed by one line that says what the model is.</figcaption></figure>
+  <section class="copy">
+    <p>More models could easily have meant more menus. Instead, every pedal panel got the same segmented switch next to its on/off toggle, and the switch reuses the DSP / NAM switch from v1, so there was nothing new to learn.</p>
+    <ul>
+      <li><b>Names, not numbers.</b> Models carry the names guitarists already know: TS-9, KLON, CE-2, HALL, PLATE. One quiet line explains each: “Bucket-brigade: dark, saturated, a little wobble”.</li>
+      <li><b>Each model shows only its own knobs.</b> The plate has Decay, Low cut, Pre-delay and Mix; the ambient reverb has Bright and Detune instead. A knob is there only if the model really uses it, the same rule as v1’s frozen NAM knobs.</li>
+      <li><b>Each model remembers its settings.</b> Trying KLON and going back to TS-9 brings back the TS-9 exactly as it was, so comparing costs nothing.</li>
+      <li><b>The tag under the block names the model.</b> v1’s DSP / NAM tag now reads TS-9, TAPE or HALL, so the whole rig can be read from the chain.</li>
+      <li><b>Switching is safe while playing:</b> the old and new model crossfade, and delay and reverb tails keep ringing.</li>
+    </ul>
+  </section>
+  <div class="sk-shot a2-shot-gap"><img src="images/a2rig/v2-add-menu.webp" alt="The plus after the cabinet opens Add after the amp with Noise gate, Overdrive, Chorus, Delay and Reverb; the Chorus submenu lists CE-2, DIMENSION and JUNO, each with a one-line description" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>The “+” menu now picks the pedal and its model in one move, with the same descriptions. Pedals are listed in pedalboard order (dynamics, drive, modulation, time), so the menu teaches a sensible chain without enforcing one.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>2</span> The line-up</h3>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">Pedal</th><th scope="col">Models</th><th scope="col">Based on</th></tr></thead>
+    <tbody>
+      <tr><td>Noise gate</td><td><b>TIGHT</b> · <b>SOFT</b></td><td>TIGHT: hysteresis and hold, own code. SOFT: the official NAM plug-in’s expander (AudioDSPTools, MIT)</td></tr>
+      <tr><td>Overdrive</td><td><b>TS-9</b> · <b>KLON</b> · <b>NAM</b></td><td>TS-9: GuitarML’s neural net of a real TS-9 (GPL-3) on RTNeural (BSD-3). KLON: ChowCentaur circuit model on chowdsp_wdf (BSD-3), 4× oversampled. NAM: any pedal capture, knobs frozen as in v1</td></tr>
+      <tr><td>Chorus (new)</td><td><b>CE-2</b> · <b>DIMENSION</b> · <b>JUNO</b></td><td>Own bucket-brigade models, built from published measurements of the Boss CE-2, Roland SDD-320 and Juno-60</td></tr>
+      <tr><td>Delay</td><td><b>DIGITAL</b> · <b>ANALOG</b> · <b>TAPE</b></td><td>DIGITAL with Duck and ANALOG (bucket-brigade style, stereo): own code. TAPE: Airwindows TapeDelay2 (MIT)</td></tr>
+      <tr><td>Reverb</td><td><b>HALL</b> · <b>PLATE</b> · <b>AMBIENT</b></td><td>HALL: Cloud Seed 2 (MIT). PLATE: Airwindows kPlateD. AMBIENT: Airwindows Galactic3 (MIT)</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 class="ir-screen-title"><span>3</span> A new pedal: chorus, after the amp, in stereo</h3>
+  <div class="sk-shot"><img src="images/a2rig/v2-chorus.webp" alt="Preset Clean Chorus: a chorus pedal drawn with three knobs and two out-of-phase sine waves sits after the cabinet, tagged JUNO, Mode II, Mix 100%; its panel shows CE-2, DIMENSION and JUNO, and Mode and Mix knobs reading II and 100%" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>The chorus is the first pedal designed for v2’s stereo signal. After the amp the chain is stereo, so the chorus can spread the sound wide; before the amp it folds back to mono, the way a real pedal in front of an amp would.</p>
+    <ul>
+      <li><b>Controls follow the hardware.</b> The CE-2 has Rate and Depth. The Dimension has only its four mode buttons, so its Mode knob steps 1 to 4. The Juno’s knob reads I, II and I+II, exactly as on the synth.</li>
+      <li><b>A new symbol.</b> The pedal’s drawing has two sine waves slightly out of phase, so the chain still reads at a glance.</li>
+      <li><b>Mono when I need it.</b> Settings got a Mono output switch for playing through a single speaker.</li>
+    </ul>
+  </section>
+  <div class="sk-shot a2-shot-gap"><img src="images/a2rig/v2-settings.webp" alt="Settings panel in version 2: audio interface settings, round-trip latency 8.0 ms, and a Levels section with Level-match models switched on and Mono output switched off" width="2488" height="1624" loading="lazy" decoding="async"></div>
+
+  <!-- ===== V2: evaluation ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <p class="a2-v2-label">Version 2</p>
+  <h2 class="section-title section-title--lg">How the DSP was chosen</h2>
+  <section class="copy copy--center"><p>Every model had to earn its place against the same four questions. Sound came first; the other three decided whether a good sound was worth its cost.</p></section>
+  <div class="sk-cards sk-cards--4">
+    <div class="sk-card sk-card--dark"><h3>Sound</h3><p>Is it the best available sound for this pedal, and is it different enough from the other models to be worth a button?</p></div>
+    <div class="sk-card"><h3>CPU</h3><p>Measured, not estimated, at 48 kHz and a 64-sample buffer on one core, before committing to it.</p></div>
+    <div class="sk-card"><h3>Latency</h3><p>No added delay to the guitar. Anything that needs lookahead is out.</p></div>
+    <div class="sk-card"><h3>Licence</h3><p>Open source with a licence that fits. Personal use allowed GPL and LGPL; a closed-source tool could not be used.</p></div>
+  </div>
+  <div class="sk-arch">
+    <div class="sk-node"><h3>1 · Research</h3><p>Open-source reverbs, gates, drives and choruses, plus papers and hardware measurements.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>2 · Shortlist</h3><p>Two or three per pedal, each with a clearly different character.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>3 · Build in</h3><p>Into the real chain, with crossfades, presets and level-matching.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node sk-node--dark"><h3>4 · Measure</h3><p>A full audit with test signals, then fix what the numbers showed.</p></div>
+  </div>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">Candidate</th><th scope="col">For</th><th scope="col">Result</th></tr></thead>
+    <tbody>
+      <tr><td>Cloud Seed 2 (MIT)</td><td>Reverb</td><td><b>Used: HALL.</b> The biggest step up in sound, and the heaviest model in the app (about 6%).</td></tr>
+      <tr><td>Airwindows kPlateD, Galactic3, TapeDelay2 (MIT)</td><td>Reverb, delay</td><td><b>Used: PLATE, AMBIENT, TAPE.</b> Distinct characters at very low CPU.</td></tr>
+      <tr><td>GuitarML TS-M1N3 on RTNeural</td><td>Overdrive</td><td><b>Used: TS-9.</b> A neural net trained on a real TS-9, with working Drive and Tone; 100 KB of weights.</td></tr>
+      <tr><td>ChowCentaur on chowdsp_wdf (BSD-3)</td><td>Overdrive</td><td><b>Used: KLON.</b> A circuit model of the Klon Centaur.</td></tr>
+      <tr><td>NAM plug-in gate (AudioDSPTools, MIT)</td><td>Gate</td><td><b>Used: SOFT.</b> The gate NAM players already know.</td></tr>
+      <tr><td>LSP Gate (LGPL)</td><td>Gate</td><td><b>Rejected.</b> Its lookahead adds latency.</td></tr>
+      <tr><td>Yeh tone-stack model</td><td>Amp EQ</td><td><b>Rejected.</b> The amp’s tone stack is already inside the capture, so it would filter the sound twice.</td></tr>
+      <tr><td>Dragonfly (GPL-3), ReverbSC (LGPL)</td><td>Reverb</td><td>Considered.</td></tr>
+      <tr><td>TAL-Chorus-LX</td><td>Chorus</td><td><b>Not possible:</b> closed source. The Juno model was built from published measurements instead.</td></tr>
+      <tr><td>Q pitch detector (MIT), Giannoulis–Massberg–Reiss compressor</td><td>Tuner, compressor</td><td>Kept for future pedals.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- ===== V2: measurement ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <p class="a2-v2-label">Version 2</p>
+  <h2 class="section-title section-title--lg">Measuring before trusting</h2>
+  <section class="copy copy--center"><p>A label on a knob is a promise. If Decay says 2.5 s, the reverb should die away in 2.5 s. So every model was audited with test signals, and the numbers drove a round of fixes.</p></section>
+  <div class="sk-cards sk-cards--3">
+    <div class="sk-card"><h3>Sweeps and impulses</h3><p>Frequency response, notches and timing of every model, rendered offline at 44.1, 48 and 96 kHz.</p></div>
+    <div class="sk-card"><h3>Aliasing at 3,137 Hz</h3><p>A tone that does not divide 48 kHz evenly. At 3,000 Hz the aliases land on the harmonics and hide.</p></div>
+    <div class="sk-card"><h3>RT60 on a grid</h3><p>The hall’s real decay time was measured on a Decay × Size grid of 450 renders, then the knob was calibrated to it.</p></div>
+    <div class="sk-card"><h3>Level matching</h3><p>Every model measured against the same input, so switching models does not jump in volume.</p></div>
+    <div class="sk-card"><h3>Gate on real playing</h3><p>Palm mutes over hiss: how far below the note the gate cuts the noise, and whether decaying notes stutter.</p></div>
+    <div class="sk-card sk-card--dark"><h3>Stress tests</h3><p>874 random live chain edits (948 with the chorus) under AddressSanitizer and UBSan: no leaks, no NaN, no crashes.</p></div>
+  </div>
+
+  <h3 class="ir-screen-title"><span>4</span> What the numbers showed, and what changed</h3>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">Model</th><th scope="col">Measured before</th><th scope="col">After the fix</th></tr></thead>
+    <tbody>
+      <tr><td>HALL</td><td>Decay showed 2.5 s while the real RT60 was 6.3 s. The reverb started 80–190 ms late, and could not go below ~1.2 s.</td><td>Decay 1.0 s measures 1.00 s, 7 s measures 7.11 s. Range 0.4–12 s; the sound starts at the pre-delay.</td></tr>
+      <tr><td>KLON</td><td>A −17 dB notch at 3 kHz (its two paths out of time) and aliasing at −30 dB.</td><td>Smooth response, aliasing at −69 dB, unity level.</td></tr>
+      <tr><td>TS-9</td><td>Checked line by line against the original model.</td><td>Matches: mid hump 720 Hz–2 kHz, aliasing at −92 dB.</td></tr>
+      <tr><td>Gates</td><td>Gating only the amp’s input: a high-gain amp compresses, so decaying notes sputtered.</td><td>Detect on the guitar, cut after amp and cab. TIGHT cuts the noise 44 dB below the note.</td></tr>
+      <tr><td>PLATE</td><td>Decay in arbitrary units.</td><td>Decay shown in measured seconds.</td></tr>
+      <tr><td>TAPE</td><td>Repeats 9% early at 48 kHz.</td><td>On time.</td></tr>
+      <tr><td>Cab IR</td><td>3 dB louder at 96 kHz.</td><td>The same level at every sample rate.</td></tr>
+      <tr><td>Levels</td><td>Models jumped in volume when switched.</td><td>Delays within 0.4 dB of each other; HALL +1 dB, AMBIENT −2.6 dB trims; TS-9 and KLON within 1 dB of the input at Level 5.</td></tr>
+      <tr><td>Trails</td><td>Tails cut off after 6 s.</td><td>Tails ring out; 40 ms fades on model, remove and preset changes; a 10 ms dip when a capture is swapped.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 class="ir-screen-title"><span>5</span> The chorus against the hardware</h3>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">Model</th><th scope="col">Hardware (published)</th><th scope="col">Measured in the app</th></tr></thead>
+    <tbody>
+      <tr><td>JUNO I</td><td>0.513 Hz, 1.66–5.35 ms</td><td>0.51 Hz, 1.71–5.40 ms</td></tr>
+      <tr><td>JUNO I+II</td><td>9.75 Hz, 3.3–3.7 ms</td><td>9.71 Hz, 3.35–3.75 ms</td></tr>
+      <tr><td>DIMENSION, mode 3</td><td>7.5 ± 1.5 ms at 0.5 Hz</td><td>7.5 ± 1.5 ms at 0.51 Hz</td></tr>
+      <tr><td>CE-2</td><td>From 5.12 ms, LFO 0.3–3.5 Hz</td><td>5.2–11.2 ms, 0.31–3.48 Hz</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <section class="copy">
+    <p>Level stays within ±1 dB at any Mix setting. Distortion is −68 dB on the CE-2 at guitar level (−41 dB when hit hard) and −85 dB on the Dimension.</p>
+    <p class="sp ir-muted">Not modelled: the bucket-brigade clock itself, which adds noise and aliasing rather than character. The Dimension and Juno filter frequencies (9 and 9.5 kHz) are chosen, not published.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>6</span> What each model costs</h3>
+  <ul class="a2-bars" aria-label="CPU use per model, percent of one core">
+    <li><span class="a2-bars__name">HALL</span><span class="a2-bars__bar" style="--v:6.2" aria-hidden="true"></span><span class="a2-bars__val">5.5–6.8%</span></li>
+    <li><span class="a2-bars__name">TS-9</span><span class="a2-bars__bar" style="--v:3.5" aria-hidden="true"></span><span class="a2-bars__val">3–4%</span></li>
+    <li><span class="a2-bars__name">NAM pedal (A2-Lite)</span><span class="a2-bars__bar" style="--v:1.9" aria-hidden="true"></span><span class="a2-bars__val">~1.9%</span></li>
+    <li><span class="a2-bars__name">KLON</span><span class="a2-bars__bar" style="--v:1.5" aria-hidden="true"></span><span class="a2-bars__val">1.1–2%</span></li>
+    <li><span class="a2-bars__name">PLATE</span><span class="a2-bars__bar" style="--v:1.45" aria-hidden="true"></span><span class="a2-bars__val">1.3–1.6%</span></li>
+    <li><span class="a2-bars__name">SOFT gate</span><span class="a2-bars__bar" style="--v:.8" aria-hidden="true"></span><span class="a2-bars__val">~0.8%</span></li>
+    <li><span class="a2-bars__name">AMBIENT</span><span class="a2-bars__bar" style="--v:.65" aria-hidden="true"></span><span class="a2-bars__val">0.5–0.8%</span></li>
+    <li><span class="a2-bars__name">Delays</span><span class="a2-bars__bar" style="--v:.45" aria-hidden="true"></span><span class="a2-bars__val">0.2–0.7%</span></li>
+    <li><span class="a2-bars__name">Choruses</span><span class="a2-bars__bar" style="--v:.2" aria-hidden="true"></span><span class="a2-bars__val">~0.2%</span></li>
+    <li><span class="a2-bars__name">TIGHT gate</span><span class="a2-bars__bar" style="--v:.1" aria-hidden="true"></span><span class="a2-bars__val">~0.1%</span></li>
+  </ul>
+  <section class="copy">
+    <p>The whole rig (gate, TS-9, A2-Full amp, cab, tape delay and HALL) runs at about 21% of one core, idle is about 0.5%, and the app is about 8.5 MB. A model that is not selected is not loaded and costs nothing.</p>
+    <p class="sp ir-muted">Measured offline on one core of a test server at 48 kHz with a 64-sample buffer. These are measurements, not listening tests: the numbers say a model is correct, not that it sounds good.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>7</span> More v2 screens</h3>
+  <div class="sk-shot"><img src="images/a2rig/v2-reverb.webp" alt="Reverb selected with PLATE chosen: Decay 2.2 s, Low cut 60%, Pre-delay 15 ms and Mix 22%, with the description Airwindows kPlateD: a classic studio plate" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <div class="sk-shot a2-shot-gap"><img src="images/a2rig/v2-delay.webp" alt="Delay selected with ANALOG chosen: Time 360 ms, Feedback 30%, Mix 20%, Tone 4.0 and Mod 3.0" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <div class="sk-shot a2-shot-gap"><img src="images/a2rig/v2-gate.webp" alt="Noise gate selected with TIGHT chosen: Threshold minus 70 dB, Release 60 ms and Hold 20 ms, and an OPEN indicator next to the description; the overdrive is switched off and drawn greyed out with its KLON tag" width="2488" height="1624" loading="lazy" decoding="async"></div>
 
   <!-- ===== 5. Principles ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
@@ -444,7 +611,7 @@
     <p class="sp"><span class="b">Simplify by generalising.</span> A “+” that works everywhere removed a switch that only worked for one pedal.</p>
     <p class="sp"><span class="b">Performance is UX.</span> For an audio app, “extremely lightweight” turned into numbers I could check, and it changed what got built.</p>
     <p class="sp"><span class="b">The review is where the design happened.</span> The first build worked, but it was too generic. Each round after it came from taking it apart and setting new rules for it.</p>
-    <p class="sp ir-muted">How this was made: the design is entirely mine: the brief, the references, the interaction and visual decisions, and every review. The sound engine is the open-source NAM core; the app around it was written with Claude from my specifications, and I tested every build.</p>
+    <p class="sp ir-muted">How this was made: the design is entirely mine: the brief, the references, the interaction and visual decisions, and every review. The sound engine is the open-source NAM core; the app around it was written with Claude from my specifications, and I tested every build. For v2, the DSP research and the measurements were run with Claude against my brief and criteria.</p>
   </section>
 
   <section class="copy ir-sources">
@@ -454,6 +621,20 @@
       <li><a class="u" href="https://github.com/sdatkinson/NeuralAmpModelerCore" target="_blank" rel="noopener">NeuralAmpModelerCore (MIT licence), Steven Atkinson and contributors</a></li>
       <li><a class="u" href="https://juce.com" target="_blank" rel="noopener">JUCE framework</a></li>
       <li><a class="u" href="https://fonts.google.com/specimen/Bebas+Neue" target="_blank" rel="noopener">Bebas Neue (SIL Open Font License)</a></li>
+    </ul>
+    <p class="b sp">Version 2: DSP models and research</p>
+    <ul>
+      <li><a class="u" href="https://github.com/GhostNoteAudio/CloudSeedCore" target="_blank" rel="noopener">CloudSeedCore (MIT), Ghost Note Audio</a></li>
+      <li><a class="u" href="https://github.com/baconpaul/airwin2rack" target="_blank" rel="noopener">airwin2rack: Airwindows kPlateD, Galactic3, TapeDelay2 (MIT)</a> · <a class="u" href="https://www.airwindows.com/kplated/" target="_blank" rel="noopener">Airwindows kPlateD</a> · <a class="u" href="https://github.com/hollance/airwindows-juce" target="_blank" rel="noopener">Airwindows JUCE ports</a></li>
+      <li><a class="u" href="https://github.com/GuitarML/TS-M1N3" target="_blank" rel="noopener">GuitarML TS-M1N3 (GPL-3)</a> · <a class="u" href="https://github.com/jatinchowdhury18/RTNeural" target="_blank" rel="noopener">RTNeural (BSD-3)</a></li>
+      <li><a class="u" href="https://github.com/jatinchowdhury18/KlonCentaur" target="_blank" rel="noopener">ChowCentaur (BSD-3)</a> · <a class="u" href="https://ccrma.stanford.edu/~jatin/chowdsp/chowdsp_wdf" target="_blank" rel="noopener">chowdsp_wdf (BSD-3)</a> · <a class="u" href="https://ccrma.stanford.edu/~jatin/chowdsp/chowdsp_utils" target="_blank" rel="noopener">chowdsp_utils</a></li>
+      <li><a class="u" href="https://www.electrosmash.com/boss-ce-2-analysis" target="_blank" rel="noopener">Boss CE-2 analysis (ElectroSmash)</a> · <a class="u" href="https://anasounds.com/working-analog-chorus-effect-boss-ce2/" target="_blank" rel="noopener">How the CE-2 works (Anasounds)</a></li>
+      <li><a class="u" href="https://www.florian-anwander.de/roland_string_choruses/" target="_blank" rel="noopener">Roland string-ensemble choruses (Florian Anwander)</a> · <a class="u" href="https://archive.org/stream/SDD-320_owners_manual/SDD-320_owners_manual_djvu.txt" target="_blank" rel="noopener">Roland SDD-320 owner’s manual</a></li>
+      <li><a class="u" href="https://github.com/pendragon-andyh/Juno60/blob/master/Chorus/README.md" target="_blank" rel="noopener">Juno-60 chorus measurements (Andy Harman)</a></li>
+      <li><a class="u" href="https://github.com/Chowdhury-DSP/BYOD" target="_blank" rel="noopener">BYOD (Chowdhury DSP)</a> · <a class="u" href="https://github.com/JamesStubbsEng/TS-808-Ultra" target="_blank" rel="noopener">TS 808 Ultra</a></li>
+      <li><a class="u" href="https://synthanatomy.com/2018/11/news-dragonfly-reverb-michael-willis-free-plugin.html" target="_blank" rel="noopener">Dragonfly Reverb (GPL-3)</a> · <a class="u" href="https://github.com/electro-smith/DaisySP-LGPL" target="_blank" rel="noopener">DaisySP-LGPL (ReverbSC)</a> · <a class="u" href="https://wwmm.github.io/easyeffects/plugins/gate.html" target="_blank" rel="noopener">LSP Gate (Easy Effects docs)</a></li>
+      <li><a class="u" href="https://github.com/cycfi/Q" target="_blank" rel="noopener">Q DSP library (MIT)</a> · <a class="u" href="https://github.com/avaneev/r8brain-free-src/" target="_blank" rel="noopener">r8brain-free-src (MIT)</a></li>
+      <li><a class="u" href="https://ccrma.stanford.edu/~dtyeh/tonestack/" target="_blank" rel="noopener">D. Yeh: the ’59 Fender Bassman tone stack</a> · <a class="u" href="https://signalsmith-audio.co.uk/writing/2021/lets-write-a-reverb" target="_blank" rel="noopener">Signalsmith: Let’s Write a Reverb</a></li>
     </ul>
   </section>
 
