@@ -684,10 +684,16 @@ a.card:hover .card__title{text-decoration:underline;text-underline-position:from
 .a2-type .a2-type__display{font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(26px,3vw,34px);line-height:1.05;letter-spacing:.04em;color:#e8892b}
 .a2-type .a2-type__label{font-family:"Bebas Neue",Impact,sans-serif;font-size:19px;letter-spacing:.08em;color:#9d998f}
 .a2-type .a2-type__body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;font-size:14px;font-variant-numeric:tabular-nums}
+.a2-pair{display:grid;grid-template-columns:1fr 1.3fr;gap:22px;padding:12px 24px 0;align-items:start}
+.a2-pair figure{margin:0}
+.a2-pair img{display:block;width:100%;height:auto;border-radius:14px}
+.a2-pair figcaption{margin-top:8px;font-size:calc(var(--fs-body)*.88);line-height:1.5;color:#4f4f4f}
+.a2-pair figcaption b{color:#000}
 .a2-keys kbd{display:inline-block;min-width:26px;padding:1px 7px;border-radius:6px;border:1px solid #c9c9c9;border-bottom-width:2px;background:#fff;font-family:inherit;font-size:.9em;font-weight:700;text-align:center;line-height:1.5}
 .a2-keys tbody td:nth-child(2){color:inherit}
 @media (max-width:560px){
-  .a2-chains{padding-inline:14px}
+  .a2-chains,.a2-pair{padding-inline:14px}
+  .a2-pair{grid-template-columns:1fr}
 }
 
 /* 12. Footer / sitemap ---------------------------------------------------- */

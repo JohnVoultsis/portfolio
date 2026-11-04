@@ -47,6 +47,7 @@
         <li>UI design and design tokens</li>
         <li>Metering and feedback design</li>
         <li>Microcopy</li>
+        <li>App icon and installer</li>
         <li>Performance budget</li>
         <li>Prototyping in code</li>
       </ul>
@@ -301,6 +302,23 @@
   <section class="copy">
     <p>Press B, or the power switch, and the whole drawing dims at once. The status bar confirms it, so a silent or dry guitar is never a mystery.</p>
     <p class="sp ir-muted">Screenshots were made on a test machine with a virtual audio device; the latency and CPU readouts in them come from that machine, not from my Mac.</p>
+  </section>
+
+  <!-- ===== 8b. Icon and installer ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Icon and installer</h2>
+  <section class="copy copy--center"><p>The first and last things you see of an app are its icon and its installer. Both use the same line art, orange accent and dashed signal arrow as the chain, so the app looks like itself before it even opens.</p></section>
+  <div class="a2-pair">
+    <figure><img src="images/a2rig/icon.webp" alt="The A2 Rig app icon: a white line-art amp head on a dark rounded square, A2 in orange in its display, one glowing orange LED, and a dashed orange arrow underneath" width="1200" height="1000" loading="lazy" decoding="async"><figcaption><b>The icon</b> is the amp head from the chain: “A2” in its display, the orange LED lit, and the signal arrow leaving it.</figcaption></figure>
+    <figure><img src="images/a2rig/installer.webp" alt="Mock-up of the installer window: the A2 Rig icon on the left, a dashed orange arrow, an Applications folder on the right, the line Drag to Applications to install and a note on first launch" width="1560" height="1056" loading="lazy" decoding="async"><figcaption><b>The installer window</b> (mock-up). The chain’s dashed arrow shows where to drag the app.</figcaption></figure>
+  </div>
+  <section class="copy">
+    <p><span class="b">Key choice:</span> the installer answers the next question before it is asked. The app is not signed with an Apple developer certificate, so macOS blocks the first launch. Instead of leaving that to a search engine, the window says it in one line: “First launch: System Settings › Privacy &amp; Security › Open Anyway”.</p>
+  </section>
+  <div class="sk-shot"><img src="images/a2rig/icon-sizes.webp" alt="The icon at 256, 128, 64, 32 and 16 pixels, on a light and a dark background: below 64 pixels the A2 lettering and the arrow disappear and only the amp outline remains" width="1600" height="760" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>Tested at the sizes macOS really uses. From 64 px up it reads well. At 32 and 16 px, in Finder lists and menus, the lettering and the arrow disappear and only the amp’s outline is left; on a dark Dock the dark tile also loses its edge.</p>
+    <p class="sp"><span class="b">Next:</span> a simplified small-size version with only the amp outline and the orange LED, and a slightly lighter tile edge for dark backgrounds.</p>
   </section>
 
   <!-- ===== 9. Interaction ===== -->
