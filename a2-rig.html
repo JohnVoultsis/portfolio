@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A2 Rig (Personal App) — John Voultsis</title>
-<meta name="description" content="A lightweight Mac app I designed for my own guitar practice: it plays Neural Amp Modeler A2 captures without a DAW, with the signal chain drawn as the interface, honest meters, auto-gain and visible latency.">
+<meta name="description" content="A lightweight Mac app I designed for my own guitar practice: it plays Neural Amp Modeler A2 captures without a DAW, with the signal chain as an editable interface, pedal captures with honest controls, meters, auto-gain and quiet metrics.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:title" content="A2 Rig (Personal App) — John Voultsis">
@@ -37,13 +37,14 @@
   <section class="project-info">
     <div class="project-info__about">
       <h1 class="project-info__title">A2 Rig (Personal App)</h1>
-      <p class="project-info__lead">A lightweight Mac app I designed for my own guitar practice. It plays Neural Amp Modeler (NAM) A2 captures without a DAW, and its main screen is the signal chain itself: pedals, amp head and cabinet, drawn as line art.</p>
+      <p class="project-info__lead">A lightweight Mac app I designed for my own guitar practice. It plays Neural Amp Modeler (NAM) A2 captures without a DAW, and its main screen is the signal chain itself: pedals, amp head and cabinet, drawn as line art, which I can rebuild in place while I play.</p>
     </div>
     <div class="project-info__tasks">
       <p class="b">Tasks</p>
       <ul>
         <li>Problem framing</li>
         <li>Interaction design</li>
+        <li>Direct manipulation</li>
         <li>UI design and design tokens</li>
         <li>Metering and feedback design</li>
         <li>Microcopy</li>
@@ -55,21 +56,22 @@
     </div>
   </section>
 
-  <div class="sk-hero"><img src="images/a2rig/hero.webp" alt="The A2 Rig window on a Mac: a noise gate, overdrive and delay pedal drawn in white line art with orange labels, connected by dashed orange arrows to an amp head showing the capture name and a 2x12 speaker cabinet; below, input and output meters and the amp's bass, middle and treble knobs" width="2400" height="1500"></div>
+  <div class="sk-hero"><img src="images/a2rig/hero.webp" alt="The A2 Rig window on a Mac: a chain of seven blocks in white line art with orange labels: noise gate, a built-in overdrive, an overdrive loaded with a NAM pedal capture, amp head, speaker cabinet, delay and reverb, each with a DSP, NAM or IR tag and its name underneath, and a plus sign on every connecting arrow; below, the selected NAM overdrive's controls: DSP and NAM switch, Lite and Full, Push and Level" width="2400" height="1500"></div>
 
   <section class="overview overview--gwc" aria-labelledby="ov">
     <h2 class="overview__label" id="ov">Overview</h2>
     <div class="overview__text">
       <p>NAM is an open-source way to capture a real amp with machine learning and play it on a computer. Its newer A2 captures are lighter and can run in two qualities, Full and Lite. To play them, though, I had to open a recording program, make a track, arm the input, insert a plugin and load the capture and a cabinet file. Every single time.</p>
-      <p>So I designed my own player. One window, opened straight into playing, built around how I already think about a guitar rig: a chain of pedals into an amp and a cabinet. The design is mine from start to finish: the brief, the interaction model, the visual direction and every decision between the two builds.</p>
+      <p>So I designed my own player. One window, opened straight into playing, built around how I already think about a guitar rig: a chain of pedals into an amp and a cabinet. It took three rounds. The third came entirely from my own use of the app: the questions I asked while playing it became its best features.</p>
+      <p>The design is mine from start to finish: the brief, the interaction model, the visual direction and every decision between the builds.</p>
       <p class="ir-muted">A real, working app for my own use. The screenshots below are from the running app.</p>
     </div>
   </section>
 
   <div class="sk-stats ir-stats">
     <div><strong>0</strong><h3>DAWs to open</h3><p>Launch, and the last sound and audio settings are already there.</p></div>
-    <div><strong>~8 MB</strong><h3>the whole app</h3><p>Down from 9.8 MB in the first build; most of it is the NAM engine.</p></div>
-    <div><strong>~1.7%</strong><h3>CPU for A2-Lite</h3><p>About 8% for A2-Full, on one core at a 64-sample buffer.</p></div>
+    <div><strong>1 click</strong><h3>to add a pedal</h3><p>A “+” on every arrow of the chain; up to 10 pedals, before or after the amp.</p></div>
+    <div><strong>~8 MB</strong><h3>the whole app</h3><p>About 1.7% CPU for an A2-Lite capture, 8% for A2-Full, on one core.</p></div>
   </div>
 
   <!-- ===== 1. Problem ===== -->
@@ -87,9 +89,9 @@
     <p class="sp"><span class="b">How might we…</span></p>
     <ul>
       <li>make the app open straight into playing, with everything as I left it?</li>
-      <li>show the whole signal path at a glance, and edit any part of it in one click?</li>
+      <li>show the whole signal path at a glance, and change any part of it where it is?</li>
       <li>set the input level correctly without knowing anything about gain staging?</li>
-      <li>make latency and clipping visible before they become a problem?</li>
+      <li>make latency and clipping visible without making the screen noisy?</li>
       <li>keep the app so light that it never competes with the sound for CPU?</li>
     </ul>
   </section>
@@ -105,14 +107,14 @@
         <li>Mac mini M1, SSL 2 MK2 audio interface.</li>
         <li>A six-string with active pickups: a hot, loud signal.</li>
         <li>Practice at home, short sessions, often late.</li>
-        <li>A folder of A2 captures and cabinet IRs to switch between.</li>
+        <li>A folder of amp captures, pedal captures and cabinet IRs to switch between.</li>
       </ul>
     </div>
     <div class="sk-card sk-card--dark">
       <h3>What I need from it</h3>
       <ul>
         <li>Open and play, with no setup on the second launch.</li>
-        <li>Switch captures with my hands still on the guitar.</li>
+        <li>Change the rig with my hands still on the guitar.</li>
         <li>Know my levels are right and my latency is low.</li>
         <li>Nothing running that I am not using.</li>
       </ul>
@@ -121,15 +123,15 @@
 
   <!-- ===== 3. Process ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
-  <h2 class="section-title section-title--lg">Process: two builds, one review</h2>
+  <h2 class="section-title section-title--lg">Process: three builds, two reviews</h2>
   <div class="sk-arch">
-    <div class="sk-node"><h3>1 · Can it be done?</h3><p>Research: NAM’s engine is open source, and one A2 file holds both a Full and a Lite version of the capture.</p></div>
+    <div class="sk-node"><h3>1 · First build</h3><p>A working player with a classic panel: input, gate, EQ, output, cab IR and presets.</p></div>
     <span class="sk-arrow" aria-hidden="true">→</span>
-    <div class="sk-node"><h3>2 · First build</h3><p>A working player with a classic panel: input, gate, EQ, output, cab IR and presets.</p></div>
+    <div class="sk-node"><h3>2 · Review</h3><p>Extremely lightweight, the chain drawn like my reference images, levels you can see.</p></div>
     <span class="sk-arrow" aria-hidden="true">→</span>
-    <div class="sk-node sk-node--dark"><h3>3 · My review</h3><p>Three changes: extremely lightweight, the chain drawn like my two reference images, and levels you can see: meters, auto-gain and latency.</p></div>
+    <div class="sk-node"><h3>3 · Using it</h3><p>Playing it every day, I asked what each part really did, and where it got in my way.</p></div>
     <span class="sk-arrow" aria-hidden="true">→</span>
-    <div class="sk-node"><h3>4 · Second build</h3><p>The chain becomes the interface, with meters, auto-gain and visible latency.</p></div>
+    <div class="sk-node sk-node--dark"><h3>4 · Third build</h3><p>An editable chain, pedal captures with honest controls, a label on every block, quiet metrics.</p></div>
   </div>
   <div class="sk-tablewrap">
   <table class="sk-table sk-table--plain">
@@ -140,54 +142,98 @@
       <tr><td>Full JUCE framework, 9.8 MB</td><td>Only the modules it needs, stripped binary, 8 MB; blocks that are off cost nothing</td><td>“Extremely lightweight” was a requirement, not a wish</td></tr>
       <tr><td>No metering</td><td>Input and output meters with zones, peak hold and a CLIP light that stays on</td><td>You cannot set a level you cannot see</td></tr>
       <tr><td>Manual input trim</td><td>AUTO-GAIN: play hard for 3 seconds and the trim is set for you</td><td>Hot pickups and captures that expect a set level</td></tr>
-      <tr><td>Latency hidden in settings</td><td>Round-trip latency always in the header, and colour-coded in Settings</td><td>Latency is felt before it is found</td></tr>
-      <tr><td>Delay in one fixed place</td><td>Before the amp or after the cab, and the pedal moves in the drawing</td><td>Clean repeats with high gain, and the picture always tells the truth</td></tr>
     </tbody>
   </table>
   </div>
 
-  <!-- ===== 4. Principles ===== -->
+  <!-- ===== 4. Round three ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Round three: my questions, my design</h2>
+  <section class="copy copy--center"><p>The third round did not start with a brief. It started with questions I asked while playing. Each one exposed a gap between what the screen said and what the sound did, and each answer became a design rule.</p></section>
+
+  <h3 class="ir-screen-title"><span>A</span> “If a pedal is a capture, do its knobs mean anything?”</h3>
+  <div class="sk-shot"><img src="images/a2rig/nam-pedal.webp" alt="An overdrive in NAM mode: its drawing has a NAM plate on the footswitch and knobs without pointers, its name sits underneath, and the panel shows a DSP and NAM switch, Lite and Full, and only Push and Level, with the hint Knobs are frozen in the capture" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>No. A NAM capture is a snapshot of a pedal at one setting, so its drive and tone are baked in. Showing working knobs for it would be a lie. I asked for every overdrive to switch between <b>DSP</b>, the built-in effect where every knob works, and <b>NAM</b>, a real pedal’s capture.</p>
+    <p class="sp"><span class="b">How the screen tells the truth:</span> in NAM mode the drawing loses its knob pointers and gets a NAM plate on the footswitch. The panel keeps only the two controls that still mean something, Push (how hard you hit the pedal) and Level, and says why in one line: “Knobs are frozen in the capture”.</p>
+    <p class="sp"><span class="b">Principle:</span> never show a control that does nothing. Signifiers have to match what the system can really do.</p>
+    <p class="sp ir-muted">Only the overdrive gets a NAM mode. Delay and gate work over time, and a capture only remembers a few milliseconds of sound, so they stay DSP.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>B</span> A “+” on every arrow, a “−” on every pedal</h3>
+  <div class="sk-shot"><img src="images/a2rig/add-menu.webp" alt="Clicking the plus between the noise gate and the overdrive opens a small menu titled Add before the amp, with Noise gate, Overdrive DSP, Overdrive NAM pedal capture, Delay and Reverb" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <div class="sk-shot a2-shot-gap"><img src="images/a2rig/added.webp" alt="After choosing Reverb from the plus at the end of the chain: the chain has shrunk to fit a new reverb pedal after the cabinet, the reverb is selected with a minus in its corner, and the status bar says Added reverb (fx) after the amp" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>My idea: the dashed arrows already show where the sound goes, so that is where a new pedal should go in. A “+” sits on every arrow and at both ends; clicking it opens a short menu titled with where the pedal will land, “Add before the amp” or “Add after the amp”. A “−” appears on a pedal when you point at it or select it, and the Delete key does the same.</p>
+    <ul>
+      <li><b>Direct manipulation:</b> you change the chain where you see it, not in a separate routing screen.</li>
+      <li><b>The chain grows and shrinks to fit</b> the window, up to 10 pedals, so nothing ever scrolls out of sight.</li>
+      <li><b>One general rule replaced a special case.</b> The delay used to have a “Before amp / After cab” switch. Now any pedal goes anywhere, so the switch is gone.</li>
+      <li><b>Safe while playing:</b> a new pedal fades in and a removed one fades out, so there is never a click in the sound. The new pedal is selected, so its controls are already open.</li>
+    </ul>
+  </section>
+
+  <h3 class="ir-screen-title"><span>C</span> A name and a type under every block</h3>
+  <div class="a2-chains"><figure><img src="images/a2rig/chain-dynamic.webp" alt="The whole seven-block chain: under each block a small tag reads DSP, NAM or IR, with the block's values or the loaded file's name below it" width="2360" height="804" loading="lazy" decoding="async"></figure><figure><img src="images/a2rig/chain-tags.webp" alt="Close-up: a noise gate tagged DSP, Gate minus 68 dB; an overdrive tagged DSP, Drive 1.5, Level 8.0; an overdrive tagged NAM in orange, Example Drive Capture; and the amp head tagged NAM, Example A2 Capture, A2 Full" width="1310" height="430" loading="lazy" decoding="async"><figcaption>Close-up: the built-in overdrive shows its values, the captured one shows its file, and NAM stands out in orange.</figcaption></figure></div>
+  <section class="copy">
+    <p>With pedals coming and going, I wanted to know at a glance what was loaded. Under every block there is now a small tag, <b>DSP</b>, <b>NAM</b> or <b>IR</b>, and under it either the values (“380 ms · Mix 20%”) or the file’s name (“Example Drive Capture”). NAM tags are orange, so the captures stand out from the built-in effects.</p>
+    <p class="sp"><span class="b">Principle:</span> recognition over recall. I should never have to click a block to remember what is in it.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>D</span> Metrics at the bottom: there, but quiet</h3>
+  <div class="sk-shot"><img src="images/a2rig/main.webp" alt="Main window with the amp selected; the header holds only the preset selector, settings and power, and a quiet line at the bottom right reads 48 kHz, 64 samples, latency, CPU and RAM" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>I asked for CPU, memory and latency to be visible, but not in the way. They moved from the header to one quiet grey line at the bottom right: sample rate, buffer, latency, CPU, RAM. The line only changes colour when something is wrong: amber when latency goes over 10 ms, red when the CPU goes over 70%. The header is now just presets, settings and power.</p>
+    <p class="sp"><span class="b">Principle:</span> the status of the system is always visible, and it only asks for attention when it needs it.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>E</span> “Can I go down to 32?”</h3>
+  <div class="sk-shot"><img src="images/a2rig/settings.webp" alt="Settings with the buffer size list open: 16, 32, 48, 64, 96, 128, 192, 256, 512 and 1024 samples, each with its duration in milliseconds, and 64 samples ticked" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>The settings now list every buffer size the audio interface accepts, each with its time in milliseconds next to it: “32 samples (0.7 ms)”. A guitarist feels milliseconds, not samples, so the trade-off between speed and stability is shown in the unit that matters. 64 stays the default; the note below tells you to go back up if you hear crackles.</p>
+  </section>
+
+  <!-- ===== 5. Principles ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">Design principles</h2>
   <div class="sk-cards sk-cards--3">
-    <div class="sk-card"><span class="sk-card__num">1</span><h3>The chain is the interface</h3><p>One picture shows what is on, in what order, and with which settings. Click it to edit it.</p></div>
-    <div class="sk-card"><span class="sk-card__num">2</span><h3>Off costs nothing</h3><p>Lightweight is a feature: anything switched off, or left flat, is skipped by the audio engine.</p></div>
+    <div class="sk-card"><span class="sk-card__num">1</span><h3>The chain is the interface</h3><p>One picture shows what is on, in what order, with which settings. You read it, and you rebuild it, in the same place.</p></div>
+    <div class="sk-card"><span class="sk-card__num">2</span><h3>No control without a meaning</h3><p>Frozen knobs lose their pointers; switches that a general rule can replace are removed.</p></div>
     <div class="sk-card"><span class="sk-card__num">3</span><h3>Show levels, don’t guess</h3><p>Meters, a clip light that waits for you, auto-gain and level-matching between captures.</p></div>
-    <div class="sk-card"><span class="sk-card__num">4</span><h3>Hands stay on the guitar</h3><p>Every common action has a single key: blocks 1 to 5, Space, arrows, B.</p></div>
-    <div class="sk-card"><span class="sk-card__num">5</span><h3>Remember everything</h3><p>Interface, input, last sound and window size come back on the next launch.</p></div>
-    <div class="sk-card sk-card--dark"><span class="sk-card__num">6</span><h3>Say what to do next</h3><p>Every message in the status bar names the problem and the fix.</p></div>
+    <div class="sk-card"><span class="sk-card__num">4</span><h3>Quiet until it matters</h3><p>Metrics sit in grey at the bottom and only take colour when something is wrong.</p></div>
+    <div class="sk-card"><span class="sk-card__num">5</span><h3>Off costs nothing</h3><p>Anything switched off, or left flat, is skipped by the audio engine. Lightweight is a feature.</p></div>
+    <div class="sk-card sk-card--dark"><span class="sk-card__num">6</span><h3>Say what to do next</h3><p>Every message names what happened, or the problem and the fix.</p></div>
   </div>
 
-  <!-- ===== 5. Structure ===== -->
+  <!-- ===== 6. Structure ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">One window, four layers</h2>
   <section class="copy copy--center"><p>No tabs and no pages. Everything sits in one window, from the general at the top to the specific at the bottom.</p></section>
   <div class="sk-cards sk-cards--4">
-    <div class="sk-card"><span class="sk-card__num">Header</span><p>Presets (previous, name, next, save), the audio status (sample rate, buffer, latency, CPU), settings and the power switch.</p></div>
-    <div class="sk-card"><span class="sk-card__num">Stage</span><p>The signal chain, left to right, in the order the sound travels. The selected block is outlined.</p></div>
+    <div class="sk-card"><span class="sk-card__num">Header</span><p>Presets (previous, name, next, save), settings and the power switch. Nothing else.</p></div>
+    <div class="sk-card"><span class="sk-card__num">Stage</span><p>The chain, left to right, in the order the sound travels, with a “+” on every arrow. The selected block is outlined.</p></div>
     <div class="sk-card"><span class="sk-card__num">Deck</span><p>Input meter and trim on the left, the selected block’s controls in the middle, master and output meter on the right.</p></div>
-    <div class="sk-card sk-card--dark"><span class="sk-card__num">Status bar</span><p>The last thing that happened, and the keyboard shortcuts as a constant reminder.</p></div>
+    <div class="sk-card sk-card--dark"><span class="sk-card__num">Status bar</span><p>The last thing that happened on the left; sample rate, buffer, latency, CPU and RAM on the right.</p></div>
   </div>
 
-  <!-- ===== 6. Chain ===== -->
+  <!-- ===== 7. Chain ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">The chain tells the truth</h2>
   <section class="copy copy--center"><p>The drawing is not decoration. It changes with the sound, so it can be trusted at a glance.</p></section>
   <div class="a2-chains">
-    <figure><img src="images/a2rig/chain-ir.webp" alt="Chain with a cab IR: gate, overdrive and delay pedals, then a separate amp head and speaker cabinet" width="2360" height="804" loading="lazy" decoding="async"><figcaption><b>With a cab IR.</b> Amp head and speaker cabinet are separate blocks, because they are separate files.</figcaption></figure>
-    <figure><img src="images/a2rig/chain-rig.webp" alt="Chain with a full-rig capture: the amp head sits on top of the cabinet as one RIG stack, and the arrow rises into the head" width="2360" height="804" loading="lazy" decoding="async"><figcaption><b>Full-rig capture, no IR.</b> Head and cab merge into one RIG stack, because the capture already includes the cabinet.</figcaption></figure>
-    <figure><img src="images/a2rig/chain-post.webp" alt="Chain with the delay pedal moved to the end, after the speaker cabinet" width="2360" height="804" loading="lazy" decoding="async"><figcaption><b>Delay after the cab.</b> The pedal moves to the end of the chain, like an amp’s effects loop.</figcaption></figure>
+    <figure><img src="images/a2rig/chain-ir.webp" alt="Chain with a cab IR: gate, overdrive and delay pedals, then a separate amp head and speaker cabinet" width="2360" height="804" loading="lazy" decoding="async"><figcaption><b>Amp capture and a cab IR.</b> Amp head and speaker cabinet are separate blocks, because they are separate files.</figcaption></figure>
+    <figure><img src="images/a2rig/chain-rig.webp" alt="Chain with a full-rig capture: the amp head sits on top of the cabinet as one RIG stack, followed by a delay and a reverb" width="2360" height="804" loading="lazy" decoding="async"><figcaption><b>Full-rig capture, no IR.</b> Head and cab merge into one RIG stack, because the capture already includes the cabinet. Pedals can still follow it.</figcaption></figure>
   </div>
   <section class="copy">
     <ul>
       <li>An orange label means the block is on; dim grey lines mean it is off.</li>
-      <li>The small knobs on each drawing turn with the real values, and a line of text under each pedal says them in words: “Drive 2.0 · Level 7.0”.</li>
+      <li>The small knobs on each drawing turn with the real values; a capture’s frozen knobs have no pointers.</li>
       <li>The capture’s name is printed on the amp head, with its type and quality: “A2 · FULL”.</li>
       <li>Click a block to open its controls; click its footswitch to turn it on or off.</li>
     </ul>
   </section>
 
-  <!-- ===== 7. Design system ===== -->
+  <!-- ===== 8. Design system ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">Colours, type and tokens</h2>
   <section class="copy copy--center"><p>A dark stage for a dark room, white line art and one accent colour. Every value lives in a single file of design tokens, so the whole look can change from one place.</p></section>
@@ -200,25 +246,25 @@
         <div><i style="background:#363531"></i><b>Raised</b><span>#363531</span></div>
         <div><i style="background:#ECE9E2;box-shadow:inset 0 0 0 1px #d9d6cf"></i><b>Line, on</b><span>#ECE9E2</span></div>
         <div><i style="background:#6F6C66"></i><b>Line, off</b><span>#6F6C66</span></div>
-        <div><i style="background:#E8892B"></i><b>Accent</b><span>#E8892B</span></div>
+        <div><i style="background:#E8892B"></i><b>Accent, NAM</b><span>#E8892B</span></div>
       </div>
-      <p class="ir-ds-h">Meter zones</p>
+      <p class="ir-ds-h">Meter zones and warnings</p>
       <div class="sk-swatches">
         <div><i style="background:#7CCF8A"></i><b>Safe</b><span>#7CCF8A</span></div>
-        <div><i style="background:#E9C46A"></i><b>Hot</b><span>#E9C46A</span></div>
-        <div><i style="background:#EF5B5B"></i><b>Clip</b><span>#EF5B5B</span></div>
+        <div><i style="background:#E9C46A"></i><b>Hot, latency high</b><span>#E9C46A</span></div>
+        <div><i style="background:#EF5B5B"></i><b>Clip, CPU high</b><span>#EF5B5B</span></div>
       </div>
     </div>
     <div class="a2-type">
       <p class="ir-ds-h">Type</p>
       <div class="a2-type__panel">
         <p class="a2-type__display">Noise gate · Overdrive · Amp head</p>
-        <p class="a2-type__label">Trim · Master · Auto-gain</p>
+        <p class="a2-type__label">DSP · NAM · IR · Trim · Auto-gain</p>
         <p class="a2-type__body">Drive 2.0 · Level 7.0 · 380 ms · Mix 25%</p>
       </div>
       <ul class="ir-rules">
-        <li><b>Bebas Neue</b> for labels and block names: condensed capitals, like the printing on real gear. Embedded in the app (SIL Open Font License).</li>
-        <li>The system font at 13 px for values and messages.</li>
+        <li><b>Bebas Neue</b> for labels, tags and block names: condensed capitals, like the printing on real gear. Embedded in the app (SIL Open Font License).</li>
+        <li>The system font at 13 px for values, names and messages.</li>
         <li>Geometry: 10 and 6 px corners, a 16 px spacing unit, a 54 px header, a 236 px deck and a 28 px status bar.</li>
         <li>Selection is never colour alone: the selected block gets an outline and an underline as well.</li>
       </ul>
@@ -229,75 +275,55 @@
     <thead><tr><th scope="col">Text colour on the stage</th><th scope="col">Contrast</th><th scope="col">Used for</th></tr></thead>
     <tbody>
       <tr><td>Text #EFEDE8</td><td>11.9 : 1 (passes AA)</td><td>Capture name, values</td></tr>
-      <tr><td>Accent #E8892B</td><td>5.3 : 1 (passes AA)</td><td>Labels of blocks that are on</td></tr>
-      <tr><td>Muted #9D998F</td><td>4.9 : 1 (passes AA)</td><td>Secondary labels</td></tr>
-      <tr><td>Faint #6C6963</td><td>2.5 : 1 (fails)</td><td>Shortcut hints, meter scale. Next build: #98948C, 4.6 : 1</td></tr>
+      <tr><td>Accent #E8892B</td><td>5.3 : 1 (passes AA)</td><td>Labels of blocks that are on, NAM tags</td></tr>
+      <tr><td>Muted #9D998F</td><td>4.9 : 1 (passes AA)</td><td>Secondary labels, status messages</td></tr>
+      <tr><td>Faint #6C6963</td><td>2.5 to 2.9 : 1 (fails)</td><td>Metrics line, meter scale. Next build: #98948C, 4.6 : 1</td></tr>
     </tbody>
   </table>
   </div>
 
-  <!-- ===== 8. Screens ===== -->
+  <!-- ===== 9. Screens ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
-  <h2 class="section-title section-title--lg">The screens</h2>
+  <h2 class="section-title section-title--lg">More screens</h2>
   <section class="copy copy--center"><p>Screenshots from the running app, with a recorded guitar signal playing through it.</p></section>
 
-  <h3 class="ir-screen-title"><span>01</span> Main view: the whole rig on one screen</h3>
-  <div class="sk-shot"><img src="images/a2rig/main.webp" alt="Main window with all five blocks on and the amp head selected; the deck shows the capture name, A2 and 48K badges, Lite and Full buttons, bass, middle and treble knobs, and input and output meters" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <h3 class="ir-screen-title"><span>01</span> Full-rig capture with effects after it</h3>
+  <div class="sk-shot"><img src="images/a2rig/rig.webp" alt="A preset called Full Rig plus FX: gate and overdrive, then a RIG stack labelled NAM, Example A2 Capture, full rig, no IR, followed by delay and reverb pedals" width="2488" height="1624" loading="lazy" decoding="async"></div>
   <section class="copy">
-    <p>The amp is selected, so the deck shows its controls: the capture’s name, badges for its type and sample rate, the Lite/Full switch and a three-band EQ. Arrows next to the name step through the other captures in the same folder.</p>
-    <p class="sp"><span class="b">Key choices:</span> the audio status is always in the header; Lite and Full are a segmented switch, not a menu, because I change them while playing.</p>
+    <p>Many captures already include the cabinet. Without an IR the drawing stacks the head on the cab and says so: “full rig, no IR”. Delay and reverb can still sit after it, where they sound cleanest.</p>
   </section>
 
-  <h3 class="ir-screen-title"><span>02</span> Full-rig capture: head and cab become one</h3>
-  <div class="sk-shot"><img src="images/a2rig/rig.webp" alt="The chain with a full-rig capture loaded and no IR: the amp head and cabinet are drawn as one RIG stack, labelled Full-rig capture, no cab IR" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <h3 class="ir-screen-title"><span>02</span> Noise gate: see it working</h3>
+  <div class="sk-shot"><img src="images/a2rig/gate.webp" alt="Noise gate selected: threshold and release knobs, an LED labelled OPEN next to the on switch, and a minus to remove it" width="2488" height="1624" loading="lazy" decoding="async"></div>
   <section class="copy">
-    <p>Many captures already include the cabinet. Adding a second cabinet would make the sound muddy, so without an IR the drawing stacks the head on the cab and labels it “Full-rig capture · no cab IR”.</p>
+    <p>A gate you cannot see is a gate you cannot set. An LED next to the switch reads OPEN or CLOSED, live, so the threshold can be set by watching it while the strings ring out.</p>
   </section>
 
-  <h3 class="ir-screen-title"><span>03</span> Noise gate: see it working</h3>
-  <div class="sk-shot"><img src="images/a2rig/gate.webp" alt="Noise gate selected: threshold and release knobs and an LED labelled OPEN next to the on switch" width="2488" height="1624" loading="lazy" decoding="async"></div>
+  <h3 class="ir-screen-title"><span>03</span> Overdrive in DSP mode</h3>
+  <div class="sk-shot"><img src="images/a2rig/overdrive.webp" alt="Overdrive selected in DSP mode, switched on, with drive, tone and level knobs and the hint Low drive plus high level equals tight boost" width="2488" height="1624" loading="lazy" decoding="async"></div>
   <section class="copy">
-    <p>A gate that you cannot see is a gate you cannot set. An LED next to the switch reads OPEN or CLOSED, live, so the threshold can be set by watching it while the strings ring out.</p>
+    <p>The overdrive with its built-in effect: all three knobs work. One line of advice sits next to the switch, “Low drive + high level = tight boost”, the most common way to use it with metal captures, and the defaults start there.</p>
   </section>
 
-  <h3 class="ir-screen-title"><span>04</span> Overdrive: a hint where it matters</h3>
-  <div class="sk-shot"><img src="images/a2rig/overdrive.webp" alt="Overdrive selected and switched on, with drive, tone and level knobs and the hint Low drive plus high level equals tight boost into a high-gain amp" width="2488" height="1624" loading="lazy" decoding="async"></div>
-  <section class="copy">
-    <p>One line of advice sits next to the switch: “Low drive + high level = tight boost into a high-gain amp”. It is the most common way to use this pedal with metal captures, so the defaults start there.</p>
-  </section>
-
-  <h3 class="ir-screen-title"><span>05</span> Delay: before the amp or after the cab</h3>
-  <div class="sk-shot"><img src="images/a2rig/delay-after-cab.webp" alt="Delay selected with time, feedback, mix and tone knobs; the After cab button is active and the delay pedal has moved to the end of the chain" width="2488" height="1624" loading="lazy" decoding="async"></div>
-  <section class="copy">
-    <p>Before the amp, the repeats get distorted with everything else. After the cab, they stay clean, which suits high gain. One switch changes it, and the pedal moves in the drawing at the same moment.</p>
-  </section>
-
-  <h3 class="ir-screen-title"><span>06</span> Auto-gain: the level, set for you</h3>
+  <h3 class="ir-screen-title"><span>04</span> Auto-gain: the level, set for you</h3>
   <div class="sk-shot"><img src="images/a2rig/auto-gain.webp" alt="After auto-gain: the trim knob reads plus 12.1 dB and the status bar says Trim set to plus 12.1 dB, your peaks were minus 18.1 dBFS" width="2488" height="1624" loading="lazy" decoding="async"></div>
   <section class="copy">
-    <p>Press AUTO-GAIN and play hard for three seconds: big chords and palm mutes. The app measures the strongest pick attacks, ignores single spikes, and sets the trim so they reach about −6 dBFS, the hot but clean signal most captures expect. Then it says exactly what it did.</p>
-    <p class="sp"><span class="b">Key choice:</span> the trim stays a normal knob afterwards. Auto-gain gives a starting point; it never takes control away.</p>
+    <p>Press AUTO-GAIN and play hard for three seconds. The app measures the strongest pick attacks, ignores single spikes, and sets the trim so they reach about −6 dBFS, the hot but clean signal most captures expect. Then it says exactly what it did. The trim stays a normal knob afterwards.</p>
   </section>
 
-  <h3 class="ir-screen-title"><span>07</span> Clipping: a light that waits for you</h3>
+  <h3 class="ir-screen-title"><span>05</span> Clipping: a light that waits for you</h3>
   <div class="sk-shot"><img src="images/a2rig/clip.webp" alt="The trim pushed to plus 20 dB: the input meter's CLIP light is lit red and stays on" width="2488" height="1624" loading="lazy" decoding="async"></div>
   <section class="copy">
     <p>A clip lasts milliseconds, and you are looking at the fretboard when it happens. So the CLIP light stays on until you click the meter. It also lights when the interface itself clips, before the app touches the signal.</p>
   </section>
 
-  <h3 class="ir-screen-title"><span>08</span> Settings: latency in plain sight</h3>
-  <div class="sk-shot"><img src="images/a2rig/settings.webp" alt="Settings panel sliding over the main window: input and output device, guitar input, outputs, sample rate, buffer size with milliseconds, round-trip latency, a note about direct monitoring, level-match and open presets folder" width="2488" height="1624" loading="lazy" decoding="async"></div>
-  <section class="copy">
-    <p>The panel slides over the rig instead of opening a new window. Buffer sizes show their milliseconds, and the round-trip latency is coloured: green up to 6 ms, amber up to 10, red above. A note explains the most common cause of a doubled, flanging sound: the interface’s direct monitoring, with the exact setting for my SSL 2.</p>
-  </section>
-
-  <h3 class="ir-screen-title"><span>09</span> Empty state: one clear next step</h3>
+  <h3 class="ir-screen-title"><span>06</span> Empty state: one clear next step</h3>
   <div class="sk-shot"><img src="images/a2rig/empty.webp" alt="First launch: the amp head reads Load a capture and the status bar says Load a .nam capture to start, or drop one anywhere in this window" width="2488" height="1624" loading="lazy" decoding="async"></div>
   <section class="copy">
     <p>On first launch the amp head itself says “Load a capture”, and the status bar adds that a file can be dropped anywhere in the window. Captures, IRs and presets can all be dropped the same way.</p>
   </section>
 
-  <h3 class="ir-screen-title"><span>10</span> Bypass: the dry signal, on purpose</h3>
+  <h3 class="ir-screen-title"><span>07</span> Bypass: the dry signal, on purpose</h3>
   <div class="sk-shot"><img src="images/a2rig/bypass.webp" alt="Bypassed: the whole chain is drawn in dim grey and the status bar says Bypassed, dry guitar signal" width="2488" height="1624" loading="lazy" decoding="async"></div>
   <section class="copy">
     <p>Press B, or the power switch, and the whole drawing dims at once. The status bar confirms it, so a silent or dry guitar is never a mystery.</p>
@@ -321,7 +347,7 @@
     <p class="sp"><span class="b">Next:</span> a simplified small-size version with only the amp outline and the orange LED, and a slightly lighter tile edge for dark backgrounds.</p>
   </section>
 
-  <!-- ===== 9. Interaction ===== -->
+  <!-- ===== 10. Interaction ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">Hands on the guitar</h2>
   <section class="copy copy--center"><p>A pick in one hand and the neck in the other leaves one finger free. Everything I do while playing is a single key.</p></section>
@@ -329,36 +355,39 @@
   <table class="sk-table sk-table--plain a2-keys">
     <thead><tr><th scope="col">Key or gesture</th><th scope="col">What it does</th></tr></thead>
     <tbody>
-      <tr><td><kbd>1</kbd> to <kbd>5</kbd></td><td>Select gate, overdrive, delay, amp or cabinet</td></tr>
+      <tr><td><kbd>1</kbd> to <kbd>9</kbd></td><td>Select a block, in chain order</td></tr>
       <tr><td><kbd>Space</kbd></td><td>Turn the selected block on or off</td></tr>
+      <tr><td><kbd>Delete</kbd></td><td>Remove the selected pedal</td></tr>
       <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>Previous or next capture in the folder (or IR, when the cabinet is selected)</td></tr>
       <tr><td><kbd>B</kbd></td><td>Bypass the whole rig</td></tr>
       <tr><td><kbd>⌘</kbd> <kbd>S</kbd> · <kbd>⌘</kbd> <kbd>,</kbd></td><td>Save a preset · open settings</td></tr>
+      <tr><td>Click a “+” · a “−”</td><td>Add a pedal at that point in the chain · remove that pedal</td></tr>
       <tr><td>Click a block · its footswitch</td><td>Open its controls · turn it on or off</td></tr>
-      <tr><td>Drop a file anywhere</td><td>Load a capture (.nam), an IR (.wav) or a preset (.a2rig)</td></tr>
+      <tr><td>Drop a file anywhere</td><td>Load a capture (.nam), an IR (.wav) or a preset (.a2rig); a .nam goes to the selected overdrive, otherwise to the amp</td></tr>
       <tr><td>Click a meter</td><td>Reset its CLIP light</td></tr>
     </tbody>
   </table>
   </div>
 
-  <!-- ===== 10. Microcopy ===== -->
+  <!-- ===== 11. Microcopy ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
-  <h2 class="section-title section-title--lg">Messages that say what to do</h2>
+  <h2 class="section-title section-title--lg">Messages that say what happened</h2>
   <div class="sk-tablewrap">
   <table class="sk-table sk-table--plain">
     <thead><tr><th scope="col">Situation</th><th scope="col">What the status bar says</th></tr></thead>
     <tbody>
       <tr><td>First launch</td><td>“Load a .nam capture to start - or drop one anywhere in this window”</td></tr>
+      <tr><td>A pedal added</td><td>“Added reverb (fx) after the amp”</td></tr>
+      <tr><td>The chain is full</td><td>“The chain is full (10 pedals) - remove one first”</td></tr>
       <tr><td>No permission for the input</td><td>“No input access - allow it in System Settings &gt; Privacy &amp; Security &gt; Microphone”</td></tr>
       <tr><td>Auto-gain heard nothing</td><td>“Didn’t hear the guitar - check the input in Settings and the interface gain”</td></tr>
-      <tr><td>Auto-gain with no input open</td><td>“No guitar input is open - pick one in Settings first”</td></tr>
+      <tr><td>A preset’s files have moved</td><td>“Couldn’t find: …” with the file names, and the rest of the preset still loads</td></tr>
       <tr><td>Switching quality</td><td>“A2-Lite: lowest CPU” · “A2-Full: maximum accuracy”</td></tr>
-      <tr><td>Bypass</td><td>“Bypassed - dry guitar signal”</td></tr>
     </tbody>
   </table>
   </div>
 
-  <!-- ===== 11. Performance ===== -->
+  <!-- ===== 12. Performance ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">Lightweight is a design decision</h2>
   <section class="copy copy--center"><p>For a musician, a slow app is not a slow screen; it is a late note or a click in the sound. So I treated the CPU budget like any other requirement.</p></section>
@@ -366,54 +395,55 @@
   <table class="sk-table sk-table--plain">
     <thead><tr><th scope="col">What is running</th><th scope="col">CPU, one core</th></tr></thead>
     <tbody>
-      <tr><td>A2-Lite capture and gate</td><td>~1.7%</td></tr>
-      <tr><td>A2-Full capture and gate</td><td>~8%</td></tr>
+      <tr><td>A2-Lite amp capture and gate</td><td>~1.7%</td></tr>
+      <tr><td>A2-Full amp capture and gate</td><td>~8%</td></tr>
       <tr><td>A2-Full with gate, overdrive, delay and cab IR</td><td>~9%</td></tr>
+      <tr><td>Each NAM pedal capture, in A2-Lite</td><td>about 2–4% more</td></tr>
       <tr><td>The window, idle</td><td>~0.5%, 26 MB of memory</td></tr>
-      <tr><td>For comparison: an older standard A1 capture</td><td>~28%</td></tr>
     </tbody>
   </table>
   </div>
   <section class="copy">
     <ul>
       <li>Only the parts of the JUCE framework the app uses: no plugin hosting, no web view, no extra audio formats.</li>
-      <li>Blocks that are off are skipped. An EQ left at 5/5/5 and cuts left off are skipped too.</li>
-      <li>Cabinet IRs are trimmed to 170 ms, where the cabinet’s character lives, and run with zero added latency.</li>
-      <li>The chain is drawn once and cached; meters redraw only when their value changes.</li>
+      <li>Pedals that are off are skipped. An EQ left at 5/5/5 and cuts left off are skipped too.</li>
+      <li>Pedal captures start in A2-Lite, the cheapest quality; Full is one click away.</li>
+      <li>The chain is drawn once and cached; meters and metrics redraw only when their value changes.</li>
     </ul>
     <p class="sp ir-muted">Measured on one core of a test server at 48 kHz with a 64-sample buffer. An M1 Mac should be similar or better.</p>
   </section>
 
-  <!-- ===== 12. Edge cases ===== -->
+  <!-- ===== 13. Edge cases ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">Designed edge cases</h2>
   <div class="sk-cards sk-cards--3">
+    <div class="sk-card"><h3>Changing the chain mid-song</h3><p>Pedals fade in and out, and DSP ↔ NAM switches without a click. Tested with hundreds of changes while audio played.</p></div>
+    <div class="sk-card"><h3>Old presets</h3><p>Presets from the fixed chain open as gate → overdrive → delay → amp, automatically.</p></div>
+    <div class="sk-card"><h3>The chain is full</h3><p>At 10 pedals the “+” explains why it cannot add more, instead of failing silently.</p></div>
     <div class="sk-card"><h3>Interface not at 48 kHz</h3><p>The capture is resampled automatically, and a RESAMPLED badge says so.</p></div>
     <div class="sk-card"><h3>Captures at different volumes</h3><p>Level-matching reads each capture’s loudness, so switching does not jump in volume.</p></div>
-    <div class="sk-card"><h3>Full-rig capture</h3><p>No IR loaded: the chain shows one RIG stack, and the cuts still work for flat-response speakers.</p></div>
-    <div class="sk-card"><h3>Doubled, flanging sound</h3><p>Settings explains direct monitoring and the exact fix on the SSL 2.</p></div>
-    <div class="sk-card"><h3>Hot pickups</h3><p>A CLIP light that stays on, and auto-gain to bring the level back.</p></div>
-    <div class="sk-card sk-card--dark"><h3>Missing files</h3><p>A preset whose capture has moved says which file it could not find, and keeps the rest.</p></div>
+    <div class="sk-card sk-card--dark"><h3>Doubled, flanging sound</h3><p>Settings explains direct monitoring and the exact fix on the SSL 2.</p></div>
   </div>
 
-  <!-- ===== 13. Next ===== -->
+  <!-- ===== 14. Next ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">What I would change next</h2>
   <section class="copy">
-    <p><span class="b">Contrast.</span> The faint grey of the shortcut hints and the meter scale is 2.5 : 1. It should be #98948C, 4.6 : 1.</p>
-    <p class="sp"><span class="b">Knobs from the keyboard.</span> To keep keys free for shortcuts, knobs cannot take keyboard focus. Arrow keys could nudge the knob under the mouse instead.</p>
+    <p><span class="b">Quiet, but readable.</span> The metrics line and the meter scale use a grey below 3 : 1. Quiet should not mean illegible: #98948C keeps them calm at 4.6 : 1.</p>
+    <p class="sp"><span class="b">Know what a capture is.</span> The app decides between an amp head and a full RIG only by whether an IR is loaded. Some capture files say in their metadata whether they are an amp or a full rig; reading that would let the app warn me when an amp-only capture is playing without a cabinet.</p>
+    <p class="sp"><span class="b">Drag to reorder.</span> Pedals can be added and removed anywhere; moving one should be a drag along the chain.</p>
     <p class="sp"><span class="b">Hands-free.</span> A MIDI footswitch for bypass and the next capture, so I never have to reach for the Mac.</p>
-    <p class="sp"><span class="b">Real-world check.</span> Measure latency and CPU on my Mac mini with the SSL 2, and time how long it takes from launch to the first note.</p>
   </section>
 
-  <!-- ===== 14. Reflection ===== -->
+  <!-- ===== 15. Reflection ===== -->
   <div class="rule rule--gap-sm" role="presentation"></div>
   <h2 class="section-title section-title--lg">What I learned</h2>
   <section class="copy">
-    <p><span class="b">A drawing can be the interface.</span> Once the chain told the truth, most labels and menus were no longer needed.</p>
+    <p><span class="b">A drawing can be the interface.</span> Once the chain told the truth, it could also be the place to change it. Most menus were no longer needed.</p>
+    <p class="sp"><span class="b">The best questions come from use.</span> “Do these knobs mean anything?” sounds like a technical question. It was a design question, and it gave the app its most honest screen.</p>
+    <p class="sp"><span class="b">Simplify by generalising.</span> A “+” that works everywhere removed a switch that only worked for one pedal.</p>
     <p class="sp"><span class="b">Performance is UX.</span> For an audio app, “extremely lightweight” turned into numbers I could check, and it changed what got built.</p>
-    <p class="sp"><span class="b">Even a user of one needs a brief.</span> Writing my own needs down made it easy to say no to features.</p>
-    <p class="sp"><span class="b">The review is where the design happened.</span> The first build worked, but it was too generic. The second one came from taking it apart and setting new rules for it.</p>
+    <p class="sp"><span class="b">The review is where the design happened.</span> The first build worked, but it was too generic. Each round after it came from taking it apart and setting new rules for it.</p>
     <p class="sp ir-muted">How this was made: the design is entirely mine: the brief, the references, the interaction and visual decisions, and every review. The sound engine is the open-source NAM core; the app around it was written with Claude from my specifications, and I tested every build.</p>
   </section>
 

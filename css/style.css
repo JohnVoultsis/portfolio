@@ -689,6 +689,7 @@ a.card:hover .card__title{text-decoration:underline;text-underline-position:from
 .a2-pair img{display:block;width:100%;height:auto;border-radius:14px}
 .a2-pair figcaption{margin-top:8px;font-size:calc(var(--fs-body)*.88);line-height:1.5;color:#4f4f4f}
 .a2-pair figcaption b{color:#000}
+.a2-shot-gap{margin-top:18px}
 .a2-keys kbd{display:inline-block;min-width:26px;padding:1px 7px;border-radius:6px;border:1px solid #c9c9c9;border-bottom-width:2px;background:#fff;font-family:inherit;font-size:.9em;font-weight:700;text-align:center;line-height:1.5}
 .a2-keys tbody td:nth-child(2){color:inherit}
 @media (max-width:560px){
