@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vinyl Match (Personal App) — John Voultsis</title>
+<meta name="description" content="A personal tool I designed to find the albums I listen to on vinyl, in 26 European record shops, with shipping to Greece. It grew from a Google Sheet with a sidebar into a web app where the album, not the shop, is the unit.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vinyl Match (Personal App) — John Voultsis">
+<meta property="og:description" content="My music, found on vinyl in 26 shops: one row per album, every shop side by side, one basket per shop with shipping to Greece.">
+<meta property="og:url" content="https://johnvoultsis.github.io/portfolio/vinyl-match.html">
+<meta property="og:site_name" content="John Voultsis">
+<meta property="og:image" content="https://johnvoultsis.github.io/portfolio/images/og/vinyl-match.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="fonts/comfortaa-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:,">
+</head>
+<body class="w-gwc" data-nav="work">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="index.html" aria-label="John Voultsis, home"><img src="images/jv-logo.webp" alt="John Voultsis" width="370" height="240"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Main">
+      <a href="index.html#work" data-nav="work">Work</a>
+      <a href="about.html" data-nav="about">About</a>
+      <a class="cv" href="https://drive.google.com/file/d/1XTFdHeBiE6ABi1L90TjCSVqlWoXJlrY3/view?usp=sharing" target="_blank" rel="noopener">CV</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="page flow">
+
+  <section class="project-info">
+    <div class="project-info__about">
+      <h1 class="project-info__title">Vinyl Match (Personal App)</h1>
+      <p class="project-info__lead">A tool I designed for my own record buying. It takes the albums I listen to, from Spotify, Apple Music, Discogs or a list I type, and finds them on vinyl in 26 European record shops. It started as a Google Sheet with a sidebar and became a web app, where each album appears once with every shop side by side, and every shop gets its own basket with shipping to Greece.</p>
+    </div>
+    <div class="project-info__tasks">
+      <p class="b">Tasks</p>
+      <ul>
+        <li>Problem framing</li>
+        <li>Data and matching rules</li>
+        <li>Information architecture</li>
+        <li>Interaction design</li>
+        <li>UI design, dark and light themes</li>
+        <li>Design tokens and accessibility</li>
+        <li>Clickable prototype and pitch</li>
+        <li>Microcopy and honest states</li>
+        <li>Testing through real use</li>
+      </ul>
+      <p class="a2-tag">Personal tool · built for my own use</p>
+    </div>
+  </section>
+
+  <div class="sk-hero"><img src="images/vinylmatch/hero.webp" alt="The Vinyl Match web app in a browser and on a phone, in a dark theme with an amber accent. The Matches screen lists albums one per row, with the best price, the shop and availability; one album, Providentia by AWE, is open and shows three shops side by side: Green Hell at 12,20 € marked lowest new, Nuclear Winter at 17,00 € and iMusic at 29,13 €, each with Open and a plus button for the basket" width="2400" height="1500"></div>
+
+  <section class="overview overview--gwc" aria-labelledby="ov">
+    <h2 class="overview__label" id="ov">Overview</h2>
+    <div class="overview__text">
+      <p>I listen to a lot of metal and goth, and I buy records from small European shops and labels. To check whether an album I like is out on vinyl, and where it is cheapest, I had to visit each shop and search it by hand, one album at a time. With thousands of albums in my library, that is not a search. It is a second job.</p>
+      <p>Vinyl Match does that job. My idea from the start was to download each shop’s catalogue once and compare it with my lists locally, instead of running thousands of searches. The first version was a script that wrote results into a Google Sheet. Using it every day showed me what was wrong with it, and the fixes turned it into a web app.</p>
+      <p>The design and every decision are mine: what to search, which shops, how a result should read, the baskets, the shipping and the review of every version on my own data. The code was written with Claude from my specifications.</p>
+      <p class="ir-muted">A real, working tool for my own use. The screens below are the real web app, shown with the results of my real search of 6 November 2026.</p>
+    </div>
+  </section>
+
+  <div class="sk-stats ir-stats">
+    <div><strong>26</strong><h3>shops in one search</h3><p>Shop websites, label stores, ten Discogs sellers and one weekly email newsletter.</p></div>
+    <div><strong>907</strong><h3>albums found on vinyl</h3><p>From the 2,524 albums in my lists: 3,394 listings, compared across shops.</p></div>
+    <div><strong>27 → 1</strong><h3>tabs to one list</h3><p>One search used to write 27 sheet tabs. The web app shows one list, one row per album.</p></div>
+  </div>
+
+  <!-- ===== 1. Problem ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">The problem</h2>
+  <section class="copy copy--center"><p>The question is simple: which of the albums I love can I buy on vinyl right now, where, and for how much? Answering it was not.</p></section>
+  <div class="sk-cards sk-cards--4">
+    <div class="sk-card"><h3>Thousands of albums</h3><p>My Spotify playlists alone hold 14,671 tracks from 1,708 albums, plus my own list and a Discogs wantlist.</p></div>
+    <div class="sk-card"><h3>Dozens of shops</h3><p>Each with its own site, search and spelling. “Other World” in one is “Otherworld” in the next.</p></div>
+    <div class="sk-card"><h3>CDs and shirts in the way</h3><p>Shops sell CDs, tapes and merch next to the records. A match is only useful if it is vinyl.</p></div>
+    <div class="sk-card sk-card--dark"><h3>Price is not the price</h3><p>From Greece, shipping can cost as much as the record. The cheapest record is not always the cheapest order.</p></div>
+  </div>
+  <div class="ir-statement"><p>I want to bring my music in once and see, for every album, which shops have it on vinyl, at what price with shipping to Greece, and then order from as few shops as possible.</p></div>
+  <section class="copy">
+    <p class="sp"><span class="b">How might we…</span></p>
+    <ul>
+      <li>search thousands of albums in dozens of shops without searching each one?</li>
+      <li>tell a real match from a similar title, and a record from a CD?</li>
+      <li>be honest when a shop does not let us read a price or a stock level?</li>
+      <li>compare offers by what I will actually pay, shipping included?</li>
+      <li>make the result something I can read in a minute, on a laptop or a phone?</li>
+    </ul>
+  </section>
+
+  <!-- ===== 2. User ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Designing for one user: me</h2>
+  <section class="copy copy--center"><p>As with my other personal tools, I wrote down my situation first, so every version could be judged against it and not against my mood that day.</p></section>
+  <div class="sk-split">
+    <div class="sk-card">
+      <h3>My situation</h3>
+      <ul>
+        <li>My music lives in Spotify playlists, an older Apple Music library and a list I keep by hand.</li>
+        <li>I buy from European shops: German, French and Greek shops, metal and goth labels, and Discogs sellers.</li>
+        <li>Everything ships to Greece, so shipping decides a lot.</li>
+        <li>I already work in Google Sheets and Drive every day.</li>
+      </ul>
+    </div>
+    <div class="sk-card sk-card--dark">
+      <h3>What I need from it</h3>
+      <ul>
+        <li>Bring my lists in from where they already are, without retyping anything.</li>
+        <li>Leave out the records I already own.</li>
+        <li>See every shop for an album at once, cheapest first.</li>
+        <li>Group what I pick into one order per shop, with the shipping in the total.</li>
+        <li>No server and no monthly cost: it should run on my own Google account.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 3. Approach ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Download once, match locally</h2>
+  <section class="copy copy--center"><p>The first script I tried ran one search per album in each shop. It checked only the first 50 albums, one shop forbids automated searches, and it called a page a match because it contained the word “price”. My idea was the reverse: fetch every shop’s full vinyl list once, then do all the matching on my side.</p></section>
+  <div class="sk-arch">
+    <div class="sk-node"><h3>1 · My lists</h3><p>Spotify and Apple Music exports, Discogs wantlist and collection, Tidal through a converter, or Excel.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>2 · Shop lists</h3><p>Each shop’s whole vinyl catalogue, saved to my Drive. About 679,000 listings in 26 lists.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>3 · Match</h3><p>Names cleaned and compared: 90 or more is a match, 75 to 89 is “possible”. Only vinyl is kept.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node sk-node--dark"><h3>4 · Check the matches</h3><p>Only the matches get a live check of price, stock and catalogue number.</p></div>
+  </div>
+  <section class="copy">
+    <p>Every shop exposes its catalogue in its own way, so each kind of shop got its own reader, and adding a shop of a known kind became one line:</p>
+    <ul>
+      <li><b>Shopify and WooCommerce shops</b> publish their products with real prices and stock. Most of the label stores I buy from are one of the two.</li>
+      <li><b>Shops on other systems</b>, like High Roller Records, HHV and iMusic, publish only a sitemap of product pages, so price and stock are read live, and only for matches.</li>
+      <li><b>Ten Discogs sellers</b>, read through the Discogs API. Using Discogs storefronts for shops without a readable website was my idea, and it added ten shops at once.</li>
+      <li><b>One weekly newsletter.</b> Osmose sends its list by email every week. Reading that email from my Gmail was also my idea: 402 lines, of which 201 are records with a price.</li>
+    </ul>
+  </section>
+  <div class="sk-cards sk-cards--3">
+    <div class="sk-card"><h3>Not bypassed: bot protection</h3><p>HHV’s product pages are behind bot protection. The tool does not get around it: HHV results say “Price and stock on the site” and link there.</p></div>
+    <div class="sk-card"><h3>Not bypassed: captchas</h3><p>The Osmose website has a captcha, and Bandcamp-only labels block automated visits. These are left out, and the reasons are written down.</p></div>
+    <div class="sk-card sk-card--dark"><h3>An honest unknown</h3><p>When a price or a stock level cannot be read, the tool says so. A confident wrong answer would cost me a wasted order.</p></div>
+  </div>
+
+  <!-- ===== 4. Stage one ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Stage one: a sheet and a sidebar</h2>
+  <section class="copy copy--center"><p>Google Sheets with Apps Script was my choice: it is free, it needs no server, and my data stays in my own account. The tool lived in a 300-pixel sidebar next to the sheet and wrote its results into tabs. Most of what it became came from my requests while I used it.</p></section>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">What I asked for</th><th scope="col">What changed</th><th scope="col">Why it mattered</th></tr></thead>
+    <tbody>
+      <tr><td>“It’s confusing: let me choose the shops, and choose whether to fetch new lists”</td><td>One flow and one button: your lists, which shops, then Search, with “Fetch new list” as a switch</td><td>Three separate steps had become three things to get wrong</td></tr>
+      <tr><td>Menus in English, and drop-downs that show which lists and shops are supported</td><td>A source menu grouped into “Records you want” and “Records you own”, each with a hint on where to get the file</td><td>You should not have to guess what the tool accepts</td></tr>
+      <tr><td>A log, to see what it actually does</td><td>A Log sheet: every request, every pause, every error, with the time and the shop</td><td>When a search took hours, the log showed why</td></tr>
+      <tr><td>My own result format: band, album, price, EAN and catalogue number, availability, link</td><td>One tab per shop and search, named “Shop date time”, in exactly that order of columns</td><td>The catalogue number tells you which pressing it is</td></tr>
+      <tr><td>“Is it cheaper somewhere else?”</td><td>A “Cheaper elsewhere” column next to the price: “Lower at VAN Records: 22,00 €”</td><td>The comparison I was doing by hand, in one cell</td></tr>
+      <tr><td>Pink rows for records that are out of stock, but only when that is certain</td><td>Rows turn pink only when the stock was checked live or the shop list is under a day old</td><td>An old list must not mark a record as gone</td></tr>
+      <tr><td>“As a UX/UI specialist for iOS, fix the dimensions and type, simple and elegant”</td><td>Inset grouped cards on an 8-point grid, 44-pixel targets, three weights, an iOS switch, a sticky action bar, reduced motion respected</td><td>A sidebar is small; every pixel had to earn its place</td></tr>
+      <tr><td>A Settings tab with checkboxes for the shops, not a drop-down</td><td>Shops in four groups, with All and None per group, saved as you tick</td><td>26 shops do not fit in a drop-down</td></tr>
+      <tr><td>Find must be fast and must not touch my lists</td><td>Find searches only the saved shop lists, in ten parallel batches, with progress</td><td>Looking up one band should take seconds, not start a whole search</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <h3 class="ir-screen-title"><span>A</span> The result format I defined, one tab per shop and search</h3>
+  <div class="sk-shot"><img src="images/vinylmatch/concept-sidebar.webp" alt="A Google Sheet with a Vinyl Match sidebar on the right. The sheet shows one shop’s tab with the columns Band, Album, Price, Cheaper elsewhere, Availability and Link; two rows are pink because those records are out of stock. The tabs along the bottom are named after the shop, the date and the time. The sidebar has Search, Find and Settings tabs, your lists with checkboxes, the shops, the Fetch and AI switches, a progress box and a Start search button" width="2400" height="1651" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="ir-muted">From the redesign study (route 2, “a better sidebar”). The sheet on the left follows my real result format, with example rows.</p>
+  </section>
+
+  <!-- ===== 5. Real use ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Real use broke it, usefully</h2>
+  <section class="copy copy--center"><p>Tests passed long before the tool was right. My own searches found what the tests could not, and each finding changed the design, not just the code.</p></section>
+  <div class="sk-cards sk-cards--4">
+    <div class="sk-card"><span class="sk-card__num">CDs</span><h3>“HHV shows CDs and tapes”</h3><p>HHV’s list often does not say the format. Records whose name says vinyl stay; the rest move to a “Possible” tab with the reason written next to them.</p></div>
+    <div class="sk-card"><span class="sk-card__num">3 h 18</span><h3>“Why is search so slow?”</h3><p>The log showed it: one Drive file per Discogs page, and 45 pauses between runs. Pages are now packed into a few large files, and runs follow each other with no pause.</p></div>
+    <div class="sk-card"><span class="sk-card__num">759</span><h3>A Find that never ended</h3><p>Looking up one band read 759 files one by one. Find now reads them in ten parallel batches and tells you how far it has got.</p></div>
+    <div class="sk-card sk-card--dark"><span class="sk-card__num">27</span><h3>“Tiring to search the tabs”</h3><p>Every search wrote 22 shop tabs and 5 “Possible” tabs. The answer was there, but spread over 27 places. This one started stage two.</p></div>
+  </div>
+  <section class="copy">
+    <p>Real use also gave me the best features: reading the Osmose newsletter, using Discogs storefronts, the “Cheaper elsewhere” column and the pink rows all came from noticing what I did by hand while using the tool.</p>
+  </section>
+
+  <!-- ===== 6. Stage two ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Stage two: the album is the unit</h2>
+  <section class="copy copy--center"><p>The sheet was organised the way the data arrived: by shop. But I never think “what does HHV have?”. I think “where can I get this album?”. So the redesign turned the structure around.</p></section>
+  <div class="sk-split">
+    <div class="sk-card">
+      <h3>Before: by shop</h3>
+      <ul>
+        <li>One tab per shop and search: 27 tabs after a single search.</li>
+        <li>The same album could sit in five tabs, at five prices.</li>
+        <li>Comparing meant opening tabs and remembering numbers.</li>
+        <li>No room for shipping, baskets or a phone.</li>
+      </ul>
+    </div>
+    <div class="sk-card sk-card--dark">
+      <h3>After: by album</h3>
+      <ul>
+        <li>Each album appears once, with its best price and shop.</li>
+        <li>Open it to see every shop side by side, cheapest new first.</li>
+        <li>Sort by price, priority, artist or album; filter by stock, list and shop.</li>
+        <li>A “+” on any offer puts it in that shop’s basket.</li>
+      </ul>
+    </div>
+  </div>
+  <section class="copy">
+    <p>Before deciding how to build it, I asked for one or two screens for each possible route, so I could judge them by looking rather than by description:</p>
+  </section>
+  <div class="sk-cards sk-cards--4">
+    <div class="sk-card sk-card--dark"><span class="sk-card__num">1</span><h3>Apps Script web app</h3><p>A real app in the browser, with the sheet still underneath as the database. Free, no server. <b>Chosen.</b></p></div>
+    <div class="sk-card"><span class="sk-card__num">2</span><h3>A better sidebar</h3><p>Small steps, but still inside the sheet, still 300 pixels wide and still invisible in the Sheets phone app.</p></div>
+    <div class="sk-card"><span class="sk-card__num">3</span><h3>Separate front end</h3><p>A phone-first app talking to the script. The most freedom, but hosting, sign-in and a second codebase.</p></div>
+    <div class="sk-card"><span class="sk-card__num">4</span><h3>No-code builder</h3><p>Fast to set up, but every shop listing becomes its own row again: the same album three times.</p></div>
+  </div>
+  <div class="sk-shot a2-shot-gap"><img src="images/vinylmatch/concept-matches.webp" alt="Concept screen for the web app: the Matches page in a dark theme with filters on the left, sort buttons, tabs for Sure matches, Possible and Already owned, a switch to include shipping to Greece, and album rows with one album open showing four shops" width="2400" height="2050" loading="lazy" decoding="async"></div>
+  <div class="sk-shot a2-shot-gap"><img src="images/vinylmatch/concept-mobile.webp" alt="Three phone concepts: a phone-first feed of new matches, an album page with a large Open at Season of Mist button, and a plain no-code list where the same album appears once per shop" width="2400" height="1340" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p><span class="b">The look:</span> a record shop at night. A near-black background, one amber accent like a warm label, condensed capitals for titles like the type on a record sleeve, and a monospaced font for prices and catalogue numbers so they line up and read like data. Album covers are placeholders with initials, because the tool does not download artwork.</p>
+    <p class="sp"><span class="b">Two requests while designing:</span> I asked to list by name and by price, which became a sort control and sortable column headers, and the design study found that the sheet stored prices as text, so “100,00 €” sorted before “21,99 €”. Prices became real numbers in the sheet too.</p>
+  </section>
+
+  <!-- ===== 7. Baskets & pitch ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">One basket per shop, and a pitch</h2>
+  <section class="copy copy--center"><p>My idea, while looking at the concept: put a “+” next to every offer and build a basket for each shop, so I can group my orders and see each one’s records, prices, total and shipping.</p></section>
+  <div class="sk-shot"><img src="images/vinylmatch/concept-baskets.webp" alt="Concept screen for baskets: four shop baskets, each with its records, a choice of shipping options to Greece, a bar towards free shipping and a total; on the right, the total of all baskets and a tip to save on shipping by moving one record to a shop where there is already a basket" width="2400" height="2050" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>I wanted to show the idea to a friend, so the concept became a clickable prototype: a cover page and eight linked screens, then a simple PDF and a set of images I could send on a messaging app.</p>
+  </section>
+  <div class="sk-shot a2-shot-gap"><img src="images/vinylmatch/concept-cover.webp" alt="Pitch cover: the words Vinyl Match in tall condensed capitals next to a large amber record label, the line Every album you love, found on vinyl in 26 European shops, and three steps: bring your lists, search 26 shops, one basket per shop" width="2400" height="1608" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p class="sp"><span class="b">The basket is virtual, on purpose.</span> Before building, I made sure of one thing: the basket only organises what I plan to buy. It never touches the shops’ own carts and never orders anything. “Open” takes me to the record’s page in the shop, and I buy it myself. That decision removed a feature from the concept, the pre-filled shop cart, because I did not need it.</p>
+  </section>
+
+  <!-- ===== 8. Screens ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">The web app</h2>
+  <section class="copy copy--center"><p>Built in two phases: first the app on the data the search already produced, then shipping. Same design as the prototype, with my real data in it.</p></section>
+
+  <h3 class="ir-screen-title"><span>A</span> Matches: every album once</h3>
+  <div class="sk-shot"><img src="images/vinylmatch/web-matches.webp" alt="Matches screen: 900 albums and 3,387 listings in 23 shops. Filters on the left for availability, lists, shops and price. Each row shows the artist and album, the edition, which of my lists it came from with its points, the best price with the shop and a count of other shops, and availability. The album Providentia is open, showing Green Hell, Nuclear Winter and iMusic with edition, catalogue number, price, availability, Open and plus buttons, and the barcode underneath" width="2400" height="1766" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <ul>
+      <li><b>Sure matches, Possible, Already owned</b> as three tabs. “Possible” always says why it is there: a similar title with its score, or a format the shop does not name.</li>
+      <li><b>Lowest new first.</b> Used copies from Discogs sellers are marked as used and never win “best price” over a new one silently.</li>
+      <li><b>Fifteen albums per page,</b> with numbered pages. I asked for pages instead of an endless list, so I always know where I am.</li>
+      <li><b>“AI match”</b> tags the similar titles that the AI check confirmed, so I know which ones a person has not seen.</li>
+    </ul>
+  </section>
+
+  <h3 class="ir-screen-title"><span>B</span> Baskets: what I will actually pay</h3>
+  <div class="sk-shot"><img src="images/vinylmatch/web-baskets.webp" alt="Baskets screen with three baskets: Season of Mist with two records and three shipping options to Greece, read from the shop’s checkout, La Poste Colissimo selected at 16,42 euros for a total of 61,40 euros; Nuclear Blast with one record and Spring shipping at 19,99 euros; Young and Cold with one record and EU shipping at 10,50 euros plus 2,50 per extra record. On the right, all baskets total 123,38 euros for 4 records in 3 parcels, including 46,91 euros of shipping, and a tip: Save 10,99 euros by moving Necrophobic Bloodhymns to Season of Mist" width="2400" height="2428" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <ul>
+      <li>Each shop’s basket has its shipping options to Greece, priced for the number of records in it, and a total.</li>
+      <li>The side panel adds up every basket: records, parcels and how much of the total is shipping.</li>
+      <li><b>Save on shipping:</b> when a basket has a single record that another basket’s shop also sells, the app works out whether moving it is cheaper. Here, moving one record saves 10,99 € and a whole parcel.</li>
+      <li>A pre-order in a basket gets a warning, because it can hold back the whole parcel.</li>
+    </ul>
+  </section>
+
+  <h3 class="ir-screen-title"><span>C</span> Find: any band, in every shop</h3>
+  <div class="sk-shot"><img src="images/vinylmatch/web-find.webp" alt="Find screen: a large search field with Darkthrone typed in, chips for In stock only and New only, and results grouped by album, such as Soulside Journey from 23,99 euros and A Blaze in the Northern Sky from 23,99 euros, each listing the shops cheapest first with availability, price, Open and plus buttons; each album says whether it is in my lists" width="2400" height="1766" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>Find is not limited to my lists. It searches every saved shop list, groups the results by album, cheapest first, and tells me whether the album is already in my lists. It is also in the header, so it is one keystroke away from any screen.</p>
+  </section>
+
+  <h3 class="ir-screen-title"><span>D</span> New search and My lists</h3>
+  <div class="sk-shot"><img src="images/vinylmatch/web-search.webp" alt="New search screen in three numbered steps: your lists, Spotify with 1,708 albums and My list with 2,375; the 26 shops grouped into full lists with price and stock, live check for matches, Discogs sellers and newsletter, each chip with a dot showing how fresh its list is; and options for fetching new shop lists and the AI check. On the right, the last search with its seven steps all done" width="2400" height="1766" loading="lazy" decoding="async"></div>
+  <div class="sk-shot a2-shot-gap"><img src="images/vinylmatch/web-lists.webp" alt="My lists screen: an Add a list panel with a source menu and a Choose file button that stays disabled until a source is chosen; cards for Spotify with 1,708, My list with 2,375 and the Discogs collection marked Left out; and a small form to add one record by hand" width="2400" height="1766" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <ul>
+      <li>The shops are grouped by what you get from them, and each shows how fresh its list is: green under a week, amber older, grey never fetched.</li>
+      <li>A search keeps running in the background, even with the tab closed, with its steps and a live log on the right.</li>
+      <li>Adding a list starts with “This file is from…”: the hint underneath says exactly where to get that file, and the file picker only accepts that type.</li>
+    </ul>
+  </section>
+
+  <h3 class="ir-screen-title"><span>E</span> Stores: shops I can add and remove myself</h3>
+  <div class="sk-shot"><img src="images/vinylmatch/web-stores.webp" alt="Stores screen: summary tiles for shipping prices to Greece, 12 of 26; shops switched on, 26 of 26; old shop lists; never fetched; lists with errors. Buttons to fetch old lists, fetch new lists and update shipping. A table of shops with an On checkbox, the kind of price and stock information, when the list was fetched and how many records it holds, the status, and the shipping to Greece with where the price came from" width="2400" height="1766" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <ul>
+      <li>I asked for a “Fetch new lists” button here, so updating the shop lists is separate from searching them.</li>
+      <li>I also asked to add and remove shops without touching code. Paste a shop’s address or a Discogs seller’s name, and the app checks what kind of shop it is and how much vinyl it found before adding it. Kinds it cannot read get a clear “not supported yet”, not a broken shop.</li>
+      <li>Removing one of the original shops only hides it, with a Restore button, so nothing that works can be lost by accident.</li>
+    </ul>
+  </section>
+
+  <!-- ===== 9. Shipping ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Shipping to Greece, the hardest number</h2>
+  <section class="copy copy--center"><p>No shop puts shipping in its product list. It lives on a policy page, in a table by weight or by zone, or only in the checkout. My first request was a shipping row on every shop’s sheet; when I pointed out that every shop has a shipping page, the plan became to read those pages.</p></section>
+  <div class="sk-arch">
+    <div class="sk-node"><h3>First try</h3><p>The AI read each shop’s shipping page for prices to Greece.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>My report</h3><p>“It found very few.” Prices for 5 of 16 shops, and two of them wrong.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node"><h3>Diagnosis</h3><p>7 pages not found, 4 pages without prices; German home prices and kilos read as records.</p></div>
+    <span class="sk-arrow" aria-hidden="true">→</span>
+    <div class="sk-node sk-node--dark"><h3>Second try</h3><p>Ask the shop itself: a test cart with an Athens address. 12 of 16 shops have prices.</p></div>
+  </div>
+  <section class="copy">
+    <p>For Shopify and WooCommerce shops, the app now puts one, then two, then three records in a test cart with an address in Athens and reads the shipping options exactly as the checkout shows them, tax included. Nothing is ordered and no account is made; the cart simply expires. From the three prices it works out the price per extra record. The other shops are still read from their shipping page, now told to skip home-country prices and to turn kilos into records.</p>
+  </section>
+  <div class="sk-shot"><img src="images/vinylmatch/web-ship-editor.webp" alt="Shipping to Greece editor for VAN Records, over the Stores table: the note Greece is included in the EU zone for international shipping, the shipping page address, two options, DHL Paket at 15,00 euros and DHL Express at 19,00 euros, each with a price by number of records such as 4: 15,00, 13: 17,50, 24: 22,00, a Keep my prices checkbox, and buttons to read the page again with AI, cancel or save" width="2400" height="1766" loading="lazy" decoding="async"></div>
+  <div class="sk-cards sk-cards--3">
+    <div class="sk-card"><h3>Says where it came from</h3><p>Every price is labelled “From the shop’s checkout”, “Read from the shop’s page” or “Typed by you”, with the date.</p></div>
+    <div class="sk-card"><h3>Mine stays mine</h3><p>Prices I type are locked: “Update shipping” will not overwrite them. If the shop’s page changes, I am told and I choose.</p></div>
+    <div class="sk-card sk-card--dark"><h3>Discogs is different</h3><p>Discogs works out shipping per order, so for its sellers the app asks me to type it, and says why.</p></div>
+  </div>
+
+  <!-- ===== 10. AI ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">AI only where it can see</h2>
+  <section class="copy copy--center"><p>Using AI for the hard “possible” matches was my idea. The design question was where to stop it.</p></section>
+  <section class="copy">
+    <p>Similar titles are the real grey zone: “Live in Leipzig” and “Live in Leipzig (Reissue 2023)”, “s/t” and the band’s name, “Vol. 1” and “Volume One”. A language model can judge those from the two titles. It cannot judge whether an HHV product is a CD, because it cannot see the page, so it would only guess. That case is never sent to it.</p>
+    <ul>
+      <li><b>Same album:</b> moves to the shop’s results, tagged “AI match”.</li>
+      <li><b>Different album:</b> removed, but written to the log with the reason, so a mistake can be found.</li>
+      <li><b>Not sure:</b> stays in Possible, with the AI’s reason in the “why it’s here” note.</li>
+    </ul>
+    <p class="sp">In my last search it confirmed 671 similar titles, rejected 135 and was unsure about 4. It runs on the Gemini API with a free key I created; the key is stored in the script’s private settings, never in the sheet, and only artist names and titles are sent.</p>
+  </section>
+
+  <!-- ===== 11. Design system ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Colours, type and two themes</h2>
+  <section class="copy copy--center"><p>Every colour is a design token. That made the light theme I asked for a set of new values rather than a second design.</p></section>
+  <div class="sk-ds">
+    <div>
+      <p class="ir-ds-h">Dark theme, the default</p>
+      <div class="sk-swatches">
+        <div><i style="background:#0F0F11"></i><b>Background</b><span>#0F0F11</span></div>
+        <div><i style="background:#131316"></i><b>Cards</b><span>#131316</span></div>
+        <div><i style="background:#EDEDEF;box-shadow:inset 0 0 0 1px #d9d6cf"></i><b>Text</b><span>#EDEDEF</span></div>
+        <div><i style="background:#F5A623"></i><b>Amber accent</b><span>#F5A623</span></div>
+        <div><i style="background:#6FD3A5"></i><b>In stock</b><span>#6FD3A5</span></div>
+        <div><i style="background:#8DB4FF"></i><b>Pre-order</b><span>#8DB4FF</span></div>
+      </div>
+      <p class="ir-ds-h">Light theme</p>
+      <div class="sk-swatches">
+        <div><i style="background:#F4F4F1;box-shadow:inset 0 0 0 1px #d9d6cf"></i><b>Background</b><span>#F4F4F1</span></div>
+        <div><i style="background:#9C5C00"></i><b>Amber, as text</b><span>#9C5C00</span></div>
+        <div><i style="background:#1C7A4E"></i><b>In stock</b><span>#1C7A4E</span></div>
+      </div>
+    </div>
+    <div class="a2-type">
+      <p class="ir-ds-h">Type</p>
+      <ul class="ir-rules">
+        <li><b>Archivo</b> for everything, with its condensed width for page titles and shop names in capitals, like the type on a record sleeve.</li>
+        <li><b>JetBrains Mono</b> for prices, counts, catalogue numbers and barcodes, so figures line up in columns.</li>
+        <li>Availability is never colour alone: each state has a dot and a word, and “Out of stock” is also struck through.</li>
+        <li>Every control has a visible label or an accessible name, including the “+” buttons: “Add to Season of Mist basket”.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sk-tablewrap">
+  <table class="sk-table sk-table--plain">
+    <thead><tr><th scope="col">Colour pair</th><th scope="col">Contrast</th><th scope="col">Used for</th></tr></thead>
+    <tbody>
+      <tr><td>Text #EDEDEF on cards #131316</td><td>15.9 : 1</td><td>Album names, prices</td></tr>
+      <tr><td>Secondary #A3A3AD on cards</td><td>7.4 : 1</td><td>Artists, notes, hints</td></tr>
+      <tr><td>Amber #F5A623 on cards</td><td>9.1 : 1</td><td>Selected tab, links, “lowest new”</td></tr>
+      <tr><td>Dark text #1A1204 on amber</td><td>9.2 : 1</td><td>Main buttons, in both themes</td></tr>
+      <tr><td>Amber #F5A623 on white</td><td>2.0 : 1 (fails)</td><td>Not used for text. The light theme uses #9C5C00 instead, 5.3 : 1</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <h3 class="ir-screen-title"><span>F</span> Light, dark or the same as the device</h3>
+  <div class="sk-shot"><img src="images/vinylmatch/light-theme.webp" alt="The Matches screen in the light theme on a laptop and a phone: a warm off-white background, white cards, darker green, blue and amber text, and the main buttons still amber" width="2400" height="1340" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <p>The theme is a setting with three choices: Dark, Light and Same as device. It is saved on each device, so the laptop can be light while the phone stays dark, and it is applied before the page draws, so it never flashes the wrong colours.</p>
+  </section>
+  <div class="sk-shot a2-shot-gap"><img src="images/vinylmatch/web-settings.webp" alt="The end of the Stores screen: settings for Appearance with Dark, Light and Same as device, the AI check with a key field, shop lists in Drive with a Clean up now button, and a link to the spreadsheet; below, an About card: Vinyl Match v2.1, developed by John Voultsis, with an email button for questions and ideas" width="2400" height="1529" loading="lazy" decoding="async"></div>
+
+  <!-- ===== 12. Phone ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">On the phone</h2>
+  <section class="copy copy--center"><p>Sheet sidebars do not appear in the Google Sheets phone app at all. The web app runs at the same address on the phone, with a layout of its own.</p></section>
+  <div class="sk-shot"><img src="images/vinylmatch/phones.webp" alt="Three phone screens: Matches with filters folded into one button and albums as cards; an open album with its shops stacked, each with price, availability, Open and plus buttons; and the Season of Mist basket with its shipping options" width="2400" height="1340" loading="lazy" decoding="async"></div>
+  <section class="copy">
+    <ul>
+      <li>Filters fold into one “Filters” button; the table becomes cards, and each shop’s offer stacks with its buttons underneath.</li>
+      <li>The page numbers shrink to “‹ Previous 2 / 12 Next ›”.</li>
+      <li>Buttons stay at least 32 pixels, with room around them, and the main ones are 40 pixels or more.</li>
+    </ul>
+  </section>
+
+  <!-- ===== 13. Principles ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Design principles</h2>
+  <div class="sk-cards sk-cards--3">
+    <div class="sk-card"><span class="sk-card__num">1</span><h3>The album is the unit</h3><p>Organise around the question I ask, not around where the data came from.</p></div>
+    <div class="sk-card"><span class="sk-card__num">2</span><h3>Honest unknowns</h3><p>“Price and stock on the site” is better than a guess. Pink only when out of stock is certain.</p></div>
+    <div class="sk-card"><span class="sk-card__num">3</span><h3>Show your source</h3><p>Every price says where it came from and when: checkout, page, AI or me.</p></div>
+    <div class="sk-card"><span class="sk-card__num">4</span><h3>The total is the price</h3><p>Records plus shipping, per shop, with the cheapest way to split an order.</p></div>
+    <div class="sk-card"><span class="sk-card__num">5</span><h3>Nothing irreversible</h3><p>The basket orders nothing; removed shops can be restored; old files go to the Drive bin, not into the void.</p></div>
+    <div class="sk-card sk-card--dark"><span class="sk-card__num">6</span><h3>Respect the shops</h3><p>One catalogue download instead of thousands of searches; no bot protection or captcha bypassed.</p></div>
+  </div>
+
+  <!-- ===== 14. Edge cases ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">Designed edge cases</h2>
+  <div class="sk-cards sk-cards--3">
+    <div class="sk-card"><h3>Same album, different spelling</h3><p>“Other World” and “Otherworld”, umlauts, “The”, “(2)” after a Discogs name, “Remastered” and “Deluxe” in titles: all cleaned before comparing.</p></div>
+    <div class="sk-card"><h3>A self-titled album</h3><p>“s/t” and an album named after the band count as the same title.</p></div>
+    <div class="sk-card"><h3>A messy Spotify export</h3><p>151 playlists became 1,708 albums: four or more tracks from one album count as the album, edition tags are removed, podcasts are skipped.</p></div>
+    <div class="sk-card"><h3>Prices in the wrong currency</h3><p>iMusic moved to its euro store, with Greek VAT added so prices match the checkout. A shop that only shows dollars is reported, not converted silently.</p></div>
+    <div class="sk-card"><h3>A Discogs listing that sold</h3><p>Listings are checked again on a fresh fetch: sold ones turn out of stock, removed ones disappear.</p></div>
+    <div class="sk-card sk-card--dark"><h3>A search left running</h3><p>It continues in the background in 4.5-minute runs, within Google’s six-minute limit, and the app picks it up again when reopened.</p></div>
+  </div>
+
+  <!-- ===== 15. Next ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">What I would change next</h2>
+  <section class="copy">
+    <p><span class="b">Check the AI’s shipping.</span> Even after the fix, the price read for High Roller Records is a German domestic parcel. The lock and the source labels exist for exactly this, but the app could flag shipping prices that look too low for an international parcel.</p>
+    <p class="sp"><span class="b">The last four shops.</span> HHV, iMusic and Osmose still have no shipping price, and Prophecy shows dollars. For now they are typed by hand.</p>
+    <p class="sp"><span class="b">Very high scores.</span> “A Blaze in the Northern Sky Live” scores 91 against the studio album, so it counts as sure and never reaches the AI check. Sending 90 to 99 to the AI as well would catch it.</p>
+    <p class="sp"><span class="b">Sharing.</span> The app runs as “only myself”. A friend would need a copy of their own; making that a one-click setup would be the next step if anyone else wants it.</p>
+  </section>
+
+  <!-- ===== 16. Reflection ===== -->
+  <div class="rule rule--gap-sm" role="presentation"></div>
+  <h2 class="section-title section-title--lg">What I learned</h2>
+  <section class="copy">
+    <p><span class="b">Structure follows the question.</span> The data arrived by shop, so the first design was by shop. Turning it around to the album changed everything that came after it, including the baskets.</p>
+    <p class="sp"><span class="b">Use is the real test.</span> Over 160 automated scenarios passed, and the tool was still slow, still showed CDs and still made me hunt through tabs. A log and a week of real searches showed what to fix.</p>
+    <p class="sp"><span class="b">Honesty is a feature.</span> A blocked shop, an unreadable price or an AI guess could all have been hidden. Saying so, and saying where every number came from, is what makes the rest trustworthy.</p>
+    <p class="sp"><span class="b">See the options before choosing.</span> Asking for one or two screens per route made the decision obvious in a way a list of pros and cons did not.</p>
+    <p class="sp ir-muted">How this was made: the idea, the design and every decision are mine: the approach of downloading once, the shops and sources, the result format, the baskets, the shipping, the review of every version on my own sheet and the bug reports from my own use. The shops started from my own research. The code, the concept screens and the clickable prototype were made with Claude from my specifications and requests.</p>
+  </section>
+
+  <section class="copy ir-sources">
+    <p class="b">Sources and credits</p>
+    <ul>
+      <li><a class="u" href="https://developers.google.com/apps-script/guides/web" target="_blank" rel="noopener">Google Apps Script: web apps</a></li>
+      <li><a class="u" href="https://shopify.dev/docs/api/ajax" target="_blank" rel="noopener">Shopify Ajax API (product and cart data)</a></li>
+      <li><a class="u" href="https://developer.woocommerce.com/docs/apis/store-api/" target="_blank" rel="noopener">WooCommerce Store API</a></li>
+      <li><a class="u" href="https://www.discogs.com/developers" target="_blank" rel="noopener">Discogs API</a></li>
+      <li><a class="u" href="https://ai.google.dev/gemini-api/docs" target="_blank" rel="noopener">Gemini API</a></li>
+      <li><a class="u" href="https://fonts.google.com/specimen/Archivo" target="_blank" rel="noopener">Archivo (SIL Open Font License)</a> · <a class="u" href="https://fonts.google.com/specimen/JetBrains+Mono" target="_blank" rel="noopener">JetBrains Mono (SIL Open Font License)</a></li>
+    </ul>
+  </section>
+
+  <section class="copy copy--center" style="padding:36px clamp(18px,19.8vw,203px) 140px">
+    <h3>More work</h3>
+    <p class="sp"><a class="u" href="index.html#work">Back to all projects →</a></p>
+  </section>
+
+</main>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <b>John Voultsis</b>
+      <p>Product designer based in Athens. UX/UI, systems and brand.</p>
+    </div>
+    <nav aria-label="Sitemap: pages">
+      <h2>Sitemap</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://drive.google.com/file/d/1XTFdHeBiE6ABi1L90TjCSVqlWoXJlrY3/view?usp=sharing" target="_blank" rel="noopener">CV</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Sitemap: projects">
+      <h2>Projects</h2>
+      <ul>
+        <li><a href="nursing-home.html">Digital Health Monitoring, Nursing Home</a></li>
+        <li><a href="monthlyflavors.html">MonthlyFlavors</a></li>
+        <li><a href="greekwineclub.html">GreekWineClub</a></li>
+        <li><a href="skoe.html">SKOE Information System</a></li>
+        <li><a href="skoe-monitor.html">SKOE 48-Hour Licence Monitor</a></li>
+        <li><a href="agentic-irrigation.html">Agentic Irrigation (Case Study)</a></li>
+        <li><a href="a2-rig.html">A2 Rig (Personal App)</a></li>
+        <li><a href="vinyl-match.html">Vinyl Match (Personal App)</a></li>
+      </ul>
+    </nav>
+    <div id="contact">
+      <h2>Contact</h2>
+      <ul>
+        <li><a href="mailto:jvoultsis@gmail.com">jvoultsis@gmail.com</a></li>
+        <li><a href="tel:+306951922224">+30 6951922224</a></li>
+        <li><a href="https://www.linkedin.com/in/johnvoultsis/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__legal"><span>© 2026 John Voultsis</span><a href="#main">Back to top</a></div>
+</footer>
+<script src="js/main.js" defer></script>
+</body>
+</html>
